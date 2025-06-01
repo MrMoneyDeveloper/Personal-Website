@@ -1,0 +1,191 @@
+/* ==================================================
+   RPG‑THEMED CONSOLIDATED STYLESHEET
+   Author: Mohammed Farhaan Buckas – Portfolio Site
+   This file merges all shared + page‑specific styles
+   (Home, About, Skills, etc.) to ensure a single
+   source‑of‑truth. Add <link rel="stylesheet" href="assets/css/style.css"> in every page.
+   ================================================== */
+
+/* ========== 1. ROOT TOKENS & GLOBAL RESET ========= */
+:root {
+  /* Colours */
+  --rpg-gold: #d4af37;         /* Primary accent */
+  --rpg-gold-light: #ffc107;   /* Secondary accent (yellow) */
+  --rpg-bg-dark: #0d1117;      /* Body background */
+  --rpg-bg-mid:  #161b22;      /* Cards / dark panels */
+  --rpg-bg-hero: #111318;      /* Darker hero overlay */
+  --rpg-text-light: #f8f9fa;   /* Main text colour */
+
+  /* Spacing */
+  --rpg-radius-sm: 0.5rem;
+  --rpg-radius-md: 1rem;
+}
+
+* { box-sizing: border-box; }
+html,body { height: 100%; scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--rpg-bg-dark);
+  color: var(--rpg-text-light);
+  margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6,
+.navbar-brand { font-family: 'Cinzel', serif; letter-spacing: 1px; }
+
+/* ========== 2. NAVBAR ========= */
+.navbar {
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.55);
+}
+.navbar-brand { color: var(--rpg-gold); font-weight: 800; }
+.navbar-brand i { color: var(--rpg-gold-light); }
+.nav-link {
+  color: #ffffffcc !important;
+  transition: color .3s;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--rpg-gold-light) !important;
+}
+
+/* Sticky offset (because navbar is fixed‑top) */
+.page-offset { margin-top: 4.5rem; }
+
+/* ========== 3. HERO SECTIONS ========= */
+.hero-section,
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 60vh;
+}
+.hero-bg { /* Generic parallax BG image layer */
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 120%;
+  background-size: cover;
+  background-position: center;
+  transform: translateY(0%);
+  z-index: 0;
+}
+#particles-js { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hero-content { position: relative; z-index: 2; text-align: center; }
+.hero-title { font-size: clamp(2.5rem,6vw,4.5rem); text-shadow: 0 0 10px #0008; }
+.hero-tagline { font-size: clamp(1rem,2.2vw,1.5rem); color:#ffffffcc; max-width: 650px; margin-inline:auto; }
+
+/* ========== 4. BUTTONS ========= */
+.btn-cta {
+  padding: .75rem 1.5rem;
+  font-weight: 600;
+  border: 2px solid var(--rpg-gold);
+  background: transparent;
+  color: var(--rpg-gold);
+  border-radius: var(--rpg-radius-sm);
+  transition: background .3s,color .3s;
+}
+.btn-cta:hover { background: var(--rpg-gold); color: #000; }
+
+/* Utility badge */
+.badge-stat, .stat-badge {
+  background: #343a40;
+  border: 1px solid var(--rpg-gold-light);
+  border-radius: var(--rpg-radius-md);
+  padding: .5rem 1rem; margin:.25rem; display:inline-block;
+}
+
+/* ========== 5. PROFILE (About) ========= */
+.profile-img {
+  width: 180px; height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--rpg-gold-light);
+  box-shadow: 0 0 15px rgba(255,193,7,.4);
+}
+.attribute { width: 220px; max-width: 100%; }
+.attribute .progress { height: .6rem; background:#343a40; border-radius:.25rem; }
+.attribute .progress-bar { background: var(--rpg-gold-light); }
+
+/* ===== Timeline (About) ===== */
+.timeline { position: relative; }
+.timeline::before {
+  content: "";
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; background: var(--rpg-gold-light);
+  transform: translateX(-50%);
+}
+.timeline-item { position: relative; margin: 2rem 0; }
+.timeline-item:nth-child(odd) { padding-right: 55%; }
+.timeline-item:nth-child(even){ padding-left: 55%; }
+.timeline-item .circle {
+  position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
+  width: 1rem; height: 1rem; border-radius: 50%;
+  background: var(--rpg-gold-light); border: 2px solid #343a40; z-index: 2;
+}
+.timeline-item .card { background: var(--rpg-bg-mid); border: 1px solid #343a40; }
+@media (max-width: 992px) {
+  .timeline::before { left: 0; transform: none; }
+  .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { padding: 0 0 0 2.5rem; }
+  .timeline-item .circle { left: 0; transform: none; }
+}
+
+/* ========== 6. CORE COMPETENCY CARDS ========= */
+.card.bg-dark { background: var(--rpg-bg-mid) !important; border: 1px solid #343a40; }
+.card.bg-dark .card-title { color: var(--rpg-gold-light); }
+
+/* ========== 7. SKILL TREES ========= */
+.role-select { max-width: 280px; }
+.skill-tree { list-style: none; padding-left: 0; margin: 0; position: relative; }
+.skill-tree li { position: relative; padding-left: 1.5rem; margin-bottom: .5rem; }
+.skill-tree li::before {
+  content: ''; position: absolute; left: 0; top: .9rem; width: 1rem; height: 2px;
+  background: var(--rpg-gold-light);
+}
+.skill-node { /* branch toggle */
+  background: var(--rpg-bg-mid); border: 1px solid #343a40;
+  border-radius: var(--rpg-radius-sm);
+  padding: .35rem .75rem; color: var(--rpg-text-light);
+  width: 100%; text-align: left;
+}
+.skill-node.collapsed::after { content: '+'; float: right; }
+.skill-node:not(.collapsed)::after { content: '−'; float: right; }
+.skill-leaf {
+  display: inline-block; padding: .35rem .75rem;
+  background: #21262d; border: 1px solid #343a40;
+  border-radius: var(--rpg-radius-sm); font-size: .875rem;
+}
+#skills-stars { position: absolute; inset: 0; background: url('../images/constellation.svg') center/cover repeat; opacity: .15; pointer-events: none; }
+
+/* ========== 8. FOOTER ========= */
+footer {
+  background: var(--rpg-bg-mid);
+  text-align: center; padding: 1.5rem 0;
+  font-size: .9rem; color: #aaaaaa;
+  border-top: 1px solid var(--rpg-gold-light);
+}
+
+/* ========== 9. ANIMATIONS ========= */
+/* Fade‑in util (use class .fade-in) */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeInUp .8s ease-out forwards; }
+
+/* Bounce cue (used for scroll indicator) */
+@keyframes bounceY {
+  0%,20%,50%,80%,100% { transform: translate(-50%,0); }
+  40% { transform: translate(-50%,-10px); }
+  60% { transform: translate(-50%,-5px); }
+}
+.scroll-cue { animation: bounceY 2s infinite; }
+
+/* Parallax helper – any element with class .parallax-y will move slower */
+.parallax-y { will-change: transform; }
+
+/* ========== 10. UTILITIES ========= */
+.text-gold { color: var(--rpg-gold-light) !important; }
+.bg-panel { background: var(--rpg-bg-mid) !important; }
+.border-gold { border-color: var(--rpg-gold-light) !important; }
+
+/* Readiness fade (body.ready triggers after DOM load) */
+body.preload { opacity: 0; transition: opacity 1s ease-in; }
+body.ready { opacity: 1; }
