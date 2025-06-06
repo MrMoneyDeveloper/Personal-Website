@@ -130,9 +130,19 @@ h1,h2,h3,h4,h5,h6,
   .timeline-item .circle { left: 0; transform: none; }
 }
 
+
+
+
 /* ========== 6. CORE COMPETENCY CARDS ========= */
 .card.bg-dark { background: var(--rpg-bg-mid) !important; border: 1px solid #343a40; }
 .card.bg-dark .card-title { color: var(--rpg-gold-light); }
+
+/* ========== 6A. TIMELINE TITLE OVERRIDE ========= */
+.card-title,
+.timeline-item .card small {  /* title and date text */
+  color:#ffffff !important;
+}
+
 
 /* ========== 7. SKILL TREES ========= */
 .role-select { max-width: 280px; }
@@ -161,7 +171,7 @@ h1,h2,h3,h4,h5,h6,
 footer {
   background: var(--rpg-bg-mid);
   text-align: center; padding: 1.5rem 0;
-  font-size: .9rem; color: #aaaaaa;
+  font-size: .9rem; color: #ffffff;
   border-top: 1px solid var(--rpg-gold-light);
 }
 
