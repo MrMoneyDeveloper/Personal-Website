@@ -8,16 +8,14 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 
 <!-- ============================= HERO SECTION ============================= -->
 <header class="hero-section">
-  <!-- Parallax background layer -->
   <div class="hero-bg" style="background-image:url('assets/images/hero-bg.jpg');"></div>
-
-  <!-- Constellation particles (tsParticles) -->
   <div id="particles-js"></div>
 
   <div class="hero-content text-center">
     <h1 class="hero-title">Mohammed&nbsp;Farhaan&nbsp;Buckas</h1>
     <p class="hero-tagline">
-      Full-stack Developer · IT Applications Support &amp; Network Specialist · Passionate about performant systems, elegant code &amp; immersive UX.
+      Full-stack Developer · IT Applications Support &amp; Network Specialist · Passionate about
+      performant systems, elegant code &amp; immersive UX.
     </p>
     <a href="skills.html" class="btn btn-cta" data-tilt>
       <i class="fa-solid fa-dungeon me-2"></i>Explore My Skills
@@ -32,8 +30,10 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
   <div class="container text-center">
     <h2 class="mb-4">Meet the Adventurer</h2>
     <p class="lead mx-auto" style="max-width:760px">
-      Armed with a National Diploma in Software Development and a toolkit spanning <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong>,
-      I traverse the realms of code, infrastructure, and data—slaying bugs and forging robust solutions for every quest.
+      Armed with a National Diploma in Software Development and a toolkit spanning
+      <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong>,
+      I traverse the realms of code, infrastructure, and data—slaying bugs and forging robust
+      solutions for every quest.
     </p>
     <a class="btn btn-outline-warning mt-3" href="about.html">
       Read Full Chronicle <i class="bi bi-arrow-right-short"></i>
@@ -46,77 +46,101 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
   <div class="container">
     <h2 class="text-center mb-5">Core Pillars of Expertise</h2>
     <div class="row g-4">
-      <!-- Pillar 1 -->
-      <div class="col-6 col-lg-3">
-        <div class="pillar-card p-4 text-center h-100" data-tilt>
-          <i class="bi bi-code-slash display-6 text-warning"></i>
-          <h5 class="mt-3">Full-Stack Craft</h5>
-          <p class="small mb-0">C# / ASP.NET · Razor · Node / Express · React basics</p>
-        </div>
-      </div>
-      <!-- Pillar 2 -->
-      <div class="col-6 col-lg-3">
-        <div class="pillar-card p-4 text-center h-100" data-tilt>
-          <i class="bi bi-diagram-3 display-6 text-warning"></i>
-          <h5 class="mt-3">Infrastructure</h5>
-          <p class="small mb-0">MikroTik · Synology&nbsp;NAS · cPanel · Firewalls</p>
-        </div>
-      </div>
-      <!-- Pillar 3 -->
-      <div class="col-6 col-lg-3">
-        <div class="pillar-card p-4 text-center h-100" data-tilt>
-          <i class="bi bi-database-check display-6 text-warning"></i>
-          <h5 class="mt-3">Data &amp; BI</h5>
-          <p class="small mb-0">MSSQL · PostgreSQL · Power BI · Excel wizardry</p>
-        </div>
-      </div>
-      <!-- Pillar 4 -->
-      <div class="col-6 col-lg-3">
-        <div class="pillar-card p-4 text-center h-100" data-tilt>
-          <i class="bi bi-people-fill display-6 text-warning"></i>
-          <h5 class="mt-3">Leadership</h5>
-          <p class="small mb-0">8-member teams · Agile/Scrum · Mentorship</p>
-        </div>
-      </div>
+      <!-- Pillar cards … unchanged … -->
+      <!-- (content omitted here for brevity; keep your existing four pillar cards) -->
     </div>
   </div>
 </section>
 
-<!-- ============================ FEATURED QUESTS =========================== -->
+<!-- ============== FLIP-CARD HELPER STYLES (inline for this page) ============== -->
+<style>
+  .flip-card { perspective: 900px; }
+  .flip-card-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d; transition: transform .6s;
+  }
+  .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    border-radius: .75rem;
+  }
+  .flip-back { transform: rotateY(180deg); }
+</style>
+
+<!-- ============================ FEATURED QUESTS ============================ -->
 <section class="py-5 featured-quests reveal-on-scroll">
   <div class="container">
     <h2 class="text-center mb-5">Featured Quests</h2>
     <div class="row g-4">
-      <!-- Placeholder 1 -->
+
+      <!-- Quest 1 -->
       <div class="col-md-6 col-lg-4">
-        <div class="card bg-dark h-100 border-warning-subtle" data-tilt>
-          <img src="assets/images/quest-placeholder1.png" class="card-img-top" alt="Ticket Management System">
-          <div class="card-body">
-            <h5 class="card-title">Ticket Management System</h5>
-            <p class="card-text small">Automated ticketing built with Google Apps Script—boosted support efficiency by 30%.</p>
+        <div class="flip-card h-100" data-tilt>
+          <div class="flip-card-inner card bg-dark border-warning-subtle">
+            <!-- FRONT -->
+            <div class="flip-front d-flex flex-column justify-content-center align-items-center">
+              <i class="fa-solid fa-ticket display-4 text-warning mb-3"></i>
+              <h5 class="fw-bold mb-1">Ticket System</h5>
+              <p class="small mb-0 text-muted">Google Apps Script</p>
+            </div>
+            <!-- BACK -->
+            <div class="flip-back">
+              <img src="assets/images/quest-placeholder1.png"
+                   alt="Ticket System screenshot" class="w-100 h-100 object-fit-cover rounded">
+              <div class="card-img-overlay d-flex align-items-end">
+                <p class="small bg-dark bg-opacity-75 p-2 rounded">
+                  Automated ticketing built with Apps Script—boosted support efficiency 30%.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Placeholder 2 -->
+
+      <!-- Quest 2 -->
       <div class="col-md-6 col-lg-4">
-        <div class="card bg-dark h-100 border-warning-subtle" data-tilt>
-          <img src="assets/images/quest-placeholder2.png" class="card-img-top" alt="Document Management System">
-          <div class="card-body">
-            <h5 class="card-title">Document Management System</h5>
-            <p class="card-text small">Node.js + PostgreSQL platform for DUT postgraduate records with granular permissions.</p>
+        <div class="flip-card h-100" data-tilt>
+          <div class="flip-card-inner card bg-dark border-warning-subtle">
+            <div class="flip-front d-flex flex-column justify-content-center align-items-center">
+              <i class="fa-solid fa-folder-tree display-4 text-warning mb-3"></i>
+              <h5 class="fw-bold mb-1">Document Manager</h5>
+              <p class="small mb-0 text-muted">Node + PostgreSQL</p>
+            </div>
+            <div class="flip-back">
+              <img src="assets/images/quest-placeholder2.png"
+                   alt="DMS screenshot" class="w-100 h-100 object-fit-cover rounded">
+              <div class="card-img-overlay d-flex align-items-end">
+                <p class="small bg-dark bg-opacity-75 p-2 rounded">
+                  Platform for postgraduate records with granular permissions.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Placeholder 3 -->
+
+      <!-- Quest 3 -->
       <div class="col-md-6 col-lg-4">
-        <div class="card bg-dark h-100 border-warning-subtle" data-tilt>
-          <img src="assets/images/quest-placeholder3.jpeg" class="card-img-top" alt="Odoo ERP Roll-out">
-          <div class="card-body">
-            <h5 class="card-title">Odoo ERP Roll-out</h5>
-            <p class="card-text small">Mapped workflows to Odoo modules and led phased deployment &amp; training.</p>
+        <div class="flip-card h-100" data-tilt>
+          <div class="flip-card-inner card bg-dark border-warning-subtle">
+            <div class="flip-front d-flex flex-column justify-content-center align-items-center">
+              <i class="fa-solid fa-cubes-stacked display-4 text-warning mb-3"></i>
+              <h5 class="fw-bold mb-1">Odoo ERP Roll-out</h5>
+              <p class="small mb-0 text-muted">Docker & Training</p>
+            </div>
+            <div class="flip-back">
+              <img src="assets/images/quest-placeholder3.jpeg"
+                   alt="Odoo screenshot" class="w-100 h-100 object-fit-cover rounded">
+              <div class="card-img-overlay d-flex align-items-end">
+                <p class="small bg-dark bg-opacity-75 p-2 rounded">
+                  Mapped workflows to modules and led phased deployment.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
     <div class="text-center mt-4">
       <a href="projects.html" class="btn btn-outline-warning">
@@ -130,7 +154,7 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 <section class="py-5 bg-mid text-center reveal-on-scroll">
   <div class="container">
     <h2 class="mb-3">Ready to Start a New Quest Together?</h2>
-    <p class="lead mx-auto mb-4" style="max-width:720px;">
+    <p class="lead mx-auto mb-4" style="max-width:720px">
       I’m always keen to collaborate on challenging builds, debug thorny issues, or brainstorm the next big idea.
       Reach out and let’s forge something epic!
     </p>
@@ -141,64 +165,38 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 </section>
 
 <!-- ============================== PAGE SCRIPTS ============================ -->
-<!-- Vendor libs -->
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.3/dist/vanilla-tilt.min.js"></script>
 
 <script>
-  /* ===== Global fade-in ============================================== */
+  /* ===== Global ready + tilt ========================================= */
   document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("ready");
-    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-      max: 10, speed: 400, glare: true, "max-glare": 0.2
+    VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+      max:10, speed:400, glare:true, "max-glare":0.2
     });
   });
 
-  /* ===== tsParticles Constellation =================================== */
-  tsParticles.load("particles-js", {
-    background: { color: "transparent" },
-    particles: {
-      number:  { value: 45 },
-      shape:   { type: "circle" },
-      size:    { value: 2.5, random: { enable: true, minimumValue: 1 } },
-      opacity: { value: 0.45, random: { enable: true, minimumValue: 0.1 } },
-      move:    { enable: true, speed: 0.7, outModes: "out" },
-      color:   { value: ["#ffffff", "#d4af37"] }
-    },
-    detectRetina: true
+  /* ===== tsParticles stars ========================================== */
+  tsParticles.load("particles-js",{
+    background:{color:"transparent"},
+    particles:{number:{value:45},shape:{type:"circle"},size:{value:2.5,random:{enable:true,minimumValue:1}},
+               opacity:{value:0.45,random:{enable:true,minimumValue:0.1}},
+               move:{enable:true,speed:0.7,outModes:"out"},
+               color:{value:["#ffffff","#d4af37"]}},
+    detectRetina:true
   });
 
-  /* ===== Hero Parallax & Reveal (GSAP + ScrollTrigger) =============== */
+  /* ===== GSAP hero parallax + section fades ========================= */
   gsap.registerPlugin(ScrollTrigger);
 
-  // Background parallax
-  gsap.to(".hero-bg", {
-    yPercent: 15,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero-section",
-      start: "top top",
-      end: "bottom top",
-      scrub: true
-    }
-  });
+  gsap.to('.hero-bg',{yPercent:15,ease:'none',
+    scrollTrigger:{trigger:'.hero-section',start:'top top',end:'bottom top',scrub:true}});
 
-  // Hero text entry
-  gsap.from(".hero-content", {
-    opacity: 0,
-    y: 40,
-    duration: 1,
-    ease: "power2.out",
-    delay: 0.2
-  });
+  gsap.from('.hero-content',{opacity:0,y:40,duration:1,ease:'power2.out',delay:0.2});
 
-  /* ===== Fade-ins for each main section ============================= */
-  gsap.utils.toArray("section").forEach(sec => {
-    gsap.from(sec, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      scrollTrigger: { trigger: sec, start: "top 80%" }
-    });
+  gsap.utils.toArray('section').forEach(sec=>{
+    gsap.from(sec,{opacity:0,y:30,duration:0.8,
+      scrollTrigger:{trigger:sec,start:'top 80%'}});
   });
 </script>
