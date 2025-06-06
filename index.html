@@ -8,7 +8,7 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 
 <!-- ============================= HERO SECTION ============================= -->
 <header class="hero-section">
-  <div class="hero-bg" style="background-image:url('assets/images/hero-bg.jpg');"></div>
+  <div class="hero-bg" style="background-image:url('/assets/images/');"></div>
   <div id="particles-js"></div>
 
   <div class="hero-content text-center">
@@ -46,26 +46,45 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
   <div class="container">
     <h2 class="text-center mb-5">Core Pillars of Expertise</h2>
     <div class="row g-4">
-      <!-- Pillar cards … unchanged … -->
-      <!-- (content omitted here for brevity; keep your existing four pillar cards) -->
+      <!-- Pillar 1 – Full-Stack Craft -->
+      <div class="col-6 col-lg-3">
+        <div class="pillar-card p-4 text-center h-100" data-tilt>
+          <i class="bi bi-code-slash display-6 text-warning"></i>
+          <h5 class="mt-3">Full-Stack Craft</h5>
+          <p class="small mb-0">C# / ASP.NET · Razor · Node / Express · React basics</p>
+        </div>
+      </div>
+
+      <!-- Pillar 2 – Infrastructure -->
+      <div class="col-6 col-lg-3">
+        <div class="pillar-card p-4 text-center h-100" data-tilt>
+          <i class="bi bi-diagram-3 display-6 text-warning"></i>
+          <h5 class="mt-3">Infrastructure</h5>
+          <p class="small mb-0">MikroTik · Synology NAS · cPanel · Firewalls</p>
+        </div>
+      </div>
+
+      <!-- Pillar 3 – Data & BI -->
+      <div class="col-6 col-lg-3">
+        <div class="pillar-card p-4 text-center h-100" data-tilt>
+          <i class="bi bi-database-check display-6 text-warning"></i>
+          <h5 class="mt-3">Data &amp; BI</h5>
+          <p class="small mb-0">MSSQL · PostgreSQL · Power BI · Excel wizardry</p>
+        </div>
+      </div>
+
+      <!-- Pillar 4 – Leadership -->
+      <div class="col-6 col-lg-3">
+        <div class="pillar-card p-4 text-center h-100" data-tilt>
+          <i class="bi bi-people-fill display-6 text-warning"></i>
+          <h5 class="mt-3">Leadership</h5>
+          <p class="small mb-0">8-member teams · Agile/Scrum · Mentorship</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============== FLIP-CARD HELPER STYLES (inline for this page) ============== -->
-<style>
-  .flip-card { perspective: 900px; }
-  .flip-card-inner {
-    position: relative; width: 100%; height: 100%;
-    transform-style: preserve-3d; transition: transform .6s;
-  }
-  .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-  .flip-front, .flip-back {
-    position: absolute; inset: 0; backface-visibility: hidden;
-    border-radius: .75rem;
-  }
-  .flip-back { transform: rotateY(180deg); }
-</style>
 
 <!-- ============================ FEATURED QUESTS ============================ -->
 <section class="py-5 featured-quests reveal-on-scroll">
@@ -77,19 +96,19 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
       <div class="col-md-6 col-lg-4">
         <div class="flip-card h-100" data-tilt>
           <div class="flip-card-inner card bg-dark border-warning-subtle">
-            <!-- FRONT -->
             <div class="flip-front d-flex flex-column justify-content-center align-items-center">
               <i class="fa-solid fa-ticket display-4 text-warning mb-3"></i>
               <h5 class="fw-bold mb-1">Ticket System</h5>
               <p class="small mb-0 text-muted">Google Apps Script</p>
             </div>
-            <!-- BACK -->
             <div class="flip-back">
-              <img src="/assets/images/quest-placeholder1.png"
-                   alt="Ticket System screenshot" class="w-100 h-100 object-fit-cover rounded">
+              <!-- ✅  relative path (no slash) -->
+              <img src="assets/images/quest-placeholder1.png"
+                   alt="Ticket System screenshot"
+                   class="w-100 h-100 object-fit-cover rounded">
               <div class="card-img-overlay d-flex align-items-end">
                 <p class="small bg-dark bg-opacity-75 p-2 rounded">
-                  Automated ticketing built with Apps Script—boosted support efficiency 30%.
+                  Automated ticketing built with Apps&nbsp;Script—boosted support efficiency&nbsp;30%.
                 </p>
               </div>
             </div>
@@ -107,8 +126,9 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
               <p class="small mb-0 text-muted">Node + PostgreSQL</p>
             </div>
             <div class="flip-back">
-              <img src="/assets/images/quest-placeholder2.png"
-                   alt="DMS screenshot" class="w-100 h-100 object-fit-cover rounded">
+              <img src="assets/images/quest-placeholder2.png"
+                   alt="DMS screenshot"
+                   class="w-100 h-100 object-fit-cover rounded">
               <div class="card-img-overlay d-flex align-items-end">
                 <p class="small bg-dark bg-opacity-75 p-2 rounded">
                   Platform for postgraduate records with granular permissions.
@@ -125,12 +145,13 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
           <div class="flip-card-inner card bg-dark border-warning-subtle">
             <div class="flip-front d-flex flex-column justify-content-center align-items-center">
               <i class="fa-solid fa-cubes-stacked display-4 text-warning mb-3"></i>
-              <h5 class="fw-bold mb-1">Odoo ERP Roll-out</h5>
-              <p class="small mb-0 text-muted">Docker & Training</p>
+              <h5 class="fw-bold mb-1">Odoo ERP&nbsp;Roll-out</h5>
+              <p class="small mb-0 text-muted">Docker &amp; Training</p>
             </div>
             <div class="flip-back">
-              <img src="/assets/images/quest-placeholder3.jpeg"
-                   alt="Odoo screenshot" class="w-100 h-100 object-fit-cover rounded">
+              <img src="assets/images/quest-placeholder3.jpeg"
+                   alt="Odoo screenshot"
+                   class="w-100 h-100 object-fit-cover rounded">
               <div class="card-img-overlay d-flex align-items-end">
                 <p class="small bg-dark bg-opacity-75 p-2 rounded">
                   Mapped workflows to modules and led phased deployment.
