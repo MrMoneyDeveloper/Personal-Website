@@ -130,6 +130,8 @@ h1,h2,h3,h4,h5,h6,
   .timeline-item .circle { left: 0; transform: none; }
 }
 
+.timeline-item .card h5,
+.timeline-item .card small { color:#ffffff !important; }
 
 
 
@@ -137,11 +139,7 @@ h1,h2,h3,h4,h5,h6,
 .card.bg-dark { background: var(--rpg-bg-mid) !important; border: 1px solid #343a40; }
 .card.bg-dark .card-title { color: var(--rpg-gold-light); }
 
-/* ========== 6A. TIMELINE TITLE OVERRIDE ========= */
-.card-title,
-.timeline-item .card small {  /* title and date text */
-  color:#ffffff !important;
-}
+
 
 
 /* ========== 7. SKILL TREES ========= */
