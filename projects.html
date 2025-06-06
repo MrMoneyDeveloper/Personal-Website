@@ -1,80 +1,116 @@
 ---
 layout: default
-title: Experience
-permalink: /experience.html
-description: Professional journey of Mohammed Farhaan Buckas – roles, projects, achievements.
+title: Projects
+permalink: /projects.html
+description: Portfolio quests of Mohammed Farhaan Buckas – web, data, infrastructure.
+extra_js: assets/js/projects-filter.js   # optional – see inline JS block
 ---
 
-<!-- ============================= EXPERIENCE HERO ============================= -->
+<!-- ========================== PROJECTS HERO =========================== -->
 <header class="sub-hero-section text-center py-5 bg-mid border-bottom border-warning-subtle">
-  <h1 class="display-5 fw-bold mb-2">Adventure Log</h1>
-  <p class="lead mx-auto" style="max-width:720px">From apprentice coder to infrastructure mage – a scroll through my key quests, guilds and achievements.</p>
+  <h1 class="display-5 fw-bold mb-2">Completed Quests</h1>
+  <p class="lead mx-auto" style="max-width:720px">
+    A showcase of systems, scripts, and data adventures I’ve completed in the last few
+    years – each quest has forged new skills and battle-hardened experience.
+  </p>
 </header>
- 
 
-<!-- ============================== TIMELINE ================================ -->
-<section class="py-5 position-relative timeline">
-  <div class="container">
-    <h2 class="text-center mb-5">Professional Timeline</h2>
-
-    <!-- ITEM: Automation Techniques -->
-    <div class="timeline-item reveal-on-scroll">
-      <span class="circle"></span>
-      <div class="card p-4 bg-dark border-warning-subtle">
-        <h5 class="fw-bold mb-1">Junior IT Applications Support Specialist – Automation Techniques</h5>
-        <small class="text-muted">Aug 2024 – Present</small>
-        <p class="mb-0 small">Implementing Odoo ERP, administering MikroTik & Synology ecosystems, and authoring a custom Google Apps‑Script ticketing platform that cut response time by 30%.</p>
-      </div>
+<!-- ========================== CATEGORY FILTER ========================= -->
+<section class="py-4 bg-dark sticky-top shadow-sm" style="z-index:10">
+  <div class="container text-center">
+    <div class="filter-pills d-inline-flex flex-wrap gap-2">
+      <button class="btn btn-sm btn-warning active" data-filter="all">All</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="web">Web</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="data">Data</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="infra">Infrastructure</button>
     </div>
-
-    <!-- ITEM: DUT Technical Lead -->
-    <div class="timeline-item reveal-on-scroll">
-      <span class="circle"></span>
-      <div class="card p-4 bg-dark border-warning-subtle">
-        <h5 class="fw-bold mb-1">Technical Lead &amp; Research Assistant – Durban University of Technology</h5>
-        <small class="text-muted">Jan 2024 – Jun 2024</small>
-        <p class="mb-0 small">Led an 8‑member team building a Node.js Document Management System, drafted CRM functional specs, and researched AWS data‑lake architectures for MICT SETA.</p>
-      </div>
-    </div>
-
-    <!-- ITEM: XET Consultant -->
-    <div class="timeline-item reveal-on-scroll">
-      <span class="circle"></span>
-      <div class="card p-4 bg-dark border-warning-subtle">
-        <h5 class="fw-bold mb-1">IT Consultant – XET Group</h5>
-        <small class="text-muted">Dec 2023 – Jan 2024</small>
-        <p class="mb-0 small">Provided C# reconciliation tooling for Siyakhokha payment gateway, authored user manuals, and advised on system upgrades.</p>
-      </div>
-    </div>
-
-    <!-- ITEM: XET Intern -->
-    <div class="timeline-item reveal-on-scroll">
-      <span class="circle"></span>
-      <div class="card p-4 bg-dark border-warning-subtle">
-        <h5 class="fw-bold mb-1">Software Developer Intern – XET Group</h5>
-        <small class="text-muted">Jan 2023 – Dec 2023</small>
-        <p class="mb-0 small">Built an internal Helpdesk (ASP.NET + MSSQL), performed Siyakhokha reconciliation, and produced Power BI financial dashboards for year‑end audit.</p>
-      </div>
-    </div>
-
-    <!-- ITEM: Learnership -->
-    <div class="timeline-item reveal-on-scroll">
-      <span class="circle"></span>
-      <div class="card p-4 bg-dark border-warning-subtle">
-        <h5 class="fw-bold mb-1">.NET Learnership Programme – XET Group</h5>
-        <small class="text-muted">Jan 2022 – Dec 2022</small>
-        <p class="mb-0 small">Honoured quests in QA testing, HTML front‑end refreshes, and data‑science foundations with Excel Pivot sorcery.</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- ============================ CTA TO CONTACT ============================ -->
-<section class="py-5 bg-mid text-center reveal-on-scroll">
+<!-- ========================== PROJECTS GRID =========================== -->
+<section class="py-5">
   <div class="container">
-    <h2 class="mb-3">Want to add a new chapter?</h2>
-    <p class="lead mx-auto mb-4" style="max-width:720px;">I’m open to freelancing, full‑time roles or collaborative side‑quests. Let’s discuss how I can help your guild succeed.</p>
-    <a href="contact.html" class="btn btn-cta"><i class="bi bi-envelope-paper-fill me-2"></i>Send a Raven</a>
+    <div class="row g-4" id="projectsGrid">
+
+      {%- assign projects = site.data.projects | default: nil -%}
+      {%- if projects -%}
+        {%- for p in projects -%}
+          <div class="col-md-6 col-lg-4 project-card" data-cat="{{ p.category | downcase }}">
+            <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll">
+              <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ p.title }}</h5>
+                <p class="small mb-2 text-muted">{{ p.stack }}</p>
+                <p class="card-text small flex-grow-1">{{ p.blurb }}</p>
+                {%- if p.link -%}
+                  <a href="{{ p.link }}" target="_blank" class="stretched-link" aria-label="External link"></a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- STATIC placeholders if _data/projects.yml not present -->
+        <div class="col-md-6 col-lg-4 project-card" data-cat="web">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll">
+            <img src="assets/images/quest-placeholder.jpg" class="card-img-top" alt="Ticketing System">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Ticket Management System</h5>
+              <p class="small mb-2 text-muted">Google Apps Script · Sheets API</p>
+              <p class="card-text small flex-grow-1">Automated ticketing that boosted support efficiency by 30%.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 project-card" data-cat="web">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll">
+            <img src="assets/images/quest-placeholder.jpg" class="card-img-top" alt="DMS">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Document Management System</h5>
+              <p class="small mb-2 text-muted">Node.js · PostgreSQL</p>
+              <p class="card-text small flex-grow-1">Full-stack platform for DUT postgraduate records.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 project-card" data-cat="infra">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll">
+            <img src="assets/images/quest-placeholder.jpg" class="card-img-top" alt="Odoo ERP">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Odoo ERP Roll-out</h5>
+              <p class="small mb-2 text-muted">Odoo · Docker · Training</p>
+              <p class="card-text small flex-grow-1">Mapped workflows to modules and led phased deployment.</p>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+    </div>
   </div>
 </section>
+
+<!-- ========================== PAGE SCRIPTS =========================== -->
+<script>
+  // simple front-end filter (vanilla JS); if you move to separate JS file, delete here
+  document.querySelectorAll(".filter-pills button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-pills button").forEach(b => b.classList.remove("active","btn-warning"));
+      btn.classList.add("active","btn-warning");
+      const cat = btn.dataset.filter;
+      document.querySelectorAll(".project-card").forEach(card => {
+        card.style.display = (cat === "all" || card.dataset.cat === cat) ? "" : "none";
+      });
+    });
+  });
+
+  // Scroll-trigger reveal
+  gsap.utils.toArray(".reveal-on-scroll").forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%"
+      }
+    });
+  });
+</script>
