@@ -1,3 +1,4 @@
-# _config.yml
-title: Buckas Realm
-description: Mohammed Farhaan Buckas – RPG-themed personal site
+title: FB Realm
+description: RPG-themed portfolio
+# disables future theme warnings
+theme: null
