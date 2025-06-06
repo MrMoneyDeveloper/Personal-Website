@@ -1,0 +1,83 @@
+---
+layout: default
+title: Contact
+permalink: /contact.html
+description: Reach out to Mohammed Farhaan Buckas – collaboration, consulting or just a chat.
+---
+
+<!-- ============================= CONTACT HERO ============================= -->
+<header class="sub-hero-section text-center py-5">
+  <h1 class="display-5 fw-bold mb-2">Get in Touch</h1>
+  <p class="lead mx-auto" style="max-width:680px">Whether you have a project in mind, a bug to squash, or you just want to talk shop, I'm only a message away.</p>
+</header>
+
+<!-- ============================= CONTACT FORM ============================= -->
+<section class="py-5 bg-mid text-light">
+  <div class="container-lg">
+    <div class="row justify-content-center g-5">
+      <div class="col-lg-6">
+        <h2 class="h3 mb-4 text-center">Send me a Raven</h2>
+        <!-- Replace the Formspree action URL with your own form ID -->
+        <form action="https://formspree.io/f/yourFormID" method="POST" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <div class="invalid-feedback">A valid email is required.</div>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="6" required></textarea>
+            <div class="invalid-feedback">Please write a brief message.</div>
+          </div>
+          <!-- simple honeypot field to deter bots -->
+          <input type="text" name="_gotcha" style="display:none">
+          <button type="submit" class="btn btn-cta w-100"><i class="bi bi-send-fill me-2"></i>Send Message</button>
+        </form>
+      </div>
+
+      <div class="col-lg-5 align-self-center">
+        <h2 class="h3 mb-4 text-center text-lg-start">Other ways to reach me</h2>
+        <ul class="list-unstyled fs-5">
+          <li class="mb-3"><i class="bi bi-envelope-fill text-warning me-2"></i><a class="link-warning text-decoration-none" href="mailto:mohammedfarhaanbuckas@outlook.com">mohammedfarhaanbuckas@outlook.com</a></li>
+          <li class="mb-3"><i class="bi bi-linkedin text-warning me-2"></i><a class="link-warning text-decoration-none" target="_blank" href="https://www.linkedin.com/in/mohammad-farhaan-buckas-2a67351b9">LinkedIn Profile</a></li>
+          <li class="mb-3"><i class="bi bi-github text-warning me-2"></i><a class="link-warning text-decoration-none" target="_blank" href="https://github.com/MrMoneyDeveloper">@MrMoneyDeveloper</a></li>
+          <li class="mb-3"><i class="bi bi-geo-fill text-warning me-2"></i>Durban, South Africa (GMT+2)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MAP (optional) ============================ -->
+<!--
+<section class="py-5">
+  <div class="container">
+    <div class="ratio ratio-16x9 shadow-lg">
+      <iframe src="https://www.google.com/maps/embed?..." loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ============================== FORM VALIDATION SCRIPT =================== -->
+<script>
+  // Bootstrap client‑side validation
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    forms.forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
