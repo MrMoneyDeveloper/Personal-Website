@@ -165,11 +165,14 @@ h1,h2,h3,h4,h5,h6,
 
 /* ========== 8. FOOTER ========= */
 footer {
-  background: var(--rpg-bg-mid);
-  text-align: center; padding: 1.5rem 0;
-  font-size: .9rem; color: #ffffff;
+  background: #ffffff;                    /* white footer */
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: .9rem;
+  color: #111111;                         /* dark text  */
   border-top: 1px solid var(--rpg-gold-light);
 }
+
 
 /* ========== 9. ANIMATIONS ========= */
 /* Fade‑in util (use class .fade-in) */
