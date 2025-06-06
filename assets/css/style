@@ -189,3 +189,10 @@ footer {
 /* Readiness fade (body.ready triggers after DOM load) */
 body.preload { opacity: 0; transition: opacity 1s ease-in; }
 body.ready { opacity: 1; }
+
+/* ========== 11. 3D EFFECTS ========= */
+[data-tilt] {
+  transform-style: preserve-3d;
+  transition: transform .2s ease-out;
+  will-change: transform;
+}
