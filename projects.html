@@ -36,11 +36,11 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
       {%- if projects -%}
         {%- for p in projects -%}
           <div class="col-md-6 col-lg-4 project-card" data-cat="{{ p.category | downcase }}">
-             <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll" data-tilt>
+             <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
               <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ p.title }}</h5>
-                <p class="small mb-2 text-muted">{{ p.stack }}</p>
+                 <p class="small mb-2 text-light">{{ p.stack }}</p>
                 <p class="card-text small flex-grow-1">{{ p.blurb }}</p>
                 {%- if p.link -%}
                   <a href="{{ p.link }}" target="_blank" class="stretched-link" aria-label="External link"></a>
@@ -52,31 +52,31 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
       {%- else -%}
         <!-- STATIC placeholders if _data/projects.yml not present -->
         <div class="col-md-6 col-lg-4 project-card" data-cat="web">
-          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll" data-tilt>
-            <img src="assets/images/quest-placeholder.jpg" class="card-img-top" alt="Ticketing System">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="card-img-top" alt="Ticketing System">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Ticket Management System</h5>
-              <p class="small mb-2 text-muted">Google Apps Script · Sheets API</p>
+              <p class="small mb-2 text-light">Google Apps Script · Sheets API</p>
               <p class="card-text small flex-grow-1">Automated ticketing that boosted support efficiency by 30%.</p>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-4 project-card" data-cat="web">
-          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll" data-tilt>
-            <img src="assets/images/quest-placeholder.jpg" class="card-img-top" alt="DMS">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="card-img-top" alt="DMS">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Document Management System</h5>
-              <p class="small mb-2 text-muted">Node.js · PostgreSQL</p>
+              <p class="small mb-2 text-light">Node.js · PostgreSQL</p>
               <p class="card-text small flex-grow-1">Full-stack platform for DUT postgraduate records.</p>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-4 project-card" data-cat="infra">
-         <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll" data-tilt>
-            <img src="assets/images/quest-placeholder.jpg" class="card-img-top" alt="Odoo ERP">
+         <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="card-img-top" alt="Odoo ERP">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Odoo ERP Roll-out</h5>
-              <p class="small mb-2 text-muted">Odoo · Docker · Training</p>
+              <p class="small mb-2 text-light">Odoo · Docker · Training</p>
               <p class="card-text small flex-grow-1">Mapped workflows to modules and led phased deployment.</p>
             </div>
           </div>
