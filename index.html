@@ -105,24 +105,6 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
   </div>
 </section>
 
-<!-- ============================ IMAGE GALLERY ============================ -->
-<section id="gallery" class="py-5 bg-mid text-center reveal-on-scroll">
-  <div class="container">
-    <h2 class="mb-4">Gallery</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="img-fluid rounded hover-lift" alt="Gallery image 1">
-      </div>
-      <div class="col-md-4">
-        <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="img-fluid rounded hover-lift" alt="Gallery image 2">
-      </div>
-      <div class="col-md-4">
-        <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="img-fluid rounded hover-lift" alt="Gallery image 3">
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ CORE PILLARS ============================== -->
 <section class="py-5 bg-mid text-light reveal-on-scroll">
   <div class="container">
@@ -176,7 +158,9 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
     <div class="row g-4">
       <!-- Quest 1 -->
       <div class="col-md-6 col-lg-4">
-        <div class="flip-card h-100 hover-lift" data-tilt style="--bg-img:url('{{ 'assets/images/quest-placeholder1.png' | relative_url }}'); --img:url('{{ 'assets/images/quest-placeholder1.png' | relative_url }}');">
+        <div class="flip-card h-100 hover-lift" data-tilt
+             style="--bg-img:url('{{ 'assets/images/quest-placeholder1.png' | relative_url }}');
+                    --img:url('{{ 'assets/images/quest-placeholder1.png' | relative_url }}');">
           <div class="flip-card-inner">
             <div class="flip-front">
               <i class="fa-solid fa-ticket display-4 text-warning mb-3"></i>
@@ -186,9 +170,11 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
         </div>
       </div>
 
-      <!-- Quest 2 -->
+      <!-- Quest 2 (similar structure) -->
       <div class="col-md-6 col-lg-4">
-        <div class="flip-card h-100 hover-lift" data-tilt style="--bg-img:url('{{ 'assets/images/quest-placeholder2.png' | relative_url }}'); --img:url('{{ 'assets/images/quest-placeholder2.png' | relative_url }}');">
+        <div class="flip-card h-100 hover-lift" data-tilt
+             style="--bg-img:url('{{ 'assets/images/quest-placeholder2.png' | relative_url }}');
+                    --img:url('{{ 'assets/images/quest-placeholder2.png' | relative_url }}');">
           <div class="flip-card-inner">
             <div class="flip-front">
               <i class="fa-solid fa-folder-tree display-4 text-warning mb-3"></i>
@@ -198,9 +184,11 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
         </div>
       </div>
 
-      <!-- Quest 3 -->
+      <!-- Quest 3 (similar structure) -->
       <div class="col-md-6 col-lg-4">
-        <div class="flip-card h-100 hover-lift" data-tilt style="--bg-img:url('{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}'); --img:url('{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}');">
+        <div class="flip-card h-100 hover-lift" data-tilt
+             style="--bg-img:url('{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}');
+                    --img:url('{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}');">
           <div class="flip-card-inner">
             <div class="flip-front">
               <i class="fa-solid fa-cubes-stacked display-4 text-warning mb-3"></i>
@@ -223,7 +211,7 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 
 
 <!-- ========================= CALL TO ADVENTURE =========================== -->
-<section class="py-5 bg-mid text-center reveal-on-scroll">
+<section id="call-to-adventure" class="py-5 bg-mid text-center reveal-on-scroll">
   <div class="container">
     <h2 class="mb-3">Ready to Start a New Quest Together?</h2>
     <p class="lead mx-auto mb-4" style="max-width:720px">
@@ -239,98 +227,86 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 <!-- ============================== PAGE SCRIPTS ============================ -->
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.3/dist/vanilla-tilt.min.js"></script>
-
 <script>
-  /* ---------------- GLOBAL READY  ------------------------------------ */
+  /* ---------------- GLOBAL READY ---------------- */
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('ready');
   });
 
-  /* ---------------- WINDOW LOAD  (images, fonts ready) --------------- */
+  /* ---------------- WINDOW LOAD ---------------- */
   window.addEventListener('load', () => {
-    /* Vanilla-Tilt on desktop / tablet only */
+    // Tilt on buttons & links (desktop only)
     if (window.matchMedia('(min-width: 768px)').matches) {
       VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
-        max: 10,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.20,
+        max: 10, speed: 400, glare: true, 'max-glare': 0.20
       });
     }
 
-    /* ----- sound triggers ----- */
+    // Howler.js sounds
     const heroSound    = new Howl({ src: ['assets/sounds/hero.wav'],    volume: 0.5 });
     const flipSound    = new Howl({ src: ['assets/sounds/flip.wav'],    volume: 0.5 });
     const cueSound     = new Howl({ src: ['assets/sounds/cue.wav'],     volume: 0.5 });
     const gallerySound = new Howl({ src: ['assets/sounds/gallery.wav'], volume: 0.5 });
+    const revealSound  = new Howl({ src: ['assets/sounds/reveal.wav'],  volume: 0.4 });
+
     heroSound.play();
-    document.querySelectorAll('.flip-card').forEach(card => {
-      card.addEventListener('mouseenter', () => flipSound.play());
-    });
+    document.querySelectorAll('.flip-card').forEach(card =>
+      card.addEventListener('mouseenter', () => flipSound.play())
+    );
     document.querySelector('.scroll-cue')?.addEventListener('click', () => cueSound.play());
-    document.querySelectorAll('#gallery img').forEach(img => {
-      img.addEventListener('mouseenter', () => gallerySound.play());
-    });
+    document.querySelectorAll('#gallery img').forEach(img =>
+      img.addEventListener('mouseenter', () => gallerySound.play())
+    );
+
+    // play revealSound on hover of our Call-to-Adventure block
+    document.querySelector('#call-to-adventure')?.addEventListener('mouseenter', () => revealSound.play());
   });
 
-  /* ---------------- tsParticles  ------------------------------------- */
-  tsParticles
-    .load('particles-js', {
-      background: { color: 'transparent' },
-      particles: {
-        number:  { value: 45 },
-        shape:   { type: 'circle' },
-        size:    { value: 2.5, random: { enable: true, minimumValue: 1 } },
-        opacity: { value: 0.45, random: { enable: true, minimumValue: 0.1 } },
-        move:    { enable: true, speed: 0.7, outModes: 'out' },
-        color:   { value: ['#ffffff', '#d4af37'] },
-      },
-      detectRetina: true,
-    })
-    .catch(err => console.warn('tsParticles load failed:', err));
+  /* ---------------- tsParticles ---------------- */
+  tsParticles.load('particles-js', {
+    background: { color: 'transparent' },
+    particles: {
+      number:  { value: 45 },
+      shape:   { type: 'circle' },
+      size:    { value: 2.5, random: { enable: true, minimumValue: 1 } },
+      opacity: { value: 0.45, random: { enable: true, minimumValue: 0.1 } },
+      move:    { enable: true, speed: 0.7, outModes: 'out' },
+      color:   { value: ['#ffffff', '#d4af37'] },
+    },
+    detectRetina: true,
+  }).catch(err => console.warn('tsParticles load failed:', err));
 
-  /* ---------------- GSAP ANIMATION SET-UP ---------------------------- */
+  /* ---------------- GSAP ANIMATIONS ---------------- */
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     gsap.registerPlugin(ScrollTrigger);
 
-    /* Hero parallax */
+    // Hero parallax
     gsap.to('.hero-bg', {
-      yPercent: 15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
+      yPercent: 15, ease: 'none',
+      scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true }
     });
 
-    /* Hero headline fade-in */
+    // Headline fade-in
     gsap.from('.hero-content', {
-      opacity: 0,
-      y: 40,
-      duration: 1,
-      ease: 'power2.out',
-      delay: 0.2,
+      opacity: 0, y: 40, duration: 1, ease: 'power2.out', delay: 0.2
     });
 
-    /* Section fade-ins */
+    // Section fade-ins + revealSound trigger
     gsap.utils.toArray('section').forEach(sec => {
       gsap.from(sec, {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        scrollTrigger: { trigger: sec, start: 'top 80%' },
+        opacity: 0, y: 30, duration: 0.8,
+        scrollTrigger: {
+          trigger: sec,
+          start: 'top 80%',
+          onEnter: () => revealSound.play()
+        }
       });
     });
 
-    /* Flip-card entrance */
+    // Flip-card entrance
     gsap.utils.toArray('.flip-card').forEach(card => {
       gsap.from(card, {
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        ease: 'power1.out',
+        opacity: 0, y: 40, duration: 0.6, ease: 'power1.out',
         scrollTrigger: { trigger: card, start: 'top 85%' }
       });
     });
