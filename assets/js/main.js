@@ -14,6 +14,12 @@
       }
     });
 
+    // ---- Hover sound placeholder ----
+    var hoverSound = new Howl({ src: ['assets/sounds/hover.wav'], volume: 0.4 });
+    document.querySelectorAll('a, button').forEach(function(el){
+      el.addEventListener('mouseenter', function(){ hoverSound.play(); });
+    });
+
     // ---- Tilt effect ----
     document.querySelectorAll('[data-tilt]').forEach(function(el){
       var height = el.clientHeight;

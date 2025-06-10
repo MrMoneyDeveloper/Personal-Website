@@ -70,6 +70,11 @@ h1,h2,h3,h4,h5,h6,
   transform: translateY(0%);
   z-index: 0;
 }
+.hero-bleed { /* full-width hero breakout */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
 #particles-js { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero-content { position: relative; z-index: 2; text-align: center; }
 .hero-title { font-size: clamp(2.5rem,6vw,4.5rem); text-shadow: 0 0 10px #0008; }
