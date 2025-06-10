@@ -15,7 +15,8 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
     padding-top:66.6667%;   /* 3 : 2 aspect-ratio */
     perspective:1000px;
     transition:transform .2s;
-    --bg-img: none;               /* custom background */
+    --bg-img: none;      /* front overlay */
+    --img: none;         /* back image */
   }
   .flip-card:hover{ transform:scale(1.03); }
 
@@ -59,23 +60,27 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
   }
 
   /* Back – screenshot only */
-  .flip-back{ transform:rotateY(180deg); }
-  .flip-back img{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    object-fit:cover;
-    pointer-events:none;           /* don’t block hover */
+  .flip-back{
+    transform:rotateY(180deg);
+    background-image:var(--img);
+    background-size:cover;
+    background-position:center;
   }
 </style>
 
 
 
 <!-- ============================= HERO SECTION ============================= -->
+<<<<<<< ours
 <header class="hero-section">
   <div
   class="hero-bg"
   style="background-image:url('assets/videos/Index_Wallpaper.gif');">
 </div>
+=======
+<header class="hero-section hero-bleed">
+  <div class="hero-bg" style="background-image:url('{{ "/assets/videos/Index_Wallpaper.gif" | relative_url }}');"></div>
+>>>>>>> theirs
   <div id="particles-js"></div>
 
   <div class="hero-content text-center">
@@ -109,11 +114,12 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
 </section>
 
 <!-- ============================ IMAGE GALLERY ============================ -->
-<section class="py-5 bg-mid text-center reveal-on-scroll">
+<section id="gallery" class="py-5 bg-mid text-center reveal-on-scroll">
   <div class="container">
     <h2 class="mb-4">Gallery</h2>
     <div class="row g-4">
       <div class="col-md-4">
+<<<<<<< ours
         <img src="assets/images/quest-placeholder1.png" class="img-fluid rounded hover-lift" alt="Gallery image 1">
       </div>
       <div class="col-md-4">
@@ -121,6 +127,15 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
       </div>
       <div class="col-md-4">
         <img src="assets/images/quest-placeholder3.jpeg" class="img-fluid rounded hover-lift" alt="Gallery image 3">
+=======
+        <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="img-fluid rounded hover-lift" alt="Gallery image 1">
+      </div>
+      <div class="col-md-4">
+        <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="img-fluid rounded hover-lift" alt="Gallery image 2">
+      </div>
+      <div class="col-md-4">
+        <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="img-fluid rounded hover-lift" alt="Gallery image 3">
+>>>>>>> theirs
       </div>
     </div>
   </div>
@@ -179,45 +194,48 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
     <div class="row g-4">
       <!-- Quest 1 -->
       <div class="col-md-6 col-lg-4">
+<<<<<<< ours
         <div class="flip-card h-100 hover-lift" data-tilt>
+=======
+        <div class="flip-card h-100 hover-lift" data-tilt style="--bg-img:url('{{ 'assets/images/quest-placeholder1.png' | relative_url }}'); --img:url('{{ 'assets/images/quest-placeholder1.png' | relative_url }}');">
+>>>>>>> theirs
           <div class="flip-card-inner">
             <div class="flip-front">
               <i class="fa-solid fa-ticket display-4 text-warning mb-3"></i>
             </div>
-            <div class="flip-back">
-              <img src="assets/images/quest-placeholder1.png"
-                   alt="Ticket System screenshot">
-            </div>
+            <div class="flip-back"></div>
           </div>
         </div>
       </div>
 
       <!-- Quest 2 -->
       <div class="col-md-6 col-lg-4">
+<<<<<<< ours
         <div class="flip-card h-100 hover-lift" data-tilt>
+=======
+        <div class="flip-card h-100 hover-lift" data-tilt style="--bg-img:url('{{ 'assets/images/quest-placeholder2.png' | relative_url }}'); --img:url('{{ 'assets/images/quest-placeholder2.png' | relative_url }}');">
+>>>>>>> theirs
           <div class="flip-card-inner">
             <div class="flip-front">
               <i class="fa-solid fa-folder-tree display-4 text-warning mb-3"></i>
             </div>
-            <div class="flip-back">
-              <img src="assets/images/quest-placeholder2.png"
-                   alt="Document Manager screenshot">
-            </div>
+            <div class="flip-back"></div>
           </div>
         </div>
       </div>
 
       <!-- Quest 3 -->
       <div class="col-md-6 col-lg-4">
+<<<<<<< ours
         <div class="flip-card h-100 hover-lift" data-tilt>
+=======
+        <div class="flip-card h-100 hover-lift" data-tilt style="--bg-img:url('{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}'); --img:url('{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}');">
+>>>>>>> theirs
           <div class="flip-card-inner">
             <div class="flip-front">
               <i class="fa-solid fa-cubes-stacked display-4 text-warning mb-3"></i>
             </div>
-            <div class="flip-back">
-              <img src="assets/images/quest-placeholder3.jpeg"
-                   alt="Odoo ERP screenshot">
-            </div>
+            <div class="flip-back"></div>
           </div>
         </div>
       </div>
@@ -269,6 +287,20 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
         'max-glare': 0.20,
       });
     }
+
+    /* ----- sound triggers ----- */
+    const heroSound    = new Howl({ src: ['assets/sounds/hero.wav'],    volume: 0.5 });
+    const flipSound    = new Howl({ src: ['assets/sounds/flip.wav'],    volume: 0.5 });
+    const cueSound     = new Howl({ src: ['assets/sounds/cue.wav'],     volume: 0.5 });
+    const gallerySound = new Howl({ src: ['assets/sounds/gallery.wav'], volume: 0.5 });
+    heroSound.play();
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('mouseenter', () => flipSound.play());
+    });
+    document.querySelector('.scroll-cue')?.addEventListener('click', () => cueSound.play());
+    document.querySelectorAll('#gallery img').forEach(img => {
+      img.addEventListener('mouseenter', () => gallerySound.play());
+    });
   });
 
   /* ---------------- tsParticles  ------------------------------------- */
@@ -319,6 +351,17 @@ extra_css: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.mi
         y: 30,
         duration: 0.8,
         scrollTrigger: { trigger: sec, start: 'top 80%' },
+      });
+    });
+
+    /* Flip-card entrance */
+    gsap.utils.toArray('.flip-card').forEach(card => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power1.out',
+        scrollTrigger: { trigger: card, start: 'top 85%' }
       });
     });
   }
