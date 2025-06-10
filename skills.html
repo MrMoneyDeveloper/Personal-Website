@@ -77,7 +77,8 @@
     <div class="role-select mx-auto mb-4 text-center">
       <label for="roleDropdown" class="form-label fw-semibold">Select Role:</label>
       <select id="roleDropdown" class="form-select">
-        <option value="developer" selected>Developer</option>
+        <option value="all" selected>All Skills</option>
+        <option value="developer">Developer</option>
         <option value="analyst">Analyst</option>
         <option value="infrastructure">Infrastructure</option>
       </select>
@@ -125,7 +126,7 @@
     <ul id="tree-analyst" class="skill-tree mb-5 d-none">
       <li>
         <button class="skill-node collapsed" data-bs-toggle="collapse" data-bs-target="#ana-data" data-tilt>Data Analysis</button>
-        <ul id="ana-data" class="collapse ps-4 mt-2">
+        <ul id="tree-analyst" class="skill-tree mb-5">
           <li><span class="skill-leaf">Power BI</span></li>
           <li><span class="skill-leaf">Excel Pivot Tables</span></li>
           <li><span class="skill-leaf">Python Pandas (intro)</span></li>
@@ -142,7 +143,7 @@
     </ul>
 
     <!-- ===== Infrastructure Tree ===== -->
-    <ul id="tree-infrastructure" class="skill-tree mb-5 d-none">
+    <ul id="tree-infrastructure" class="skill-tree mb-5">
       <li>
          <button class="skill-node collapsed" data-bs-toggle="collapse" data-bs-target="#infra-net" data-tilt>Networking</button>
         <ul id="infra-net" class="collapse ps-4 mt-2">
@@ -166,11 +167,7 @@
 
   <!-- ===== Footer ===== -->
   <footer class="bg-dark text-center py-3 mt-auto border-top border-warning">
-<<<<<<< HEAD
-    <small class="text-white">© 2025 Mohammed Farhaan Buckas – Skill points spent wisely.</small>
-=======
    <small class="text-white">© 2025 Mohammed Farhaan Buckas – Skill points spent wisely.</small>
->>>>>>> origin/main
   </footer>
 
   <!-- ===== JS Libraries ===== -->
@@ -196,7 +193,9 @@
     const trees={developer:document.getElementById('tree-developer'),analyst:document.getElementById('tree-analyst'),infrastructure:document.getElementById('tree-infrastructure')};
     dropdown.addEventListener('change',e=>{
       const val=e.target.value;
-      Object.keys(trees).forEach(k=>trees[k].classList.toggle('d-none',k!==val));
+      Object.keys(trees).forEach(k=>{
+        trees[k].classList.toggle('d-none',val!=='all' && k!==val);
+      });
     });
 
     // Fade‑in sections on scroll
