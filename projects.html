@@ -40,7 +40,11 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
               <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ p.title }}</h5>
+<<<<<<< HEAD
+                <p class="small mb-2 text-light">{{ p.stack }}</p>
+=======
                  <p class="small mb-2 text-light">{{ p.stack }}</p>
+>>>>>>> origin/main
                 <p class="card-text small flex-grow-1">{{ p.blurb }}</p>
                 {%- if p.link -%}
                   <a href="{{ p.link }}" target="_blank" class="stretched-link" aria-label="External link"></a>
