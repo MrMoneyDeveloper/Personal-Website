@@ -78,8 +78,18 @@ h1,h2,h3,h4,h5,h6,
 }
 #particles-js { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero-content { position: relative; z-index: 2; text-align: center; margin-inline:auto; }
-.hero-title { font-size: clamp(2.5rem,6vw,4.5rem); text-shadow: 0 0 10px #0008; }
-.hero-tagline { font-size: clamp(1rem,2.2vw,1.5rem); color:#ffffffcc; max-width: 650px; margin-inline:auto; }
+.hero-title {
+  font-size: clamp(2.5rem,6vw,4.5rem);
+  text-shadow: 0 0 10px #0008;
+  -webkit-text-stroke: 1px #000;
+}
+.hero-tagline {
+  font-size: clamp(1rem,2.2vw,1.5rem);
+  color: #ffffffcc;
+  max-width: 650px;
+  margin-inline: auto;
+  -webkit-text-stroke: 0.5px #000;
+}
 
 /* ========== 4. BUTTONS ========= */
 .btn-cta {

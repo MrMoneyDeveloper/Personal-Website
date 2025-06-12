@@ -8,6 +8,9 @@ extra_css:
 extra_js:
   - "https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"
   - "https://cdn.jsdelivr.net/npm/treant-js@1.0/Treant.min.js"
+  hero_background: /assets/videos/Index_Wallpaper.gif
+hero_title: Skill Trees
+hero_tagline: Choose a Role & Expand Your Abilities
 ---
 
 <!DOCTYPE html>
@@ -80,11 +83,12 @@ extra_js:
   </nav>
 
   <!-- Hero -->
-  <header class="hero mb-5" style="position:relative;height:50vh;background:url('assets/videos/Index_Wallpaper.gif') center/cover no-repeat fixed;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-    <div id="particles-js" style="position:absolute;inset:0;z-index:1;"></div>
-    <div class="hero-content text-center text-light" style="position:relative;z-index:2;">
-      <h1 class="display-4 fw-bold">Skill Trees</h1>
-      <p class="lead">Choose a Role & Expand Your Abilities</p>
+  <header class="hero-section hero-bleed">
+    <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
+    <div id="particles-js"></div>
+    <div class="hero-content text-center">
+      <h1 class="hero-title">{{ page.hero_title }}</h1>
+      <p class="hero-tagline">{{ page.hero_tagline }}</p>
     </div>
   </header>
 
@@ -99,7 +103,16 @@ extra_js:
   <script src="https://cdn.jsdelivr.net/npm/treant-js@1.0/Treant.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
+ <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+  <script>
+    tsParticles.load("particles-js",{
+      fullScreen:{enable:false},
+      particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:"#ffffff"}},
+      interactivity:{events:{onhover:{enable:true,mode:"repulse"}},modes:{repulse:{distance:100}}},
+      background:{color:"transparent"}
+    });
+  </script>
+  
   <!-- Initialize Treant + GSAP Animation -->
   <script>
     const treeConfig = {

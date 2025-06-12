@@ -3,6 +3,13 @@ layout: default
 title: Home
 description: Mohammed Farhaan Buckas – RPG-themed personal website
 permalink: /
+hero_background: /assets/videos/Index_Wallpaper.gif
+hero_title: Mohammed Farhaan Buckas
+hero_tagline: >-
+  Full-stack Developer · IT Applications Support & Network Specialist ·
+  Passionate about performant systems, elegant code & immersive UX.
+hero_cta_text: Explore My Skills
+hero_cta_link: skills.html
 ---
 
 <!-- ========== INLINE FLIP-CARD CSS (updated) ========== -->
@@ -71,17 +78,17 @@ permalink: /
 
 <!-- ============================= HERO SECTION ============================= -->
 <header class="hero-section hero-bleed">
-  <div class="hero-bg" style="background-image:url('{{ "/assets/videos/Index_Wallpaper.gif" | relative_url }}');"></div>
+  <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
   <div id="particles-js"></div>
 
   <div class="hero-content text-center">
-    <h1 class="hero-title">Mohammed&nbsp;Farhaan&nbsp;Buckas</h1>
-    <p class="hero-tagline">
-      Full-stack Developer · IT Applications Support &amp; Network Specialist · Passionate about
-      performant systems, elegant code &amp; immersive UX.
-    </p>
-    <a href="skills.html" class="btn btn-cta" data-tilt>
-      <i class="fa-solid fa-dungeon me-2"></i>Explore My Skills
+    <h1 class="hero-title">{{ page.hero_title }}</h1>
+    <p class="hero-tagline">{{ page.hero_tagline }}</p>
+    {%- if page.hero_cta_text -%}
+    <a href="{{ page.hero_cta_link | relative_url }}" class="btn btn-cta" data-tilt>
+      <i class="fa-solid fa-dungeon me-2"></i>{{ page.hero_cta_text }}
+    </a>
+    {%- endif -%}
     </a>
   </div>
 

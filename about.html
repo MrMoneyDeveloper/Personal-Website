@@ -3,6 +3,9 @@ layout: default
 title: About
 permalink: /about.html
 description: About Mohammed Farhaan Buckas – RPG-themed character sheet
+hero_background: /assets/videos/Index_Wallpaper.gif
+hero_title: About\ Me
+hero_tagline: Character Profile & Journey
 ---
 
 <!DOCTYPE html>
@@ -31,7 +34,7 @@ description: About Mohammed Farhaan Buckas – RPG-themed character sheet
     h1,h2,h3,h4{font-family:'Cinzel',serif;letter-spacing:1px;}
 
     /* ===== Hero ===== */
-    .hero{position:relative;height:60vh;background:url('assets/videos/Index_Wallpaper.gif') center/cover no-repeat fixed;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .hero-section{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
     #particles-js{position:absolute;inset:0;z-index:1;}
     .hero-content{position:relative;z-index:2;}
 
@@ -79,11 +82,12 @@ description: About Mohammed Farhaan Buckas – RPG-themed character sheet
   </nav>
 
   <!-- ===== Hero ===== -->
-  <header class="hero mb-5">
+  <header class="hero-section hero-bleed">
+    <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
     <div id="particles-js"></div>
-    <div class="hero-content text-center text-light">
-      <h1 class="display-4 fw-bold">About Me</h1>
-      <p class="lead">Character Profile &amp; Journey</p>
+    <div class="hero-content text-center">
+      <h1 class="hero-title">{{ page.hero_title }}</h1>
+      <p class="hero-tagline">{{ page.hero_tagline }}</p>
     </div>
   </header>
 
@@ -263,7 +267,7 @@ description: About Mohammed Farhaan Buckas – RPG-themed character sheet
       gsap.utils.toArray("section").forEach(sec=>{
         gsap.from(sec,{opacity:0,y:30,duration:0.8,scrollTrigger:{trigger:sec,start:"top 80%"}});
       });
-      gsap.to(".hero",{backgroundPositionY:"20%",ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+      gsap.to(".hero-section",{backgroundPositionY:"20%",ease:"none",scrollTrigger:{trigger:".hero-section",start:"top top",end:"bottom top",scrub:true}});
     });
   </script>
 </body>
