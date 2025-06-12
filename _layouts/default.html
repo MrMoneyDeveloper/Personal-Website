@@ -22,7 +22,9 @@ layout: null
   <!-- =============== MASTER THEME =============== -->
  <link href="{{ '/assets/css/style.css' | relative_url }}" rel="stylesheet">
   {%- if page.extra_css -%}
-    <link rel="stylesheet" href="{{ page.extra_css }}">
+    {%- for css in page.extra_css -%}
+      <link rel="stylesheet" href="{{ css }}">
+    {%- endfor -%}
   {%- endif -%}
 </head>
 <body class="d-flex flex-column min-vh-100 bg-dark text-light">
@@ -65,7 +67,9 @@ layout: null
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <script src="{{ '/assets/js/main.js'  | relative_url }}"></script>
   {%- if page.extra_js -%}
-    <script src="{{ page.extra_js }}"></script>
+        {%- for js in page.extra_js -%}
+      <script src="{{ js }}"></script>
+    {%- endfor -%}
   {%- endif -%}
 </body>
 </html>
