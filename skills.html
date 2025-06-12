@@ -61,16 +61,19 @@ hero_tagline: Choose a Role & Expand Your Abilities
  
  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
   <script>
-    tsParticles.load("particles-js",{
-      fullScreen:{enable:false},
-      particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:"#ffffff"}},
-      interactivity:{events:{onhover:{enable:true,mode:"repulse"}},modes:{repulse:{distance:100}}},
-      background:{color:"transparent"}
+     document.addEventListener('DOMContentLoaded', () => {
+      tsParticles.load('particles-js',{
+        fullScreen:{enable:false},
+        particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:"#ffffff"}},
+        interactivity:{events:{onhover:{enable:true,mode:"repulse"}},modes:{repulse:{distance:100}}},
+        background:{color:"transparent"}
+      });
     });
   </script>
 
   <!-- Initialize Treant + GSAP Animation -->
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
     const treeConfig = {
       chart: {
         container: "#skills-tree",
