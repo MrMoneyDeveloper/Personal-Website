@@ -240,3 +240,10 @@ body.ready { opacity: 1; }
   transform: translateY(-6px);
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,.4);
 }
+
+.tooltip {
+  position: absolute;
+  z-index: 1000;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
