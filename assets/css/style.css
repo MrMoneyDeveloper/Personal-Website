@@ -22,7 +22,7 @@
 }
 
 * { box-sizing: border-box; }
-html,body { height: 100%; scroll-behavior: smooth; }
+html,body { height: 100%; scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--rpg-bg-dark);
@@ -71,10 +71,10 @@ h1,h2,h3,h4,h5,h6,
   transform: translateY(0%);
   z-index: 0;
 }
-.hero-bleed { /* full-width hero breakout */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+.hero-bleed { /* full-width hero breakout without causing overflow */
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 #particles-js { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero-content { position: relative; z-index: 2; text-align: center; margin-inline:auto; }
@@ -132,8 +132,8 @@ h1,h2,h3,h4,h5,h6,
   transform: translateX(-50%);
 }
 .timeline-item { position: relative; margin: 2rem 0; }
-.timeline-item:nth-child(odd) { padding-right: 55%; }
-.timeline-item:nth-child(even){ padding-left: 55%; }
+.timeline-item:nth-child(odd) { padding-right: 50%; }
+.timeline-item:nth-child(even){ padding-left: 50%; }
 .timeline-item .circle {
   position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
   width: 1rem; height: 1rem; border-radius: 50%;
