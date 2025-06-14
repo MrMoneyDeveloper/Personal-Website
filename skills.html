@@ -23,19 +23,19 @@ hero_tagline: Choose a Role & Expand Your Abilities
       letter-spacing: 1px;
     }
     /* Treant container */
-    #skills-tree {
+     #skills-tree {
       width: 100%;
       height: auto;
       padding: 2rem 0;
       overflow-x: auto;
-      display: flex;
-      justify-content: center;
+      text-align: center;
     }
     /* Style each node */
     .Treant {
       display: inline-block;
       overflow: visible; /* allow tree to expand */
       width: fit-content;
+      margin: 0 auto;
     }
     .Treant .node {
       background: #161b22;
@@ -59,7 +59,7 @@ hero_tagline: Choose a Role & Expand Your Abilities
   </header>
 
   <!-- Skills Tree -->
-  <main class="container flex-grow-1">
+  <main class="container-fluid flex-grow-1">
     <div id="skills-tree"></div>
   </main>
 

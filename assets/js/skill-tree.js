@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const root = d3.hierarchy(data);
   tree(root);
 
-  const height = root.height * dx + 60;
+  const height = root.height * dx + 80;
 
   const svg = d3.select(container)
     .append('svg')
