@@ -3,11 +3,9 @@ layout: default
 title: Skills
 permalink: /skills.html
 description: Mohammed Farhaan Buckas – interactive RPG skill trees
-extra_css:
-  - "https://cdn.jsdelivr.net/npm/treant-js@1.0/Treant.css"
 extra_js:
-  - "https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"
-  - "https://cdn.jsdelivr.net/npm/treant-js@1.0/Treant.min.js"
+  - "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
+  - "assets/js/skill-tree.js"
 hero_background: /assets/videos/Index_Wallpaper.gif
 hero_title: Skill Trees
 hero_tagline: Choose a Role & Expand Your Abilities
@@ -24,20 +22,15 @@ hero_tagline: Choose a Role & Expand Your Abilities
       font-family: 'Cinzel', serif;
       letter-spacing: 1px;
     }
-    /* Treant container */
+    /* Tree container */
     #skills-tree {
       width: 100%;
       height: auto;
       padding: 2rem 0;
     }
-    /* Style each node */
-    .Treant .node {
-      background: #161b22;
-      border: 1px solid #343a40;
-      border-radius: .5rem;
-      padding: .5rem .75rem;
-      color: #f8f9fa;
+    #skills-tree text {
       font-family: 'Cinzel', serif;
+      fill: #f8f9fa;
     }
   </style>
 
@@ -61,7 +54,7 @@ hero_tagline: Choose a Role & Expand Your Abilities
  
  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
   <script>
-     document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       tsParticles.load('particles-js',{
         fullScreen:{enable:false},
         particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:"#ffffff"}},
@@ -71,50 +64,4 @@ hero_tagline: Choose a Role & Expand Your Abilities
     });
   </script>
 
-  <!-- Initialize Treant + GSAP Animation -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const treeConfig = {
-      chart: {
-        container: "#skills-tree",
-        nodeAlign: "TOP",
-        connectors: { type: "step", style: { "stroke-width": 2, stroke: "#ffc107" } },
-        animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700 },
-        levelSeparation: 60
-      },
-      nodeStructure: {
-        text: { name: "All Skills" },
-        children: [
-          {
-            text: { name: "Web Development" },
-            children: [
-              { text: { name: ".NET / C#" } },
-              { text: { name: "Node.js" } },
-              { text: { name: "JavaScript / ES6+" } }
-            ]
-          },
-          {
-            text: { name: "Databases" },
-            children: [
-              { text: { name: "MSSQL" } },
-              { text: { name: "PostgreSQL" } }
-            ]
-          },
-          { text: { name: "Agile / Scrum" } }
-        ]
-      }
-    };
-    new Treant(treeConfig);
-
-    // Fade-in nodes on scroll
-    gsap.from('.node', {
-      opacity: 0,
-      y: -30,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'back.out(1.5)',
-      scrollTrigger: { trigger: "#skills-tree", start: "top 80%" }
-    });
-  </script>
-
-
+ 
