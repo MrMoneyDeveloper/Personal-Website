@@ -12,8 +12,12 @@ hero_cta_text: Explore My Skills
 hero_cta_link: skills.html
 extra_css:
   - assets/css/tetris.css
+  - assets/css/snake.css
+  - assets/css/breakout.css
 extra_js:
   - assets/js/tetris.js
+  - assets/js/snake.js
+  - assets/js/breakout.js
 ---
 
 
@@ -30,7 +34,6 @@ extra_js:
       <i class="fa-solid fa-dungeon me-2"></i>{{ page.hero_cta_text }}
     </a>
     {%- endif -%}
-    </a>
   </div>
 
   <div class="scroll-cue"><i class="fa-solid fa-chevron-down"></i></div>
@@ -97,16 +100,42 @@ extra_js:
 </section>
 
 
-<!-- ============================== TETRIS GAME ============================== -->
+<!-- =============================== GAME CAROUSEL =============================== -->
 <section class="py-5 reveal-on-scroll">
   <div class="container text-center">
-    <h2 class="mb-4">Mini Tetris</h2>
-    <p class="mb-3">Take a break and play a quick game!</p>
-    <button id="tetris-start" class="btn btn-outline-warning mb-3">Start Tetris</button>
-    <div id="tetris-container">
-      <canvas id="tetris-canvas" width="200" height="400"></canvas>
+    <h2 class="mb-4">Retro Games</h2>
+    <div id="gameCarousel" class="carousel slide" data-bs-ride="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active text-center">
+          <canvas id="tetris-canvas" width="200" height="400"></canvas>
+          <div class="mt-2">
+            <button id="tetris-start" class="btn btn-outline-warning">Start</button>
+            <button id="tetris-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+          <div id="tetris-score" class="mt-2"></div>
+        </div>
+        <div class="carousel-item text-center">
+          <canvas id="snake-canvas" width="200" height="200"></canvas>
+          <div class="mt-2">
+            <button id="snake-start" class="btn btn-outline-warning">Start</button>
+            <button id="snake-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+        </div>
+        <div class="carousel-item text-center">
+          <canvas id="breakout-canvas" width="200" height="300"></canvas>
+          <div class="mt-2">
+            <button id="breakout-start" class="btn btn-outline-warning">Start</button>
+            <button id="breakout-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
     </div>
-    <div id="tetris-score" class="mt-2"></div>
   </div>
 </section>
 
@@ -135,11 +164,20 @@ extra_js:
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('ready');
     
-    const startBtn = document.getElementById('tetris-start');
-    startBtn?.addEventListener('click', () => {
-      startBtn.disabled = true;
-      startTetris();
+    const carouselEl = document.getElementById('gameCarousel');
+    const carousel = carouselEl ? new bootstrap.Carousel(carouselEl, { interval: false }) : null;
+    carouselEl?.addEventListener('slide.bs.carousel', () => {
+      stopTetris?.();
+      stopSnake?.();
+      stopBreakout?.();
     });
+    
+    document.getElementById('tetris-start')?.addEventListener('click', startTetris);
+    document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
+    document.getElementById('snake-start')?.addEventListener('click', startSnake);
+    document.getElementById('snake-stop')?.addEventListener('click', stopSnake);
+    document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
+    document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
   });
 
   /* ---------------- WINDOW LOAD ---------------- */
@@ -209,10 +247,10 @@ extra_js:
       });
     });
 
-    // Tetris canvas entrance
-    gsap.from('#tetris-container', {
+   // Game canvas entrance
+    gsap.from('#gameCarousel canvas', {
       opacity: 0, y: 40, duration: 0.6, ease: 'power1.out',
-      scrollTrigger: { trigger: '#tetris-container', start: 'top 85%' }
+       scrollTrigger: { trigger: '#gameCarousel', start: 'top 85%' }
     });
   }
 </script>

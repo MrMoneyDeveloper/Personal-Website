@@ -1,14 +1,22 @@
 // Simple Tetris implementation
 // Controls: arrows to move, Q/W to rotate
 
+
 (function(global){
   let gameActive = false;
+  let animationId;
 
   global.startTetris = function(){
-    if (gameActive) return;
+    if (gameActive) global.stopTetris();
     gameActive = true;
     init();
   };
+
+global.stopTetris = function(){
+    gameActive = false;
+    if (animationId) cancelAnimationFrame(animationId);
+  };
+
 
   function init(){
     const canvas = document.getElementById('tetris-canvas');
@@ -191,7 +199,7 @@
         playerDrop();
       }
       draw();
-      requestAnimationFrame(update);
+      animationId = requestAnimationFrame(update);
     }
 
     function updateScore() {
