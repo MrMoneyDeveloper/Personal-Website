@@ -1,124 +1,160 @@
-/* ───────────────────────────────────────────────────────────
-   Cyber‑Punk Menu Skill Tree – Mohammed Farhaan Buckas
-   Lightweight sidebar + panel version for GitHub Pages
-   ───────────────────────────────────────────────────────────*/
-
-document.addEventListener('DOMContentLoaded', ()=>{
-  /* === CONFIG === */
-  const COLORS = { neon:'#00e0ff', text:'#e4e8fa', bg:'#161b22', stroke:'#343a40' };
-  const ICONS  = {
-    web:'assets/icons/web.svg', node:'assets/icons/node.svg', js:'assets/icons/js.svg',
-    dotnet:'assets/icons/dotnet.svg', db:'assets/icons/db.svg', mssql:'assets/icons/sql.svg',
-    postgres:'assets/icons/pg.svg', agile:'assets/icons/agile.svg'
+/* ──────────────────────────────────────────────────────────
+   Gold-Cyber Skill Tiles – Mohammed Farhaan Buckas
+   Sidebar → category | Panel → gold tiles (years / cert)
+   ──────────────────────────────────────────────────────────*/
+document.addEventListener('DOMContentLoaded', () => {
+  /* === PALETTE & ICONS === */
+  const C = { gold: '#ffc107', text: '#f8f9fa', bg: '#161b22', stroke: '#343a40' };
+  const ICON = {            /* (optional) per-category icons */
+    code: 'assets/icons/code.svg',
+    db:   'assets/icons/db.svg',
+    cloud:'assets/icons/cloud.svg',
+    test: 'assets/icons/test.svg',
+    infra:'assets/icons/infra.svg',
+    tool: 'assets/icons/tool.svg',
+    cert: 'assets/icons/cert.svg'
   };
 
-  /* === DATA === */
-  const data = { name:'All Skills', children:[
-    { name:'Web Development', badge:'web', id:'webDev', children:[
-      {name:'.NET / C#',badge:'dotnet'}, {name:'Node.js',badge:'node'},
-      {name:'JavaScript / ES6+',badge:'js'}, {name:'HTML5'},
-      {name:'CSS / Flexbox / Bootstrap'}, {name:'React / React 18'},
-      {name:'Razor Pages'}, {name:'AJAX / JSON'}]},
-    { name:'Databases', badge:'db', id:'db', children:[
-      {name:'MSSQL',badge:'mssql'},{name:'PostgreSQL',badge:'postgres'},
-      {name:'SQL Server Management Studio'}, {name:'Database Design / Testing'},
-      {name:'pgAdmin'},{name:'Dapper ORM'}]},
-    { name:'Backend & APIs', id:'backend', children:[
-      {name:'ASP.NET MVC'},{name:'Express.js'},{name:'Flask / Dash'},
-      {name:'API Integration'},{name:'Postman'}]},
-    { name:'DevOps & Cloud', id:'devops', children:[
-      {name:'Microsoft Azure (basic)'},{name:'AWS (S3/Glue/Redshift)'},
-      {name:'Git / GitHub'},{name:'CI/CD Pipelines'},{name:'Docker (basic)'}]},
-    { name:'Testing & QA', id:'testing', children:[
-      {name:'Unit / Integration Testing'},{name:'System / Acceptance Testing'},
-      {name:'Black Box / White Box Testing'},{name:'ETL Testing'},
-      {name:'A/B Testing'}]},
-    { name:'Infrastructure & Networking', id:'infra', children:[
-      {name:'cPanel'},{name:'Synology NAS'},{name:'MikroTik RouterOS'},
-      {name:'RAID Configuration'},{name:'Active Directory'},
-      {name:'Firewall Config / Spam Filtering'},{name:'Packet Tracer'}]},
-    { name:'Data & Visualisation', id:'dataViz', children:[
-      {name:'Power BI'},{name:'Google Sheets'},{name:'Excel / Pivot Tables'},
-      {name:'Google Forms / Scripts'},{name:'Data Analysis / Interpretation'}]},
-    { name:'Project & Business Tools', id:'biz', children:[
-      {name:'Odoo ERP'},{name:'CRM Functional Specs'},{name:'UML / FRS / Wireframing'},
-      {name:'Requirements Elicitation'},{name:'Agile / Scrum',badge:'agile'},
-      {name:'Team Leadership & Training'}]},
-    { name:'IDE & Collaboration', id:'ide', children:[
-      {name:'Visual Studio / VS Code'},{name:'Microsoft Teams'},{name:'Miro / Lucidchart'}]}
-  ]};
+  /* === MASTER DATA (years ≈) === */
+  const data = [
+    {
+      id: 'lang', name: 'Languages', icon: 'code', skills: [
+        { s: 'C# / .NET', y: 3 }, { s: 'JavaScript (ES6+)', y: 3 },
+        { s: 'Python', y: 3 }, { s: 'SQL (T-SQL)', y: 2 },
+        { s: 'Java', y: 0.5 }, { s: 'VB-.NET', y: 2 }
+      ]
+    },
+    {
+      id: 'fw', name: 'Frameworks & Libs', icon: 'code', skills: [
+        { s: 'ASP.NET MVC / Razor / Core', y: 3 },
+        { s: 'Entity Framework', y: 1.5 },
+        { s: 'LINQ', y: 1.5 },
+        { s: 'React 18', y: 1 }, { s: 'React Native', y: 0.8 },
+        { s: 'Express (Node)', y: 1 }, { s: 'Flask / Dash', y: 0.8 },
+        { s: 'Dapper ORM', y: 0.7 },
+        { s: 'NumPy / Pandas / Plotly', y: 0.5 },
+        { s: 'D3.js', y: 0.5 }, { s: 'Webpack / Babel', y: 0.3 }
+      ]
+    },
+    {
+      id: 'db', name: 'Databases', icon: 'db', skills: [
+        { s: 'PostgreSQL', y: 2 }, { s: 'MSSQL', y: 2 },
+        { s: 'MySQL', y: 0.5 }, { s: 'pgAdmin', y: 1 },
+        { s: 'SQL Server Mgmt Studio', y: 2 }, { s: 'Dapper ORM', y: 0.7 }
+      ]
+    },
+    {
+      id: 'cloud', name: 'Dev-Ops & Cloud', icon: 'cloud', skills: [
+        { s: 'Git / GitHub', y: 3 }, { s: 'GitHub Actions', y: 3 },
+        { s: 'Azure', y: 2 }, { s: 'AWS (S3 / Glue / Redshift)', y: 1 },
+        { s: 'Docker (learning)', y: 0 }
+      ]
+    },
+    {
+      id: 'test', name: 'Testing & QA', icon: 'test', skills: [
+        { s: 'xUnit / NUnit', y: 2 }, { s: 'pytest', y: 0.8 },
+        { s: 'Black- / White-Box', y: 3 }, { s: 'ETL Testing', y: 1 },
+        { s: 'A/B Testing', y: 3 }
+      ]
+    },
+    {
+      id: 'bi', name: 'Data & BI', icon: 'db', skills: [
+        { s: 'Power BI', y: 0.5 }, { s: 'Excel / Pivot', y: 3 },
+        { s: 'Google Sheets / Forms', y: 1 }, { s: 'Data Analysis', y: 2 }
+      ]
+    },
+    {
+      id: 'infra', name: 'Infrastructure', icon: 'infra', skills: [
+        { s: 'MikroTik RouterOS', y: 1 }, { s: 'cPanel email', y: 1 },
+        { s: 'Synology NAS + RAID', y: 1 }, { s: 'Active Directory', y: 1 }
+      ]
+    },
+    {
+      id: 'tools', name: 'Tools & IDEs', icon: 'tool', skills: [
+        { s: 'Visual Studio / VS Code', y: 3 }, { s: 'Postman', y: 1 }
+      ]
+    },
+    {
+    id: 'cert',
+    name: 'Certifications',
+    icon: 'cert',
+    skills: [
+      { s: 'Linux Essentials (NDG) — 2021',          cert: true },
+      { s: 'Linux Unhatched (NDG) — 2020',           cert: true },
+      { s: 'Intro to Packet Tracer — 2020',          cert: true },
+      { s: 'Intro to PostgreSQL — 2024',             cert: true },
+      { s: 'Introduction to Data Science — 2024',    cert: true },
+      { s: 'Introduction to Cybersecurity — 2021',   cert: true },
+      { s: 'Cybersecurity Essentials — 2021',        cert: true },
+      { s: 'ChatGPT: Perfecting Output w/ Templates — 2024', cert: true },
+      { s: 'Networking Foundations: LANs — 2024',    cert: true },
+      { s: 'Business Dev Foundations: Market & Customer — 2024', cert: true },
+      { s: 'Learning SOLID Programming Principles — 2024', cert: true },
+      { s: 'Nano Tips: Speak Up in Meetings — 2024', cert: true },
+      { s: 'Get Connected — 2020',                  cert: true },
+      { s: 'Introduction to IoT — 2020',            cert: true }
+       ]
+    }
+  ];
 
-  /* === BUILD LAYOUT === */
-  const rootContainer = document.getElementById('skills-tree');
-  rootContainer.innerHTML = `<aside id="skills-menu"></aside><section id="skills-panel"><svg></svg></section>`;
-  const menu   = document.getElementById('skills-menu');
-  const svg    = d3.select('#skills-panel svg')
-                   .attr('width','100%').attr('height','100%');
+  /* === BUILD HTML SKELETON === */
+  const host = document.getElementById('skills-tree');
+  host.innerHTML =
+    `<aside id="skill-side"></aside><section id="skill-panel"></section>`;
+  const side = document.getElementById('skill-side');
+  const panel = document.getElementById('skill-panel');
 
-  // Sidebar buttons
-  data.children.forEach(cat=>{
-    const btn=document.createElement('button');
-    btn.className='menu-item';
-    btn.textContent=cat.name;
-    btn.onclick=()=>renderBranch(cat);
-    menu.appendChild(btn);
+  /* === SIDEBAR BUTTONS === */
+  data.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.innerHTML = `<span>${cat.name}</span>`;
+    btn.onclick = () => render(cat);
+    side.appendChild(btn);
   });
 
-  // D3 tree layout for right panel
-  const tree = d3.tree().nodeSize([28,160]);
-
-  function renderBranch(branch){
-    svg.selectAll('*').remove();
-    const root=d3.hierarchy(branch);
-    tree(root);
-    const g=svg.append('g').attr('transform','translate(40,40)');
-
-    // links
-    g.selectAll('path')
-      .data(root.links())
-      .enter().append('path')
-        .attr('d',d3.linkHorizontal().x(d=>d.y).y(d=>d.x))
-        .attr('fill','none').attr('stroke',COLORS.neon).attr('stroke-width',2)
-        .attr('filter','url(#neon)');
-
-    // nodes
-    const node=g.selectAll('g').data(root.descendants()).enter().append('g')
-                .attr('transform',d=>`translate(${d.y},${d.x})`)  
-                .on('click',(e,d)=>{toggle(d);renderBranch(branch)});
-
-    node.append('circle').attr('r',12).attr('fill',COLORS.bg).attr('stroke',COLORS.stroke);
-    node.append('text')
-        .attr('dy','0.35em').attr('x',d=>d.children||d._children?-16:16)
-        .attr('text-anchor',d=>d.children||d._children?'end':'start')
-        .style('fill',COLORS.text).text(d=>d.data.name);
-    node.filter(d=>d.data.badge).append('image')
-        .attr('xlink:href',d=>ICONS[d.data.badge]||'')
-        .attr('x',-12).attr('y',-36).attr('width',24).attr('height',24);
+  /* === RENDER TILES === */
+  function render(cat) {
+    panel.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'tile-wrap';
+    cat.skills.forEach(sk => {
+      const tile = document.createElement('div');
+      tile.className = 'skill-tile';
+      tile.innerHTML =
+        `<span class="skill-name">${sk.s}</span>` +
+        (sk.cert
+          ? `<span class="badge badge-cert">CERT</span>`
+          : `<span class="badge">${sk.y} yr${sk.y === 1 ? '' : 's'}</span>`);
+      wrap.appendChild(tile);
+    });
+    panel.appendChild(wrap);
   }
+  render(data[0]); // load first category
 
-  function toggle(d){
-    if(d.children){d._children=d.children;d.children=null;}else{d.children=d._children;d._children=null;}
-  }
-
-  // Initial Render
-  renderBranch(data.children[0]);
-
-  /* === CYBER STYLES === */
-  const style=document.createElement('style');
-  style.textContent=`
-    #skills-tree{display:flex;min-height:600px}
-    #skills-menu{width:220px;background:#090c15;border-right:2px solid ${COLORS.neon};
-      display:flex;flex-direction:column;gap:.5rem;padding:1rem}
-    .menu-item{background:transparent;color:${COLORS.neon};border:1px solid ${COLORS.neon};
-      padding:.6rem 1rem;font-family:'Cinzel',serif;cursor:pointer;border-radius:4px;text-align:left;transition:.25s}
-    .menu-item:hover{background:${COLORS.neon};color:#0d1117}
-    #skills-panel{flex:1;overflow:auto;padding:1rem}
-    svg .link{filter:drop-shadow(0 0 4px ${COLORS.neon}80)}
+  /* === GOLD-THEME STYLES === */
+  const css = document.createElement('style');
+  css.textContent = `
+    #skills-tree        {display:flex;min-height:600px}
+    #skill-side         {width:240px;background:#0d1117;border-right:2px solid ${C.gold};
+                         display:flex;flex-direction:column;gap:.65rem;padding:1.1rem}
+    .cat-btn            {background:transparent;color:${C.gold};border:1px solid ${C.gold};
+                         font-family:'Cinzel',serif;font-size:.95rem;
+                         padding:.65rem 1rem;cursor:pointer;border-radius:6px;text-align:left;
+                         transition:.25s}
+    .cat-btn:hover      {background:${C.gold};color:#0d1117}
+    #skill-panel        {flex:1;padding:1.5rem;overflow:auto}
+    .tile-wrap          {display:flex;flex-wrap:wrap;gap:1rem;max-width:1000px}
+    .skill-tile         {position:relative;min-width:160px;background:${C.bg};
+                         border:1px solid ${C.gold};color:${C.text};
+                         padding:1.1rem 1.3rem;border-radius:10px;
+                         font-family:'Inter',sans-serif;
+                         box-shadow:0 0 6px ${C.gold}55;transition:.2s}
+    .skill-tile:hover   {transform:translateY(-4px);box-shadow:0 0 10px ${C.gold}aa}
+    .badge              {position:absolute;top:6px;right:10px;
+                         background:${C.gold};color:#0d1117;
+                         font-size:.65rem;padding:.15rem .4rem;border-radius:4px}
+    .badge-cert         {background:#198754;color:#fff}
   `;
-  document.head.appendChild(style);
-
-  /* SVG filter for glow */
-  svg.append('defs').html(`<filter id="neon" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="${COLORS.neon}"/>
-    </filter>`);
+  document.head.appendChild(css);
 });
