@@ -62,7 +62,7 @@ const data = [
       { s: 'GitLab',                     y: 1 },
       { s: 'GitHub Actions',             y: 3 },
       { s: 'Azure',                      y: 2 },
-      { s: 'AWS (S3 / Glue / Redshift)', y: 1 },
+      { s: 'AWS (S3 / Glue / Redshift)', y: 0.5 },
       { s: 'Docker (learning)',          y: 0 }
   ]},
 
@@ -75,12 +75,22 @@ const data = [
       { s: 'A/B Testing',                y: 3 }
   ]},
 
+  /* ───────── SDLC / METHODOLOGIES ───────── */
+  { id: 'method', name: 'Methodologies', icon: 'tool', skills: [
+      { s: 'Scrum (Agile)',              y: 1 },
+      { s: 'Kanban',                     y: 1 },
+      { s: 'Waterfall',                  y: 3 },
+      { s: 'Incremental Model',          y: 3 },
+      { s: 'RAD',                        y: 3 },
+      { s: 'Iterative Prototyping / Pretotyping', y: 2 }
+  ]},
+
   /* ───────── DATA & BI ───────── */
   { id: 'bi', name: 'Data & BI', icon: 'db', skills: [
       { s: 'Power BI',                   y: 0.5 },
       { s: 'Entity-Relationship Diagrams (ERD)', y: 2 },
-      { s: 'UML',                        y: 3 },
-      { s: 'Excel / Pivot',              y: 3 },
+      { s: 'UML',                        y: 2 },
+      { s: 'Excel (data cleansing)',     y: 3 },
       { s: 'Google Sheets / Forms',      y: 1 },
       { s: 'Data Analysis',              y: 2 }
   ]},
@@ -100,35 +110,29 @@ const data = [
       { s: 'Microsoft Visual Studio',    y: 3 },
       { s: 'Visual Studio Code',         y: 3 },
       { s: 'Android Studio',             y: 0.5 },
-      { s: 'Wireframing',                y: 1 },
+      { s: 'Wireframing (Miro / ERD / UML)', y: 3 },
       { s: 'Figma',                      y: 0.5 },
-      { s: 'Miro',                       y: 1 },
-      { s: 'User-Manual Design',         y: 1 },
-      { s: 'SOP Design',                 y: 1 }
+      { s: 'Miro (flows / PM)',          y: 3 },
+      { s: 'User-Manual Design',         y: 1 }
   ]},
 
   /* ───────── CERTIFICATIONS ───────── */
-  {
-    id: 'cert',
-    name: 'Certifications',
-    icon: 'cert',
-    skills: [
-      { s: 'Linux Essentials (NDG) — 2021',                      cert: true },
-      { s: 'Linux Unhatched (NDG) — 2020',                       cert: true },
-      { s: 'Intro to Packet Tracer — 2020',                      cert: true },
-      { s: 'Intro to PostgreSQL — 2024',                         cert: true },
-      { s: 'Intro to Data Science — 2024',                       cert: true },
-      { s: 'Intro to Cybersecurity — 2021',                      cert: true },
-      { s: 'Cybersecurity Essentials — 2021',                    cert: true },
-      { s: 'ChatGPT: Perfecting Output w/ Templates — 2024',     cert: true },
-      { s: 'Networking Foundations – LANs — 2024',               cert: true },
-      { s: 'Business Dev Foundations – Market & Customer — 2024',cert: true },
-      { s: 'Learning SOLID Programming Principles — 2024',       cert: true },
-      { s: 'Nano Tips: Speak Up in Meetings — 2024',             cert: true },
-      { s: 'Get Connected — 2020',                               cert: true },
-      { s: 'Introduction to IoT — 2020',                         cert: true }
-    ]
-  }
+  { id: 'cert', name: 'Certifications', icon: 'cert', skills: [
+      { s: 'Linux Essentials (NDG) — 2021',                          cert: true },
+      { s: 'Linux Unhatched (NDG) — 2020',                           cert: true },
+      { s: 'Intro to Packet Tracer — 2020',                          cert: true },
+      { s: 'Intro to PostgreSQL — 2024',                             cert: true },
+      { s: 'Intro to Data Science — 2024',                           cert: true },
+      { s: 'Intro to Cybersecurity — 2021',                          cert: true },
+      { s: 'Cybersecurity Essentials — 2021',                        cert: true },
+      { s: 'ChatGPT Templates – 2024',                               cert: true },
+      { s: 'Networking Foundations – LANs — 2024',                   cert: true },
+      { s: 'Business Dev Foundations – Market & Customer — 2024',    cert: true },
+      { s: 'Learning SOLID Programming Principles — 2024',           cert: true },
+      { s: 'Nano Tips – Speak Up in Meetings — 2024',                cert: true },
+      { s: 'Get Connected — 2020',                                   cert: true },
+      { s: 'Introduction to IoT — 2020',                             cert: true }
+  ]}
 ];
 
   /* === BUILD HTML SKELETON === */
