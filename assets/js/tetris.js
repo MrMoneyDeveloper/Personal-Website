@@ -1,8 +1,14 @@
 // Simple Tetris implementation
 // Controls: arrows to move, Q/W to rotate
 
-(function(){
-  document.addEventListener('DOMContentLoaded', init);
+(function(global){
+  let gameActive = false;
+
+  global.startTetris = function(){
+    if (gameActive) return;
+    gameActive = true;
+    init();
+  };
 
   function init(){
     const canvas = document.getElementById('tetris-canvas');
@@ -194,15 +200,18 @@
     }
 
     document.addEventListener('keydown', event => {
-      if (event.keyCode === 37) {
+      if (!gameActive) return;
+      const code = event.keyCode;
+      if ([37,38,39,40].includes(code)) event.preventDefault();
+      if (code === 37) {
         playerMove(-1);
-      } else if (event.keyCode === 39) {
+      } else if (code === 39) {
         playerMove(1);
-      } else if (event.keyCode === 40) {
+      } else if (code === 40) {
         playerDrop();
-      } else if (event.keyCode === 81) {
+      } else if (code === 81) {
         playerRotate(-1);
-      } else if (event.keyCode === 87) {
+      } else if (code === 87) {
         playerRotate(1);
       }
     });
@@ -213,4 +222,4 @@
     updateScore();
     update();
   }
-})();
+})(window);
