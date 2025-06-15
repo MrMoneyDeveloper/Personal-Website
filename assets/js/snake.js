@@ -71,5 +71,6 @@
   global.stopSnake = function(){
     gameActive = false;
     cancelAnimationFrame(animationId);
+    document.removeEventListener('keydown', onKey);
   };
 })(window);

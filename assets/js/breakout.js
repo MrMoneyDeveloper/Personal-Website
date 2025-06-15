@@ -47,5 +47,7 @@
   global.stopBreakout = function(){
     gameActive = false;
     cancelAnimationFrame(animationId);
+    document.removeEventListener('keydown', handleKey);
+    document.removeEventListener('keyup', handleKey);
   };
 })(window);

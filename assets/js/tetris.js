@@ -5,6 +5,7 @@
 (function(global){
   let gameActive = false;
   let animationId;
+  let handleKey;
 
   global.startTetris = function(){
     if (gameActive) global.stopTetris();
@@ -15,7 +16,12 @@
 global.stopTetris = function(){
     gameActive = false;
     if (animationId) cancelAnimationFrame(animationId);
+    if (handleKey) {
+      document.removeEventListener('keydown', handleKey);
+      handleKey = null;
+    }
   };
+
 
 
   function init(){
@@ -207,7 +213,7 @@ global.stopTetris = function(){
       if (el) el.textContent = 'Score: ' + player.score;
     }
 
-    document.addEventListener('keydown', event => {
+    handleKey = function(event){
       if (!gameActive) return;
       const code = event.keyCode;
       if ([37,38,39,40].includes(code)) event.preventDefault();
@@ -222,7 +228,8 @@ global.stopTetris = function(){
       } else if (code === 87) {
         playerRotate(1);
       }
-    });
+    };
+    document.addEventListener('keydown', handleKey);
 
     const arena = createMatrix(cols, rows);
     const player = {pos: {x:0, y:0}, matrix: null, score:0};

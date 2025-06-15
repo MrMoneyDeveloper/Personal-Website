@@ -103,7 +103,7 @@ extra_js:
 <!-- =============================== GAME CAROUSEL =============================== -->
 <section class="py-5 reveal-on-scroll">
   <div class="container text-center">
-    <h2 class="mb-4">Retro Games</h2>
+     <h2 class="mb-4">Retro Games</h2>
     <div id="gameCarousel" class="carousel slide" data-bs-ride="false">
       <div class="carousel-inner">
         <div class="carousel-item active text-center">
@@ -111,6 +111,12 @@ extra_js:
           <div class="mt-2">
             <button id="tetris-start" class="btn btn-outline-warning">Start</button>
             <button id="tetris-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+          <div class="touch-controls mt-2">
+            <button data-key="37" class="btn btn-warning">&#9664;</button>
+            <button data-key="40" class="btn btn-warning">&#9660;</button>
+            <button data-key="39" class="btn btn-warning">&#9654;</button>
+            <button data-key="81" class="btn btn-warning">Q/W</button>
           </div>
           <div id="tetris-score" class="mt-2"></div>
         </div>
@@ -120,12 +126,22 @@ extra_js:
             <button id="snake-start" class="btn btn-outline-warning">Start</button>
             <button id="snake-stop" class="btn btn-outline-warning ms-2">Stop</button>
           </div>
+          <div class="touch-controls mt-2">
+            <button data-key="38" class="btn btn-warning">&#9650;</button>
+            <button data-key="37" class="btn btn-warning">&#9664;</button>
+            <button data-key="40" class="btn btn-warning">&#9660;</button>
+            <button data-key="39" class="btn btn-warning">&#9654;</button>
+          </div>
         </div>
         <div class="carousel-item text-center">
           <canvas id="breakout-canvas" width="200" height="300"></canvas>
           <div class="mt-2">
             <button id="breakout-start" class="btn btn-outline-warning">Start</button>
             <button id="breakout-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+          <div class="touch-controls mt-2">
+            <button data-key="37" class="btn btn-warning">&#9664;</button>
+            <button data-key="39" class="btn btn-warning">&#9654;</button>
           </div>
         </div>
       </div>
@@ -164,6 +180,7 @@ extra_js:
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('ready');
     
+    
     const carouselEl = document.getElementById('gameCarousel');
     const carousel = carouselEl ? new bootstrap.Carousel(carouselEl, { interval: false }) : null;
     carouselEl?.addEventListener('slide.bs.carousel', () => {
@@ -171,7 +188,25 @@ extra_js:
       stopSnake?.();
       stopBreakout?.();
     });
-    
+
+    function sendKey(code, type='keydown') {
+      const evt = new KeyboardEvent(type, { keyCode: code, which: code, bubbles: true });
+      document.dispatchEvent(evt);
+    }
+
+    document.querySelectorAll('.touch-controls button').forEach(btn => {
+      btn.addEventListener('touchstart', e => {
+        e.preventDefault();
+        sendKey(parseInt(btn.dataset.key), 'keydown');
+      });
+      btn.addEventListener('touchend', e => {
+        e.preventDefault();
+        sendKey(parseInt(btn.dataset.key), 'keyup');
+      });
+      btn.addEventListener('mousedown', () => sendKey(parseInt(btn.dataset.key), 'keydown'));
+      btn.addEventListener('mouseup', () => sendKey(parseInt(btn.dataset.key), 'keyup'));
+    });
+
     document.getElementById('tetris-start')?.addEventListener('click', startTetris);
     document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
     document.getElementById('snake-start')?.addEventListener('click', startSnake);
@@ -250,7 +285,7 @@ extra_js:
    // Game canvas entrance
     gsap.from('#gameCarousel canvas', {
       opacity: 0, y: 40, duration: 0.6, ease: 'power1.out',
-       scrollTrigger: { trigger: '#gameCarousel', start: 'top 85%' }
+      scrollTrigger: { trigger: '#gameCarousel', start: 'top 85%' }
     });
   }
 </script>
