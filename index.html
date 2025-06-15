@@ -97,11 +97,12 @@ extra_js:
 </section>
 
 
- <!-- ============================== TETRIS GAME ============================== -->
+<!-- ============================== TETRIS GAME ============================== -->
 <section class="py-5 reveal-on-scroll">
   <div class="container text-center">
     <h2 class="mb-4">Mini Tetris</h2>
     <p class="mb-3">Take a break and play a quick game!</p>
+    <button id="tetris-start" class="btn btn-outline-warning mb-3">Start Tetris</button>
     <div id="tetris-container">
       <canvas id="tetris-canvas" width="200" height="400"></canvas>
     </div>
@@ -133,6 +134,12 @@ extra_js:
   /* ---------------- GLOBAL READY ---------------- */
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('ready');
+    
+    const startBtn = document.getElementById('tetris-start');
+    startBtn?.addEventListener('click', () => {
+      startBtn.disabled = true;
+      startTetris();
+    });
   });
 
   /* ---------------- WINDOW LOAD ---------------- */
