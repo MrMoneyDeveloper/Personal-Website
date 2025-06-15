@@ -2,83 +2,51 @@
 layout: default
 title: Skills
 permalink: /skills.html
-description: Mohammed Farhaan Buckas – interactive RPG skill trees
+description: Mohammed Farhaan Buckas – gold-tile interactive skill map
 extra_js:
-  - "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
-  - "assets/js/skill-tree.js"
+  - "assets/js/skill-tree.js"   # ← d3 is no longer needed
 hero_background: /assets/videos/Index_Wallpaper.gif
-hero_title: Skill Trees
-hero_tagline: Choose a Role & Expand Your Abilities
+hero_title: Skill Map
+hero_tagline: Explore My Toolkit & Certifications
 ---
 
-<!-- Custom Styles -->
 <style>
-    body {
-      background: #0d1117;
-      color: #f8f9fa;
-      font-family: 'Inter', sans-serif;
-    }
-    h1,h2,h3 {
-      font-family: 'Cinzel', serif;
-      letter-spacing: 1px;
-    }
-    /* Treant container */
-     #skills-tree {
-      width: 100%;
-      height: auto;
-      padding: 2rem;
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      border: 2px solid #343a40;
-      border-radius: .5rem;
-    }
-    /* Style each node */
-    .Treant {
-      display: inline-block;
-      overflow: visible; /* allow tree to expand */
-      width: fit-content;
-      margin: 0 auto;
-    }
-    .Treant .node {
-      background: #161b22;
-      border: 1px solid #343a40;
-      border-radius: .5rem;
-      padding: .5rem .75rem;
-      color: #f8f9fa;
-      font-family: 'Cinzel', serif;
-    }
-    
-  </style>
+  /* --- global colours still fit dark-mode brand --- */
+  body            { background:#0d1117; color:#f8f9fa; font-family:'Inter',sans-serif }
+  h1,h2,h3        { font-family:'Cinzel',serif; letter-spacing:1px }
 
+  /* --- host container for sidebar + panel (our JS fills it) --- */
+  #skills-tree    { min-height:650px; display:flex; border:2px solid #343a40;
+                    border-radius:.5rem; margin-top:2rem }
+</style>
 
-  <!-- Hero -->
-  <header class="hero-section hero-bleed">
-    <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
-    <div id="particles-js"></div>
-    <div class="hero-content text-center">
-      <h1 class="hero-title">{{ page.hero_title }}</h1>
-      <p class="hero-tagline">{{ page.hero_tagline }}</p>
-    </div>
-  </header>
+<!-- ───── Hero banner ───── -->
+<header class="hero-section hero-bleed">
+  <div  class="hero-bg"
+        style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
+  <div id="particles-js"></div>
+  <div class="hero-content text-center">
+    <h1 class="hero-title">{{ page.hero_title }}</h1>
+    <p  class="hero-tagline">{{ page.hero_tagline }}</p>
+  </div>
+</header>
 
-  <!-- Skills Tree -->
-  <main class="container-fluid flex-grow-1">
-    <div id="skills-tree"></div>
-  </main>
+<!-- ───── Skill Map host ───── -->
+<main class="container-fluid flex-grow-1">
+  <div id="skills-tree"></div>
+</main>
 
-  <!-- JS Libraries -->
- 
- <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      tsParticles.load('particles-js',{
-        fullScreen:{enable:false},
-        particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:"#ffffff"}},
-        interactivity:{events:{onhover:{enable:true,mode:"repulse"}},modes:{repulse:{distance:100}}},
-        background:{color:"transparent"}
-      });
-    });
-  </script>
-
- 
+<!-- ───── Particles (optional aesthetic) ───── -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',() => {
+  tsParticles.load('particles-js',{
+    fullScreen:{enable:false},
+    particles:{number:{value:40},size:{value:2},opacity:{value:0.5},
+               move:{speed:0.6},color:{value:"#ffffff"}},
+    interactivity:{events:{onhover:{enable:true,mode:"repulse"}},
+                   modes:{repulse:{distance:100}}},
+    background:{color:"transparent"}
+  });
+});
+</script>
