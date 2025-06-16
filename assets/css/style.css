@@ -76,6 +76,11 @@ h1,h2,h3,h4,h5,h6,
   margin-left: 0;
   margin-right: 0;
 }
+/* Sub hero sections (smaller banners) */
+.sub-hero-section {
+  position: relative;
+  overflow: hidden;
+}
 #particles-js { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero-content { position: relative; z-index: 2; text-align: center; margin-inline:auto; }
 .hero-title {
