@@ -27,8 +27,9 @@
 
   function handleKey(e){
     if(!gameActive) return;
-    if(e.key === 'ArrowLeft'){ keyLeft = e.type==='keydown'; e.preventDefault(); }
-    if(e.key === 'ArrowRight'){ keyRight = e.type==='keydown'; e.preventDefault(); }
+    const code = e.keyCode || e.which;
+    if(code === 37){ keyLeft = e.type==='keydown'; e.preventDefault(); }
+    if(code === 39){ keyRight = e.type==='keydown'; e.preventDefault(); }
   }
 
   global.startBreakout = function(){

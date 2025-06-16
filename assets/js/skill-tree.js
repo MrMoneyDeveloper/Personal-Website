@@ -193,6 +193,13 @@ const data = [
                          background:${C.gold};color:#0d1117;
                          font-size:.65rem;padding:.15rem .4rem;border-radius:4px}
     .badge-cert         {background:#198754;color:#fff}
-  `;
+  @media (max-width: 768px){
+      #skills-tree   {flex-direction:column}
+      #skill-side    {width:100%;border-right:none;border-bottom:2px solid ${C.gold};
+                      flex-direction:row;overflow-x:auto}
+      #skill-panel   {padding:1rem}
+      .cat-btn       {flex:1;white-space:nowrap}
+    }
+    `;
   document.head.appendChild(css);
 });
