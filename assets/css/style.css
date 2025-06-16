@@ -122,6 +122,10 @@ h1,h2,h3,h4,h5,h6,
 .attribute { width: 220px; max-width: 100%; }
 .attribute .progress { height: .6rem; background:#343a40; border-radius:.25rem; }
 .attribute .progress-bar { background: var(--rpg-gold-light); }
+@media (max-width: 575.98px) {
+  .profile-img { width: 150px; height: 150px; }
+  .attribute { width: 100%; }
+}
 
 /* ===== Timeline (About) ===== */
 .timeline { position: relative; }
@@ -152,13 +156,24 @@ h1,h2,h3,h4,h5,h6,
 @media (max-width: 575.98px) {
   .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { padding-left: 1.5rem; }
 }
+@media (max-width: 575.98px) {
+  .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { padding-left: 1.5rem; }
+}
 
 
 
 /* ========== 6. CORE COMPETENCY CARDS ========= */
 .card.bg-dark { background: var(--rpg-bg-mid) !important; border: 1px solid #343a40; }
 .card.bg-dark .card-title { color: var(--rpg-gold-light); }
-
+.pillar-card {
+  background: var(--rpg-bg-mid);
+  border: 1px solid #343a40;
+  border-radius: var(--rpg-radius-sm);
+  color: var(--rpg-text-light);
+}
+@media (max-width: 575.98px) {
+  .pillar-card { padding: 1.25rem; }
+}
 
 
 
