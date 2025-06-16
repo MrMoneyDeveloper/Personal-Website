@@ -1,4 +1,5 @@
 (function(){
+  let revealSound;
   /* ---------------- GLOBAL READY ---------------- */
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('ready');
@@ -51,7 +52,7 @@
     const flipSound    = new Howl({ src: ['assets/sounds/flip.wav'],   volume: 0.5 });
     const cueSound     = new Howl({ src: ['assets/sounds/cue.wav'],    volume: 0.5 });
     const gallerySound = new Howl({ src: ['assets/sounds/hover.wav'],  volume: 0.5 });
-    const revealSound  = new Howl({ src: ['assets/sounds/reveal.wav'], volume: 0.4 });
+    revealSound = new Howl({ src: ['assets/sounds/reveal.wav'], volume: 0.4 });
 
     heroSound.play();
     document.querySelector('.scroll-cue')?.addEventListener('click', () => cueSound.play());
