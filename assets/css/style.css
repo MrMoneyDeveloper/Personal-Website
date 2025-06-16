@@ -264,3 +264,9 @@ body.ready { opacity: 1; }
   transition: all 0.2s ease;
   pointer-events: none;
 }
+
+/* Game carousel heading */
+.game-title {
+  margin-bottom: 0.5rem;
+  color: var(--rpg-gold-light);
+}
