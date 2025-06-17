@@ -184,12 +184,14 @@ extra_js:
     
     
     const carouselEl = document.getElementById('gameCarousel');
-    const carousel = carouselEl ? new bootstrap.Carousel(carouselEl, { interval: false }) : null;
-    carouselEl?.addEventListener('slide.bs.carousel', () => {
-      stopTetris?.();
-      stopSnake?.();
-      stopBreakout?.();
-    });
+    if (carouselEl && window.bootstrap?.Carousel) {
+      const carousel = new bootstrap.Carousel(carouselEl, { interval: false });
+      carouselEl.addEventListener('slide.bs.carousel', () => {
+        stopTetris?.();
+        stopSnake?.();
+        stopBreakout?.();
+      });
+    }
 
     function sendKey(code, type='keydown') {
       const evt = new KeyboardEvent(type, { keyCode: code, which: code, bubbles: true });
@@ -209,12 +211,18 @@ extra_js:
       btn.addEventListener('mouseup', () => sendKey(parseInt(btn.dataset.key), 'keyup'));
     });
 
-    document.getElementById('tetris-start')?.addEventListener('click', startTetris);
-    document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
-    document.getElementById('snake-start')?.addEventListener('click', startSnake);
-    document.getElementById('snake-stop')?.addEventListener('click', stopSnake);
-    document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
-    document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
+     if (typeof startTetris === 'function')
+      document.getElementById('tetris-start')?.addEventListener('click', startTetris);
+    if (typeof stopTetris === 'function')
+      document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
+    if (typeof startSnake === 'function')
+      document.getElementById('snake-start')?.addEventListener('click', startSnake);
+    if (typeof stopSnake === 'function')
+      document.getElementById('snake-stop')?.addEventListener('click', stopSnake);
+    if (typeof startBreakout === 'function')
+      document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
+    if (typeof stopBreakout === 'function')
+      document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
   });
 
   /* ---------------- WINDOW LOAD ---------------- */
@@ -244,7 +252,7 @@ extra_js:
   });
 
   /* ---------------- tsParticles ---------------- */
-  tsParticles.load('particles-js', {
+   if (window.tsParticles) tsParticles.load('particles-js', {
     background: { color: 'transparent' },
     particles: {
       number:  { value: 45 },
@@ -258,7 +266,7 @@ extra_js:
   }).catch(err => console.warn('tsParticles load failed:', err));
 
   /* ---------------- GSAP ANIMATIONS ---------------- */
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.gsap?.registerPlugin && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
 
     // Hero parallax
