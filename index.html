@@ -298,4 +298,7 @@ extra_js:
       scrollTrigger: { trigger: '#gameCarousel', start: 'top 85%' }
     });
   }
+   window.addEventListener('load', () => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
 </script>

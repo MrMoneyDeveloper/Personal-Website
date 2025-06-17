@@ -85,3 +85,8 @@
     }
   });
 })();
+window.addEventListener('load', function(){
+  if(window.ScrollTrigger){
+    ScrollTrigger.refresh();
+  }
+});
