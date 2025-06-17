@@ -178,25 +178,41 @@ extra_js:
 <!-- ============================== PAGE SCRIPTS ============================ -->
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.3/dist/vanilla-tilt.min.js"></script>
 <script>
-  /* ---------------- GLOBAL READY ---------------- */
-  document.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('ready');
-    
-    
-    const carouselEl = document.getElementById('gameCarousel');
-    if (carouselEl && window.bootstrap?.Carousel) {
-      const carousel = new bootstrap.Carousel(carouselEl, { interval: false });
-      carouselEl.addEventListener('slide.bs.carousel', () => {
+  function initCarousel() {
+    const el = document.getElementById('gameCarousel');
+    if (!el || !window.bootstrap?.Carousel || el.dataset.carouselInit) return;
+    new bootstrap.Carousel(el, { interval: false });
+    el.addEventListener('slide.bs.carousel', () => {
         stopTetris?.();
         stopSnake?.();
         stopBreakout?.();
       });
+        el.dataset.carouselInit = 'true';
+  
     }
 
-    function sendKey(code, type='keydown') {
-      const evt = new KeyboardEvent(type, { keyCode: code, which: code, bubbles: true });
-      document.dispatchEvent(evt);
+    function setupGameControls() {
+    if (setupGameControls.done) return;
+    if (typeof startTetris !== 'function' || typeof stopTetris !== 'function' ||
+        typeof startSnake !== 'function' || typeof stopSnake !== 'function' ||
+        typeof startBreakout !== 'function' || typeof stopBreakout !== 'function') {
+      return;
     }
+    document.getElementById('tetris-start')?.addEventListener('click', startTetris);
+    document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
+    document.getElementById('snake-start')?.addEventListener('click', startSnake);
+    document.getElementById('snake-stop')?.addEventListener('click', stopSnake);
+    document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
+    document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
+    setupGameControls.done = true;
+  }
+
+  function sendKey(code, type='keydown') {
+    const evt = new KeyboardEvent(type, { keyCode: code, which: code, bubbles: true });
+    document.dispatchEvent(evt);
+  }
+
+  function bindTouchControls() {
 
     document.querySelectorAll('.touch-controls button').forEach(btn => {
       btn.addEventListener('touchstart', e => {
@@ -210,6 +226,7 @@ extra_js:
       btn.addEventListener('mousedown', () => sendKey(parseInt(btn.dataset.key), 'keydown'));
       btn.addEventListener('mouseup', () => sendKey(parseInt(btn.dataset.key), 'keyup'));
     });
+  }
 
      if (typeof startTetris === 'function')
       document.getElementById('tetris-start')?.addEventListener('click', startTetris);
@@ -223,7 +240,13 @@ extra_js:
       document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
     if (typeof stopBreakout === 'function')
       document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
-  });
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('ready');
+    initCarousel();
+    bindTouchControls();
+    setupGameControls();
+    });
 
   /* ---------------- WINDOW LOAD ---------------- */
   window.addEventListener('load', () => {
