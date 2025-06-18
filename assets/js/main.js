@@ -88,8 +88,17 @@
     }
   });
 })();
+
 window.addEventListener('load', function(){
   if(window.ScrollTrigger){
-    ScrollTrigger.refresh();
+    ScrollTrigger.refresh(true);
+    // mobile browsers sometimes need an extra tick
+    setTimeout(function(){ ScrollTrigger.refresh(true); }, 200);
+  }
+});
+
+window.addEventListener('orientationchange', function(){
+  if(window.ScrollTrigger){
+    setTimeout(function(){ ScrollTrigger.refresh(true); }, 200);
   }
 });

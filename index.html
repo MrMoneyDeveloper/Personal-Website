@@ -246,10 +246,13 @@ extra_js:
     initCarousel();
     bindTouchControls();
     setupGameControls();
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
     });
 
   /* ---------------- WINDOW LOAD ---------------- */
   window.addEventListener('load', () => {
+    initCarousel();
+    setupGameControls();
     // Tilt on buttons & links (desktop only)
     if (window.matchMedia('(min-width: 768px)').matches) {
       VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
@@ -287,8 +290,15 @@ if (window.tsParticles) {
         detectRetina: true,
       }).catch(err => console.warn('tsParticles load failed:', err));
     }
-   if (window.ScrollTrigger) ScrollTrigger.refresh(true);
+   if (window.ScrollTrigger) {
+      ScrollTrigger.refresh(true);
+      setTimeout(() => ScrollTrigger.refresh(true), 200);
+    }
   });
+   window.addEventListener('orientationchange', () => {
+    if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(true), 300);
+  });
+
   /* ---------------- GSAP ANIMATIONS ---------------- */
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.gsap?.registerPlugin && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
