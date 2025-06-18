@@ -83,6 +83,9 @@
         });
       });
     }
+     if(window.ScrollTrigger){
+      ScrollTrigger.refresh();
+    }
   });
 })();
 window.addEventListener('load', function(){

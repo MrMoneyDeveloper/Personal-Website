@@ -178,6 +178,7 @@ extra_js:
 <!-- ============================== PAGE SCRIPTS ============================ -->
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.3/dist/vanilla-tilt.min.js"></script>
 <script>
+  let revealSound;
   function initCarousel() {
     const el = document.getElementById('gameCarousel');
     if (!el || !window.bootstrap?.Carousel || el.dataset.carouselInit) return;
@@ -188,7 +189,6 @@ extra_js:
         stopBreakout?.();
       });
         el.dataset.carouselInit = 'true';
-  
     }
 
     function setupGameControls() {
@@ -262,7 +262,7 @@ extra_js:
     const flipSound    = new Howl({ src: ['assets/sounds/flip.wav'],   volume: 0.5 });
     const cueSound     = new Howl({ src: ['assets/sounds/cue.wav'],    volume: 0.5 });
     const gallerySound = new Howl({ src: ['assets/sounds/hover.wav'],  volume: 0.5 });
-    const revealSound  = new Howl({ src: ['assets/sounds/reveal.wav'], volume: 0.4 });
+    revealSound  = new Howl({ src: ['assets/sounds/reveal.wav'], volume: 0.4 });
 
     heroSound.play();
     document.querySelector('.scroll-cue')?.addEventListener('click', () => cueSound.play());
@@ -272,22 +272,23 @@ extra_js:
 
     // play revealSound on hover of our Call-to-Adventure block
     document.querySelector('#call-to-adventure')?.addEventListener('mouseenter', () => revealSound.play());
+  
+if (window.tsParticles) {
+      tsParticles.load('particles-js', {
+        background: { color: 'transparent' },
+        particles: {
+          number:  { value: 45 },
+          shape:   { type: 'circle' },
+          size:    { value: 2.5, random: { enable: true, minimumValue: 1 } },
+          opacity: { value: 0.45, random: { enable: true, minimumValue: 0.1 } },
+          move:    { enable: true, speed: 0.7, outModes: 'out' },
+          color:   { value: ['#ffffff', '#d4af37'] },
+        },
+        detectRetina: true,
+      }).catch(err => console.warn('tsParticles load failed:', err));
+    }
+   if (window.ScrollTrigger) ScrollTrigger.refresh(true);
   });
-
-  /* ---------------- tsParticles ---------------- */
-   if (window.tsParticles) tsParticles.load('particles-js', {
-    background: { color: 'transparent' },
-    particles: {
-      number:  { value: 45 },
-      shape:   { type: 'circle' },
-      size:    { value: 2.5, random: { enable: true, minimumValue: 1 } },
-      opacity: { value: 0.45, random: { enable: true, minimumValue: 0.1 } },
-      move:    { enable: true, speed: 0.7, outModes: 'out' },
-      color:   { value: ['#ffffff', '#d4af37'] },
-    },
-    detectRetina: true,
-  }).catch(err => console.warn('tsParticles load failed:', err));
-
   /* ---------------- GSAP ANIMATIONS ---------------- */
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.gsap?.registerPlugin && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
