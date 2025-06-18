@@ -72,6 +72,26 @@
       });
     }
 
+// ---- Vanta Birds background ----
+    if(window.VANTA && window.THREE){
+      VANTA.BIRDS({
+        el: document.body,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        backgroundColor: 0x0d1117,
+        color1: 0xd1a21c,
+        color2: 0xe547b7,
+        birdSize: 1.50,
+        alignment: 37.00,
+        cohesion: 50.00
+      });
+    }
+
     // ---- Scroll reveal animations ----
     if(window.gsap && window.ScrollTrigger){
       gsap.utils.toArray('.reveal-on-scroll').forEach(function(el){
