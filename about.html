@@ -8,251 +8,223 @@ hero_title: About Me
 hero_tagline: Character Profile & Journey
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="h-100">
-<head>
-  <!-- ===== Meta ===== -->
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About Mohammed Farhaan Buckas – RPG‑themed character sheet" />
-  <title>About | Mohammed Farhaan Buckas</title>
+<style>
+  body{font-family:'Inter',sans-serif;color:#f8f9fa;background:#0d1117;}
+  h1,h2,h3,h4{font-family:'Cinzel',serif;letter-spacing:1px;}
 
-  <!-- ===== Favicon / Logo Placeholder ===== -->
-  <link rel="icon" href="assets/images/quest-placeholder1.png" />
+  /* ===== Hero ===== */
+  .hero-section{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  #particles-js{position:absolute;inset:0;z-index:1;}
+  .hero-content{position:relative;z-index:2;background:#161b22;padding:1rem 1.25rem;border-radius:.5rem;}
 
-  <!-- ===== Bootstrap & Icons ===== -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  /* ===== Profile Image ===== */
+  .profile-img{width:180px;height:180px;object-fit:cover;border-radius:50%;border:4px solid #ffc107;box-shadow:0 0 15px rgba(255,193,7,.5);}
 
-  <!-- ===== Google Fonts ===== -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  /* ===== Badges & Attribute Bars ===== */
+  .stat-badge{background:#343a40;border:1px solid #ffc107;border-radius:1rem;padding:.5rem 1rem;margin:.25rem;display:inline-block;}
+  .attribute{width:220px;max-width:100%;}
+  .attribute .progress{height:0.6rem;background:#343a40;border-radius:.25rem;}
+  .attribute .progress-bar{background:#ffc107;}
 
-  <!-- ===== Custom Styles ===== -->
-  <style>
-    body{font-family:'Inter',sans-serif;color:#f8f9fa;background:#0d1117;}
-    h1,h2,h3,h4{font-family:'Cinzel',serif;letter-spacing:1px;}
+  /* ===== Timeline ===== */
+  .timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ffc107;transform:translateX(-50%);}
+  .timeline-item{position:relative;margin:2rem 0;}
+  .timeline-item .card{background:#161b22;border:1px solid #343a40;}
+  .timeline-item:nth-child(odd){padding-right:55%;}
+  .timeline-item:nth-child(even){padding-left:55%;}
+  .timeline-item .circle{position:absolute;top:1rem;left:50%;transform:translateX(-50%);width:1rem;height:1rem;border-radius:50%;background:#ffc107;border:2px solid #343a40;z-index:2;}
+  @media(max-width:992px){
+    .timeline::before{left:0;transform:none;}
+    .timeline-item:nth-child(odd),.timeline-item:nth-child(even){padding:0 0 0 2.5rem;}
+    .timeline-item .circle{left:0;transform:none;}
+  }
+</style>
 
-    /* ===== Hero ===== */
-    .hero-section{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-    #particles-js{position:absolute;inset:0;z-index:1;}
-   .hero-content{position:relative;z-index:2;background:#161b22;padding:1rem 1.25rem;border-radius:.5rem;}
+<!-- ===== Hero ===== -->
+<header class="hero-section hero-bleed">
+  <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
+  <div id="particles-js"></div>
+  <div class="hero-content text-center">
+    <h1 class="hero-title">{{ page.hero_title }}</h1>
+    <p class="hero-tagline">{{ page.hero_tagline }}</p>
+  </div>
+</header>
 
-    /* ===== Profile Image ===== */
-    .profile-img{width:180px;height:180px;object-fit:cover;border-radius:50%;border:4px solid #ffc107;box-shadow:0 0 15px rgba(255,193,7,.5);}
+<!-- ===== Main Content ===== -->
+<main class="container mb-5 flex-grow-1">
 
-    /* ===== Badges & Attribute Bars ===== */
-    .stat-badge{background:#343a40;border:1px solid #ffc107;border-radius:1rem;padding:.5rem 1rem;margin:.25rem;display:inline-block;}
-    .attribute{width:220px;max-width:100%;}
-    .attribute .progress{height:0.6rem;background:#343a40;border-radius:.25rem;}
-    .attribute .progress-bar{background:#ffc107;}
-
-    /* ===== Timeline ===== */
-    .timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ffc107;transform:translateX(-50%);}   
-    .timeline-item{position:relative;margin:2rem 0;}
-    .timeline-item .card{background:#161b22;border:1px solid #343a40;}
-    .timeline-item:nth-child(odd){padding-right:55%;}
-    .timeline-item:nth-child(even){padding-left:55%;}
-    .timeline-item .circle{position:absolute;top:1rem;left:50%;transform:translateX(-50%);width:1rem;height:1rem;border-radius:50%;background:#ffc107;border:2px solid #343a40;z-index:2;}
-    @media(max-width:992px){
-      .timeline::before{left:0;transform:none;}
-      .timeline-item:nth-child(odd),.timeline-item:nth-child(even){padding:0 0 0 2.5rem;}
-      .timeline-item .circle{left:0;transform:none;}
-    }
-  </style>
-</head>
-<body class="d-flex flex-column h-100">
-<div id="vanta-bg"></div>
-
-  <!-- ===== Hero ===== -->
-  <header class="hero-section hero-bleed">
-    <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
-    <div id="vanta-bg"></div>
-    <div id="particles-js"></div>
-    <div class="hero-content text-center">
-      <h1 class="hero-title">{{ page.hero_title }}</h1>
-      <p class="hero-tagline">{{ page.hero_tagline }}</p>
+  <!-- === Profile Card === -->
+  <section class="text-center mb-5">
+    <!-- ===== Avatar Placeholder ===== -->
+    <img src="assets/images/ProfilePic.png" alt="Mohammed Farhaan Buckas" class="profile-img mb-3" />
+    <h2 class="fw-bold">Mohammed Farhaan Buckas</h2>
+    <p class="fst-italic">Durban, South Africa • Junior IT Applications Support Specialist</p>
+    <div class="mb-3">
+      <span class="stat-badge">Level 10 Engineer</span>
+      <span class="stat-badge">Class – Full‑Stack Mage</span>
+      <span class="stat-badge">Years XP – 3+</span>
     </div>
-  </header>
+  
 
-  <!-- ===== Main Content ===== -->
-  <main class="container mb-5 flex-grow-1">
-
-    <!-- === Profile Card === -->
-    <section class="text-center mb-5">
-      <!-- ===== Avatar Placeholder ===== -->
-      <img src="assets/images/ProfilePic.png" alt="Mohammed Farhaan Buckas" class="profile-img mb-3" />
-      <h2 class="fw-bold">Mohammed Farhaan Buckas</h2>
-      <p class="fst-italic">Durban, South Africa • Junior IT Applications Support Specialist</p>
-      <div class="mb-3">
-        <span class="stat-badge">Level 10 Engineer</span>
-        <span class="stat-badge">Class – Full‑Stack Mage</span>
-        <span class="stat-badge">Years XP – 3+</span>
+    <!-- ===== Attribute Bars ===== -->
+    <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
+      <div class="attribute">
+        <div class="d-flex justify-content-between small"><span>Strength</span><span>70</span></div>
+        <div class="progress"><div class="progress-bar" style="width:70%"></div></div>
       </div>
 
-      <!-- ===== Attribute Bars ===== -->
-      <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
-        <div class="attribute">
-          <div class="d-flex justify-content-between small"><span>Strength</span><span>70</span></div>
-          <div class="progress"><div class="progress-bar" style="width:70%"></div></div>
-        </div>
-        <div class="attribute">
-          <div class="d-flex justify-content-between small"><span>Intelligence</span><span>92</span></div>
-          <div class="progress"><div class="progress-bar" style="width:92%"></div></div>
-        </div>
-        <div class="attribute">
-          <div class="d-flex justify-content-between small"><span>Dexterity</span><span>68</span></div>
-          <div class="progress"><div class="progress-bar" style="width:68%"></div></div>
-        </div>
-        <div class="attribute">
-          <div class="d-flex justify-content-between small"><span>Charisma</span><span>85</span></div>
-          <div class="progress"><div class="progress-bar" style="width:85%"></div></div>
-        </div>
+     <div class="attribute">
+        <div class="d-flex justify-content-between small"><span>Intelligence</span><span>92</span></div>
+        <div class="progress"><div class="progress-bar" style="width:92%"></div></div>
+
       </div>
+    </div>
 
-      <p class="text-light mx-auto" style="max-width:750px">I leverage a National Diploma in Software Development — and mastery in <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong> — to craft impactful software and resilient infrastructures. Quests accomplished include **Odoo ERP roll‑outs**, a bespoke Ticket‑Tracking System, and network fortification across MikroTik & Synology realms. I thrive on dissecting complex problems, guiding guildmates, and forging innovation wherever the adventure leads.</p>
+   <p class="text-light mx-auto" style="max-width:750px">I leverage a National Diploma in Software Development — and mastery in <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong> — to craft impactful software and resilient infrastructures. Quests accomplished include <strong>Odoo ERP roll‑outs</strong>, a bespoke Ticket‑Tracking System, and network fortification across MikroTik & Synology realms. I thrive on dissecting complex problems, guiding guildmates, and forging innovation wherever the adventure leads.</p>
 
-      <!-- ===== Contact Buttons ===== -->
-      <div class="d-flex justify-content-center gap-3">
-                     <a href="mailto:mohammedfarhaanbuckas@outlook.com" class="btn btn-warning" data-tilt><i class="bi bi-envelope-fill me-1"></i>Email Me</a>
-        <a href="https://www.linkedin.com/in/mohammad-farhaan-buckas-2a67351b9" target="_blank" class="btn btn-outline-light" aria-label="LinkedIn" data-tilt><i class="bi bi-linkedin"></i></a>
-        <a href="https://github.com/MrMoneyDeveloper" target="_blank" class="btn btn-outline-light" aria-label="GitHub" data-tilt><i class="bi bi-github"></i></a>
-      </div>
-    </section>
+    <!-- ===== Contact Buttons ===== -->
+    <div class="d-flex justify-content-center gap-3">
+      <a href="mailto:mohammedfarhaanbuckas@outlook.com" class="btn btn-warning" data-tilt><i class="bi bi-envelope-fill me-1"></i>Email Me</a>
+      <a href="https://www.linkedin.com/in/mohammad-farhaan-buckas-2a67351b9" target="_blank" class="btn btn-outline-light" aria-label="LinkedIn" data-tilt><i class="bi bi-linkedin"></i></a>
+      <a href="https://github.com/MrMoneyDeveloper" target="_blank" class="btn btn-outline-light" aria-label="GitHub" data-tilt><i class="bi bi-github"></i></a>
+    </div>
+  </section>
 
-    <!-- === Core Competencies === -->
-    <section class="mb-5">
-      <h3 class="text-center mb-4">Core Competencies</h3>
-      <div class="row g-4">
-       <div class="col-12 col-sm-6 col-lg-3">
-          <div class="card h-100 text-center bg-dark text-light">
-            <div class="card-body">
-              <i class="bi bi-code-slash display-6 text-warning"></i>
-              <h5 class="card-title mt-3">Full‑Stack Dev</h5>
-              <p class="card-text small">C# • .NET • Node.js • Razor • React • Python • HTML • CSS </p>
-            </div>
-          </div>
-        </div>
-       <div class="col-12 col-sm-6 col-lg-3">
-          <div class="card h-100 text-center bg-dark text-light">
-            <div class="card-body">
-              <i class="bi bi-database-check display-6 text-warning"></i>
-              <h5 class="card-title mt-3">Data & SQL</h5>
-              <p class="card-text small">MSSQL • PostgreSQL • Power BI  • DataLakes </p>
-            </div>
-          </div>
-        </div>
-       <div class="col-12 col-sm-6 col-lg-3">
-          <div class="card h-100 text-center bg-dark text-light">
-            <div class="card-body">
-              <i class="bi bi-diagram-3 display-6 text-warning"></i>
-              <h5 class="card-title mt-3">Infrastructure</h5>
-              <p class="card-text small">Synology NAS • MikroTik • cPanel • Firewalls</p>
-            </div>
-          </div>
-        </div>
-       <div class="col-12 col-sm-6 col-lg-3">
-          <div class="card h-100 text-center bg-dark text-light">
-            <div class="card-body">
-              <i class="bi bi-people-fill display-6 text-warning"></i>
-              <h5 class="card-title mt-3">Leadership</h5>
-              <p class="card-text small">Led 8‑member dev team • Agile & Scrum</p>
-            </div>
+  <!-- === Core Competencies === -->
+  <section class="mb-5">
+    <h3 class="text-center mb-4">Core Competencies</h3>
+    <div class="row g-4">
+
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 text-center bg-dark text-light">
+          <div class="card-body">
+            <i class="bi bi-code-slash display-6 text-warning"></i>
+            <h5 class="card-title mt-3">Full‑Stack Dev</h5>
+            <p class="card-text small">C# • .NET • Node.js • Razor • React • Python • HTML • CSS </p>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- === Timeline / Journey === -->
-<h3 class="text-center mb-4">Journey&nbsp;So&nbsp;Far</h3>
-<section class="mb-5 position-relative timeline">
-  <!-- ===== Timeline Items ===== -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 text-center bg-dark text-light">
+          <div class="card-body">
+            <i class="bi bi-database-check display-6 text-warning"></i>
+            <h5 class="card-title mt-3">Data & SQL</h5>
+            <p class="card-text small">MSSQL • PostgreSQL • Power BI • DataLakes </p>
+          </div>
+        </div>
 
-  <div class="timeline-item">
-    <span class="circle"></span>
-    <div class="card p-3 shadow-sm hover-lift">
-      <h5 class="fw-bold mb-1 text-white">
-        Junior IT Applications Support Specialist – Automation Techniques
-      </h5>
-      <small class="text-white">Aug 2024 – Present</small>
-      <p class="mb-0 small text-white">
-        Administered cPanel, MikroTik and Synology NAS infrastructures; implemented Odoo ERP modules; developed a custom Ticket Management System with Google Scripts, Forms & Sheets—boosting support efficiency by 30% and automating triage to cut manual effort in half. Authored and implemeted Business SOP for network and busines process
-      </p>
+       </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 text-center bg-dark text-light">
+          <div class="card-body">
+            <i class="bi bi-diagram-3 display-6 text-warning"></i>
+            <h5 class="card-title mt-3">Infrastructure</h5>
+            <p class="card-text small">Synology NAS • MikroTik • cPanel • Firewalls</p>
+          </div>
+        </div>
+
+       </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 text-center bg-dark text-light">
+          <div class="card-body">
+            <i class="bi bi-people-fill display-6 text-warning"></i>
+            <h5 class="card-title mt-3">Leadership</h5>
+            <p class="card-text small">Led 8‑member dev team • Agile & Scrum</p>
+          </div>
+        </div>
+      </div>
+    
     </div>
-  </div>
+  </section>
 
-  <div class="timeline-item">
-    <span class="circle"></span>
-    <div class="card p-3 shadow-sm hover-lift">
-      <h5 class="fw-bold mb-1 text-white">
-        Technical Lead & Research Assistant – Durban University of Technology
-      </h5>
-      <small class="text-white">Jan 2024 – Jun 2024</small>
-      <p class="mb-0 small text-white">
-        Led an 8-member team to deliver a Node.js + Express Document Management System; authored Functional Requirements for a Hospitality CRM; researched AWS data‐lake architectures and provided scalable, cost-effective recommendations :contentReference.
-      </p>
+  <!-- === Timeline / Journey === -->
+  <h3 class="text-center mb-4">Journey&nbsp;So&nbsp;Far</h3>
+  <section class="mb-5 position-relative timeline">
+    <!-- ===== Timeline Items ===== -->
+
+    <div class="timeline-item">
+      <span class="circle"></span>
+      <div class="card p-3 shadow-sm hover-lift">
+        <h5 class="fw-bold mb-1 text-white">
+          Junior IT Applications Support Specialist – Automation Techniques
+        </h5>
+        <small class="text-white">Aug 2024 – Present</small>
+        <p class="mb-0 small text-white">
+          Administered cPanel, MikroTik and Synology NAS infrastructures; implemented Odoo ERP modules; developed a custom Ticket Management System with Google Scripts, Forms & Sheets—boosting support efficiency by 30% and automating triage to cut manual effort in half. Authored and implemeted Business SOP for network and busines process
+        </p>
+      </div>
     </div>
-  </div>
+  
 
-  <div class="timeline-item">
-    <span class="circle"></span>
-    <div class="card p-3 shadow-sm hover-lift">
-      <h5 class="fw-bold mb-1 text-white">
-        Software Developer Intern → IT Consultant – XET Group
-      </h5>
-      <small class="text-white">Jan 2023 – Jan 2024</small>
-      <p class="mb-0 small text-white">
-        As an intern, specialized in Siyakhokha payment-gateway reconciliation and built an internal helpdesk system with ASP.NET Razor and Bootstrap; as consultant, delivered C#/.NET solutions, performed MSSQL reconcil­iations and authored technical user manuals to streamline client workflows.
-      </p>
+   <div class="timeline-item">
+      <span class="circle"></span>
+      <div class="card p-3 shadow-sm hover-lift">
+        <h5 class="fw-bold mb-1 text-white">
+          Technical Lead & Research Assistant – Durban University of Technology
+        </h5>
+        <small class="text-white">Jan 2024 – Jun 2024</small>
+        <p class="mb-0 small text-white">
+          Led an 8-member team to deliver a Node.js + Express Document Management System; authored Functional Requirements for a Hospitality CRM; researched AWS data‐lake architectures and provided scalable, cost-effective recommendations :contentReference.
+        </p>
+      </div>
     </div>
-  </div>
+  
 
-  <div class="timeline-item">
-    <span class="circle"></span>
-    <div class="card p-3 shadow-sm hover-lift">
-      <h5 class="fw-bold mb-1 text-white">
-        NDip Software Development – Durban University of Technology
-      </h5>
-      <small class="text-white">Jan 2020 – May 2022</small>
-      <p class="mb-0 small text-white">
-        Graduated with distinction; gained expertise in .NET, C#, JavaScript, MSSQL, Agile methodologies, UI/UX design principles and foundational cloud-computing concepts.
-      </p>
+   <div class="timeline-item">
+      <span class="circle"></span>
+      <div class="card p-3 shadow-sm hover-lift">
+        <h5 class="fw-bold mb-1 text-white">
+          Software Developer Intern → IT Consultant – XET Group
+        </h5>
+        <small class="text-white">Jan 2023 – Jan 2024</small>
+        <p class="mb-0 small text-white">
+          As an intern, specialized in Siyakhokha payment-gateway reconciliation and built an internal helpdesk system with ASP.NET Razor and Bootstrap; as consultant, delivered C#/.NET solutions, performed MSSQL reconcil­iations and authored technical user manuals to streamline client workflows.
+        </p>
+      </div>
+   </div>
+  
+
+
+
+  
+
+
+   <div class="timeline-item">
+      <span class="circle"></span>
+      <div class="card p-3 shadow-sm hover-lift">
+        <h5 class="fw-bold mb-1 text-white">
+          NDip Software Development – Durban University of Technology
+        </h5>
+        <small class="text-white">Jan 2020 – May 2022</small>
+        <p class="mb-0 small text-white">
+          Graduated with distinction; gained expertise in .NET, C#, JavaScript, MSSQL, Agile methodologies, UI/UX design principles and foundational cloud-computing concepts.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
+</main>
 
+<!-- ===== Particles Initialization ===== -->
+<script>
+  tsParticles.load('particles-js',{
+    fullScreen:{enable:false},
+    particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:'#ffffff'}},
+    interactivity:{events:{onhover:{enable:true,mode:'repulse'}},modes:{repulse:{distance:100}}},
+    background:{color:'transparent'}
+  });
+</script>
 
-  </main>
-
-
-  <!-- ===== JS Libraries ===== -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-  <script src="assets/js/main.js"></script>
-
-  <!-- ===== Particles Initialization ===== -->
-  <script>
-    tsParticles.load("particles-js",{
-      fullScreen:{enable:false},
-      particles:{number:{value:40},size:{value:2},opacity:{value:0.5},move:{speed:0.6},color:{value:"#ffffff"}},
-      interactivity:{events:{onhover:{enable:true,mode:"repulse"}},modes:{repulse:{distance:100}}},
-      background:{color:"transparent"}
-    });
-  </script>
-
-  <!-- ===== Page Animations ===== -->
-  <script>
-    document.addEventListener("DOMContentLoaded",()=>{
-      gsap.from(".hero-content",{opacity:0,y:-40,duration:1});
-      gsap.utils.toArray("section").forEach(sec=>{
-        gsap.fromTo(sec,{opacity:0,y:30},{opacity:1,y:0,duration:0.8,immediateRender:false,
-          scrollTrigger:{trigger:sec,start:"top 80%"}});
-      });
-      gsap.to(".hero-section",{backgroundPositionY:"20%",ease:"none",scrollTrigger:{trigger:".hero-section",start:"top top",end:"bottom top",scrub:true}});
-    });
-  </script>
-</body>
-</html>
+<!-- ===== Page Animations ===== -->
+<script>
+  document.addEventListener('DOMContentLoaded',()=>{
+    gsap.from('.hero-content',{opacity:0,y:-40,duration:1});
+    gsap.utils.toArray('section').forEach(sec=>{
+      gsap.fromTo(sec,{opacity:0,y:30},{opacity:1,y:0,duration:0.8,immediateRender:false,
+        scrollTrigger:{trigger:sec,start:'top 80%'}});
+         });
+  
+  gsap.to('.hero-section',{backgroundPositionY:'20%',ease:'none',scrollTrigger:{trigger:'.hero-section',start:'top top',end:'bottom top',scrub:true}});
+  });
+</script>
