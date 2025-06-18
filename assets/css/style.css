@@ -275,3 +275,14 @@ body.ready { opacity: 1; }
   margin-bottom: 0.5rem;
   color: var(--rpg-gold-light);
 }
+
+/* Vanta.js background container */
+#vanta-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}

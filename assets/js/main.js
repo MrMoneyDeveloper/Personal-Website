@@ -72,10 +72,12 @@
       });
     }
 
-// ---- Vanta Birds background ----
+ // ---- Vanta Birds background ----
     if(window.VANTA && window.THREE){
+      var cssBg = getComputedStyle(document.body).getPropertyValue('--rpg-bg-dark').trim();
+      var bgColor = parseInt(cssBg.replace('#',''), 16);
       VANTA.BIRDS({
-        el: document.body,
+        el: document.getElementById('vanta-bg'),
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
@@ -83,7 +85,7 @@
         minWidth: 200.00,
         scale: 1.00,
         scaleMobile: 1.00,
-        backgroundColor: 0x0d1117,
+        backgroundColor: bgColor,
         color1: 0xd1a21c,
         color2: 0xe547b7,
         birdSize: 1.50,
@@ -91,6 +93,7 @@
         cohesion: 50.00
       });
     }
+
 
     // ---- Scroll reveal animations ----
     if(window.gsap && window.ScrollTrigger){
