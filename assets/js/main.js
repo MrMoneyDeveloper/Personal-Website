@@ -85,7 +85,7 @@
           minWidth: 200.00,
           scale: 1.00,
           scaleMobile: 1.00,
-           color: 0xebe93c,
+          color: 0xf6f6aa,
           backgroundColor: 0x222121
         });
       }

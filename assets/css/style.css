@@ -72,9 +72,9 @@ h1,h2,h3,h4,h5,h6,
   z-index: 0;
 }
 .hero-bleed { /* full-width hero breakout without causing overflow */
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 /* Sub hero sections (smaller banners) */
 .sub-hero-section {
