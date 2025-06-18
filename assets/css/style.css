@@ -61,6 +61,7 @@ h1,h2,h3,h4,h5,h6,
   overflow: hidden;
   min-height: 100vh;
   text-align: center;
+  background: var(--rpg-bg-dark);
 }
 .hero-bg { /* Generic parallax BG image layer */
   position: absolute;
@@ -82,7 +83,7 @@ h1,h2,h3,h4,h5,h6,
   overflow: hidden;
 }
 .sub-hero-section:not(.bg-mid):not(.bg-dark) {
-  background: rgba(0,0,0,0.65);
+  background: var(--rpg-bg-mid);
 }
 
 #particles-js { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
@@ -91,7 +92,7 @@ h1,h2,h3,h4,h5,h6,
   z-index: 2;
   text-align: center;
   margin-inline:auto;
-  background: rgba(0,0,0,0.65);
+  background: var(--rpg-bg-mid);
   padding: 1rem 1.25rem;
   border-radius: var(--rpg-radius-md);
 }
