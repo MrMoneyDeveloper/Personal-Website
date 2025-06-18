@@ -174,8 +174,7 @@ const data = [
   const css = document.createElement('style');
   css.textContent = `
     #skills-tree        {display:flex;min-height:600px}
-    #skill-side         {width:240px;background:#0d1117;border-right:2px solid ${C.gold};
-                         display:flex;flex-direction:column;gap:.65rem;padding:1.1rem}
+      #skill-side         {width:240px;background:${C.bg};border-right:2px solid ${C.gold};
     .cat-btn            {background:transparent;color:${C.gold};border:1px solid ${C.gold};
                          font-family:'Cinzel',serif;font-size:.95rem;
                          padding:.65rem 1rem;cursor:pointer;border-radius:6px;text-align:left;

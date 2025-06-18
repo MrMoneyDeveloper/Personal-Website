@@ -74,10 +74,9 @@
 
  // ---- Vanta Topology background ----
     if(window.VANTA){
-      var vantaEl = document.getElementById('vanta-bg');
-      if(vantaEl){
+      document.querySelectorAll('#vanta-bg').forEach(function(el){
         VANTA.TOPOLOGY({
-          el: vantaEl,
+          el: el,
           mouseControls: true,
           touchControls: true,
           gyroControls: false,
@@ -88,7 +87,7 @@
           color: 0xf6f6aa,
           backgroundColor: 0x222121
         });
-      }
+      });
     }
 
     // ---- Scroll reveal animations ----
