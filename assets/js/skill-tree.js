@@ -169,36 +169,4 @@ const data = [
     panel.appendChild(wrap);
   }
   render(data[0]); // load first category
-
-  /* === GOLD-THEME STYLES === */
-  const css = document.createElement('style');
-  css.textContent = `
-    #skills-tree        {display:flex;min-height:600px}
-      #skill-side         {width:240px;background:${C.bg};border-right:2px solid ${C.gold};
-    .cat-btn            {background:transparent;color:${C.gold};border:1px solid ${C.gold};
-                         font-family:'Cinzel',serif;font-size:.95rem;
-                         padding:.65rem 1rem;cursor:pointer;border-radius:6px;text-align:left;
-                         transition:.25s}
-    .cat-btn:hover      {background:${C.gold};color:#0d1117}
-    #skill-panel        {flex:1;padding:1.5rem;overflow:auto}
-    .tile-wrap          {display:flex;flex-wrap:wrap;gap:1rem;max-width:1000px}
-    .skill-tile         {position:relative;min-width:160px;background:${C.bg};
-                         border:1px solid ${C.gold};color:${C.text};
-                         padding:1.1rem 1.3rem;border-radius:10px;
-                         font-family:'Inter',sans-serif;
-                         box-shadow:0 0 6px ${C.gold}55;transition:.2s}
-    .skill-tile:hover   {transform:translateY(-4px);box-shadow:0 0 10px ${C.gold}aa}
-    .badge              {position:absolute;top:6px;right:10px;
-                         background:${C.gold};color:#0d1117;
-                         font-size:.65rem;padding:.15rem .4rem;border-radius:4px}
-    .badge-cert         {background:#198754;color:#fff}
-  @media (max-width: 768px){
-      #skills-tree   {flex-direction:column}
-      #skill-side    {width:100%;border-right:none;border-bottom:2px solid ${C.gold};
-                      flex-direction:row;overflow-x:auto}
-      #skill-panel   {padding:1rem}
-      .cat-btn       {flex:1;white-space:nowrap}
-    }
-    `;
-  document.head.appendChild(css);
 });

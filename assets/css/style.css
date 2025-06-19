@@ -311,3 +311,107 @@ body.ready { opacity: 1; }
   z-index: -1;
   pointer-events: none;
 }
+
+/* ========== 12. SKILL MAP PANEL ========= */
+#skills-tree {
+  display: flex;
+  min-height: 600px;
+  border: 2px solid #343a40;
+  border-radius: var(--rpg-radius-sm);
+  margin-top: 2rem;
+}
+
+#skill-side {
+  width: 240px;
+  background: var(--rpg-bg-mid);
+  border-right: 2px solid var(--rpg-gold-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.cat-btn {
+  background: transparent;
+  color: var(--rpg-gold-light);
+  border: 1px solid var(--rpg-gold-light);
+  font-family: 'Cinzel', serif;
+  font-size: .95rem;
+  padding: .65rem 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: left;
+  transition: .25s;
+}
+
+.cat-btn:hover {
+  background: var(--rpg-gold-light);
+  color: #0d1117;
+}
+
+#skill-panel {
+  flex: 1;
+  padding: 1.5rem;
+  overflow: auto;
+}
+
+.tile-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1000px;
+}
+
+.skill-tile {
+  position: relative;
+  min-width: 160px;
+  background: var(--rpg-bg-mid);
+  border: 1px solid var(--rpg-gold-light);
+  color: var(--rpg-text-light);
+  padding: 1.1rem 1.3rem;
+  border-radius: var(--rpg-radius-sm);
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.33);
+  transition: .2s;
+}
+
+.skill-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  background: var(--rpg-gold-light);
+  color: #0d1117;
+  font-size: .65rem;
+  padding: .15rem .4rem;
+  border-radius: 4px;
+}
+
+.badge-cert {
+  background: #198754;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #skills-tree {
+    flex-direction: column;
+  }
+  #skill-side {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid var(--rpg-gold-light);
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  #skill-panel {
+    padding: 1rem;
+  }
+  .cat-btn {
+    flex: 1;
+    white-space: nowrap;
+  }
+}
