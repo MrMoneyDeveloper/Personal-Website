@@ -276,20 +276,7 @@ extra_js:
     // play revealSound on hover of our Call-to-Adventure block
     document.querySelector('#call-to-adventure')?.addEventListener('mouseenter', () => revealSound.play());
   
-if (window.tsParticles) {
-      tsParticles.load('particles-js', {
-        background: { color: 'transparent' },
-        particles: {
-          number:  { value: 45 },
-          shape:   { type: 'circle' },
-          size:    { value: 2.5, random: { enable: true, minimumValue: 1 } },
-          opacity: { value: 0.45, random: { enable: true, minimumValue: 0.1 } },
-          move:    { enable: true, speed: 0.7, outModes: 'out' },
-          color:   { value: ['#ffffff', '#d4af37'] },
-        },
-        detectRetina: true,
-      }).catch(err => console.warn('tsParticles load failed:', err));
-    }
+
    if (window.ScrollTrigger) {
       ScrollTrigger.refresh(true);
       setTimeout(() => ScrollTrigger.refresh(true), 200);
