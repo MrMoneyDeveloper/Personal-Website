@@ -192,7 +192,11 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ========== 6. CORE COMPETENCY CARDS ========= */
-.card.bg-dark { background: var(--rpg-bg-mid) !important; border: 1px solid #343a40; }
+.card.bg-dark {
+  background: var(--rpg-bg-mid) !important;
+  border: 1px solid #343a40;
+  color: var(--rpg-text-light);
+}
 .card.bg-dark .card-title { color: var(--rpg-gold-light); }
 .pillar-card {
   background: var(--rpg-bg-mid);

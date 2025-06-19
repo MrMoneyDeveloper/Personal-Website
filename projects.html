@@ -27,6 +27,22 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
   </div>
 </section>
 
+<!-- Info Modal for projects without external links -->
+<div class="modal fade" id="projectInfoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="small mb-2" id="projectInfoStack"></p>
+        <p id="projectInfoDesc" class="mb-0"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ========================== PROJECTS GRID =========================== -->
 <section class="py-5">
   <div class="container">
@@ -98,7 +114,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         <!-- Crypto-Lab -->
         <div class="col-md-6 col-lg-4 project-card" data-cat="data">
           <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-            <img src="{{ 'assets/images/quest-placeholder3.png' | relative_url }}" class="card-img-top" alt="Crypto-Lab">
+            <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="card-img-top" alt="Crypto-Lab">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Crypto-Lab</h5>
               <p class="small mb-2 text-light">Python · Flask · Dash · statsforecast</p>
@@ -198,5 +214,20 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         start: "top 85%"
       }
     });
+  });
+
+   // Info modal for cards without links
+  const infoModalEl = document.getElementById('projectInfoModal');
+  const infoModal = new bootstrap.Modal(infoModalEl);
+  document.querySelectorAll('.project-card .card').forEach(card => {
+    if(!card.querySelector('a.stretched-link')) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        infoModalEl.querySelector('.modal-title').textContent = card.querySelector('.card-title').textContent;
+        infoModalEl.querySelector('#projectInfoStack').textContent = card.querySelector('.small.mb-2').textContent;
+        infoModalEl.querySelector('#projectInfoDesc').textContent = card.querySelector('.card-text').textContent;
+        infoModal.show();
+      });
+    }
   });
 </script>
