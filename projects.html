@@ -36,11 +36,11 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
       {%- if projects -%}
         {%- for p in projects -%}
           <div class="col-md-6 col-lg-4 project-card" data-cat="{{ p.category | downcase }}">
-             <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
               <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ p.title }}</h5>
-                 <p class="small mb-2 text-light">{{ p.stack }}</p>
+                <p class="small mb-2 text-light">{{ p.stack }}</p>
                 <p class="card-text small flex-grow-1">{{ p.blurb }}</p>
                 {%- if p.link -%}
                   <a href="{{ p.link }}" target="_blank" class="stretched-link" aria-label="External link"></a>
@@ -51,41 +51,127 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         {%- endfor -%}
       {%- else -%}
         <!-- STATIC placeholders if _data/projects.yml not present -->
+
+        <!-- Ticket Management System -->
         <div class="col-md-6 col-lg-4 project-card" data-cat="web">
           <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-            <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="card-img-top" alt="Ticketing System">
+            <img src="{{ 'assets/images/placeholder-ticket.png' | relative_url }}" class="card-img-top" alt="Ticket Management System">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Ticket Management System</h5>
               <p class="small mb-2 text-light">Google Apps Script · Sheets API</p>
-              <p class="card-text small flex-grow-1">Automated ticketing that boosted support efficiency by 30%.</p>
+              <p class="card-text small flex-grow-1">
+                Automated ticketing: email alerts, SLA tracking and analytics dashboards built on Google Sheets.
+              </p>
             </div>
           </div>
         </div>
+
+        <!-- Document Management System -->
         <div class="col-md-6 col-lg-4 project-card" data-cat="web">
           <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-            <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="card-img-top" alt="DMS">
+            <img src="{{ 'assets/images/placeholder-dms.png' | relative_url }}" class="card-img-top" alt="Document Management System">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Document Management System</h5>
-              <p class="small mb-2 text-light">Node.js · PostgreSQL</p>
-              <p class="card-text small flex-grow-1">Full-stack platform for DUT postgraduate records.</p>
+              <p class="small mb-2 text-light">Node.js · Express · PostgreSQL</p>
+              <p class="card-text small flex-grow-1">
+                Role-based DMS for DUT postgraduate records, complete with schema design and secure access controls.
+              </p>
             </div>
           </div>
         </div>
+
+        <!-- Odoo ERP Roll-out -->
         <div class="col-md-6 col-lg-4 project-card" data-cat="infra">
-         <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-            <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="card-img-top" alt="Odoo ERP">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/placeholder-odoo.png' | relative_url }}" class="card-img-top" alt="Odoo ERP Roll-out">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Odoo ERP Roll-out</h5>
-              <p class="small mb-2 text-light">Odoo · Docker · Training</p>
-              <p class="card-text small flex-grow-1">Mapped workflows to modules and led phased deployment.</p>
+              <p class="small mb-2 text-light">Odoo · PostgreSQL · Linux</p>
+              <p class="card-text small flex-grow-1">
+                Enterprise-wide Odoo deployment: server setup, module customization (CRM, Finance) and user training.
+              </p>
+              <a href="https://techniques-group-sa.odoo.com/web/login" target="_blank" class="stretched-link" aria-label="Live Odoo link"></a>
             </div>
           </div>
         </div>
+
+        <!-- Crypto-Lab -->
+        <div class="col-md-6 col-lg-4 project-card" data-cat="data">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/placeholder-crypto.png' | relative_url }}" class="card-img-top" alt="Crypto-Lab">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Crypto-Lab</h5>
+              <p class="small mb-2 text-light">Python · Flask · Dash · statsforecast</p>
+              <p class="card-text small flex-grow-1">
+                End-to-end crypto data lab: live BTC/ETH ingestion → Parquet storage → AutoARIMA forecasting and PDF reports.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Breakdown Management System -->
+        <div class="col-md-6 col-lg-4 project-card" data-cat="web">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/placeholder-breakdown.png' | relative_url }}" class="card-img-top" alt="Breakdown Management System">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Breakdown Management System</h5>
+              <p class="small mb-2 text-light">React · .NET 6 · MSSQL</p>
+              <p class="card-text small flex-grow-1">
+                React + .NET app for logging & tracking vehicle breakdowns with dashboards, pagination & automated workflows.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SiyaKhokha Payment Integration -->
+        <div class="col-md-6 col-lg-4 project-card" data-cat="web">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/placeholder-siya.png' | relative_url }}" class="card-img-top" alt="SiyaKhokha Integration">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">SiyaKhokha Payment Integration</h5>
+              <p class="small mb-2 text-light">ASP.NET · SQL Server</p>
+              <p class="card-text small flex-grow-1">
+                Integrated Siyakhokha municipal payments into ASP.NET site, with secure checkouts & automated reconciliation.
+              </p>
+              <a href="https://siyakhokha.ekurhuleni.gov.za/Account/Login?AspxAutoDetectCookieSupport=1" target="_blank" class="stretched-link" aria-label="Live Siyakhokha link"></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Credit Control System -->
+        <div class="col-md-6 col-lg-4 project-card" data-cat="web">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/placeholder-credit.png' | relative_url }}" class="card-img-top" alt="Credit Control System">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Credit Control System</h5>
+              <p class="small mb-2 text-light">ASP.NET · JavaScript · SQL Server</p>
+              <p class="card-text small flex-grow-1">
+                Customer credit account manager: real-time balances, invoice tracking & risk-analysis reporting.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EasyGames Client-Transaction Manager -->
+        <div class="col-md-6 col-lg-4 project-card" data-cat="web">
+          <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="card-img-top" alt="EasyGames Manager">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">EasyGames Client-Transaction Manager</h5>
+              <p class="small mb-2 text-light">JavaScript · Bootstrap</p>
+              <p class="card-text small flex-grow-1">
+                Vanilla JS app for clients & transactions: live balance updates, add/edit entries, filtering & sorting.
+              </p>
+            </div>
+          </div>
+        </div>
+
       {%- endif -%}
 
     </div>
   </div>
 </section>
+
 
 <!-- ========================== PAGE SCRIPTS =========================== -->
 <script>
