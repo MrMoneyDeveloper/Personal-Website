@@ -25,7 +25,7 @@ const data = [
       { s: 'Python',               y: 3 },
       { s: 'SQL (T-SQL)',          y: 2 },
       { s: 'Java (academic)',      y: 0.5 },
-      { s: 'VB-.NET',              y: 2 }
+      { s: 'VBA',                  y: 2 }
   ]},
 
   /* ───────── FRAMEWORKS / LIBS ───────── */
