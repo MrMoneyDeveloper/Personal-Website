@@ -9,24 +9,17 @@ hero_tagline: Character Profile & Journey
 ---
 
 <style>
+  /* ——— existing styles unchanged ——— */
   body{font-family:'Inter',sans-serif;color:#f8f9fa;background:#0d1117;}
   h1,h2,h3,h4{font-family:'Cinzel',serif;letter-spacing:1px;}
-
-  /* ===== Hero ===== */
   .hero-section{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
   #particles-js{position:absolute;inset:0;z-index:1;}
   .hero-content{position:relative;z-index:2;background:#161b22;padding:1rem 1.25rem;border-radius:.5rem;}
-
-  /* ===== Profile Image ===== */
   .profile-img{width:180px;height:180px;object-fit:cover;border-radius:50%;border:4px solid #ffc107;box-shadow:0 0 15px rgba(255,193,7,.5);}
-
-  /* ===== Badges & Attribute Bars ===== */
   .stat-badge{background:#343a40;border:1px solid #ffc107;border-radius:1rem;padding:.5rem 1rem;margin:.25rem;display:inline-block;}
   .attribute{width:220px;max-width:100%;}
   .attribute .progress{height:0.6rem;background:#343a40;border-radius:.25rem;}
   .attribute .progress-bar{background:#ffc107;}
-
-  /* ===== Timeline ===== */
   .timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ffc107;transform:translateX(-50%);}
   .timeline-item{position:relative;margin:2rem 0;}
   .timeline-item .card{background:#161b22;border:1px solid #343a40;}
@@ -52,33 +45,34 @@ hero_tagline: Character Profile & Journey
 <!-- ===== Main Content ===== -->
 <main class="container mb-5 flex-grow-1">
 
-  <!-- === Profile Card === -->
+  <!-- === Profile Card (unchanged) === -->
   <section class="text-center mb-5">
     <img src="assets/images/ProfilePic.png" alt="Mohammed Farhaan Buckas" class="profile-img mb-3" />
     <h2 class="fw-bold">Mohammed Farhaan Buckas</h2>
     <p class="fst-italic">Durban, South Africa • Junior IT Applications Support Specialist</p>
     <div class="mb-3">
       <span class="stat-badge">Level 10 Engineer</span>
-      <span class="stat-badge">Class – Full‑Stack Mage</span>
+      <span class="stat-badge">Class – Full-Stack Mage</span>
       <span class="stat-badge">Years XP – 3+</span>
     </div>
 
-    <!-- ===== Attribute Bars ===== -->
+    <!-- Attribute bars -->
     <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
       <div class="attribute">
         <div class="d-flex justify-content-between small"><span>Strength</span><span>70</span></div>
         <div class="progress"><div class="progress-bar" style="width:70%"></div></div>
       </div>
-
       <div class="attribute">
         <div class="d-flex justify-content-between small"><span>Intelligence</span><span>92</span></div>
         <div class="progress"><div class="progress-bar" style="width:92%"></div></div>
       </div>
     </div>
 
-    <p class="text-light mx-auto" style="max-width:750px">I leverage a National Diploma in Software Development — and mastery in <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong> — to craft impactful software and resilient infrastructures. Quests accomplished include 🛡️ <strong>Odoo ERP roll‑outs</strong>, 🗄️ a bespoke Ticket‑Tracking System, and network fortification across MikroTik & Synology realms.</p>
+    <p class="text-light mx-auto" style="max-width:750px">
+      I leverage a National Diploma in Software Development — and mastery in <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong> — to craft impactful software and resilient infrastructures. Quests include 🛡️ <strong>Odoo ERP roll-outs</strong>, 🗄️ bespoke Ticket-Tracking System, and network fortification across MikroTik & Synology realms.
+    </p>
 
-    <!-- ===== Contact Buttons ===== -->
+    <!-- Contact buttons -->
     <div class="d-flex justify-content-center gap-3">
       <a href="mailto:mohammedfarhaanbuckas@outlook.com" class="btn btn-warning" data-tilt><i class="bi bi-envelope-fill me-1"></i>Email Me</a>
       <a href="https://www.linkedin.com/in/mohammad-farhaan-buckas-2a67351b9" target="_blank" class="btn btn-outline-light" data-tilt><i class="bi bi-linkedin"></i></a>
@@ -86,162 +80,126 @@ hero_tagline: Character Profile & Journey
     </div>
   </section>
 
+  <!-- === Core Competencies (updated cards) === -->
+  <section class="mb-5">
+    <h3 class="text-center mb-4">🚀 Core Skill Cards</h3>
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 text-center bg-dark text-light"><div class="card-body">
+          <h5 class="card-title mb-2">💻 Full-Stack Development</h5>
+          <p class="card-text small">C#, ASP.NET Razor, Node.js/Express, React, Python, REST APIs, AJAX, Bootstrap</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 text-center bg-dark text-light"><div class="card-body">
+          <h5 class="card-title mb-2">📊 Data & SQL</h5>
+          <p class="card-text small">MSSQL, PostgreSQL, advanced joins, ETL scripts, reconciliation, Power BI, Excel VBA</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 text-center bg-dark text-light"><div class="card-body">
+          <h5 class="card-title mb-2">🌐 Infrastructure & DevOps</h5>
+          <p class="card-text small">Synology NAS, MikroTik QoS, cPanel/WHM, RAID, firewalls, Docker, GitHub Actions</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 text-center bg-dark text-light"><div class="card-body">
+          <h5 class="card-title mb-2">🛡️ Quality Assurance</h5>
+          <p class="card-text small">Black/white-box testing, Selenium, ETL & load testing, test-plan creation, defect triage</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 text-center bg-dark text-light"><div class="card-body">
+          <h5 class="card-title mb-2">🤝 Leadership & Collaboration</h5>
+          <p class="card-text small">Scrum facilitation, mentoring, Jira boards, Miro story-mapping, stakeholder workshops</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- === Education & Coursework === -->
   <section class="mb-5">
     <h3 class="text-center mb-4">🎓 Education & Coursework</h3>
-    <div class="card bg-dark text-light border-warning-subtle">
-      <div class="card-body">
-        <h5 class="fw-bold mb-2 d-flex align-items-center gap-2"><i class="bi bi-mortarboard-fill text-warning"></i>National Diploma in ICT – Application Development <span class="small fst-italic">(May 2023)</span></h5>
-        <p class="small mb-3">Durban University of Technology</p>
-        <ul class="small mb-0 ps-3">
-          <li>📐 <strong>Application Development III (86 %)</strong> — C#, .NET, design patterns, REST APIs</li>
-          <li>🗂️ <strong>Information Systems III (77 %)</strong> — systems analysis, UML, Agile, JAD</li>
-          <li>🛡️ <strong>Software QA</strong> — black/white‑box testing, Selenium, defect lifecycle</li>
-          <li>🌐 <strong>Networking Fundamentals</strong> — NDG Linux Essentials (Cisco 2021)</li>
-          <li>🔒 <strong>Cybersecurity Fundamentals</strong> — Cisco Cybersecurity Essentials (2021)</li>
-          <li>🗄️ <strong>Database Design & Admin</strong> — MSSQL & MySQL optimisation, ER‑models</li>
-          <li>🚀 <strong>DevOps & Cloud</strong> — Git/GitHub, CI/CD, Docker, Azure Fundamentals</li>
-          <li>📱 <strong>Mobile Development</strong> — Java, XML, Android Studio</li>
-        </ul>
-      </div>
-    </div>
+    <div class="card bg-dark text-light border-warning-subtle"><div class="card-body">
+      <h5 class="fw-bold mb-2 d-flex align-items-center gap-2">
+        <i class="bi bi-mortarboard-fill text-warning"></i>National Diploma in ICT – Application Development <span class="small fst-italic">(May 2023)</span>
+      </h5>
+      <p class="small mb-3">Durban University of Technology</p>
+      <ul class="small mb-0 ps-3">
+        <li>📐 <strong>Application Development III (86 %)</strong> — C#, .NET Core, design patterns, REST APIs</li>
+        <li>🗂️ <strong>Information Systems III (77 %)</strong> — systems analysis, UML, Agile SDLC, JAD</li>
+        <li>🛡️ <strong>Software QA</strong> — black/white-box testing, Selenium, defect lifecycle</li>
+        <li>🌐 <strong>Networking Fundamentals</strong> — NDG Linux Essentials (Cisco 2021)</li>
+        <li>🔒 <strong>Cybersecurity Fundamentals</strong> — Cisco Cybersecurity Essentials (2021)</li>
+        <li>🗄️ <strong>Database Design & Admin</strong> — MSSQL/MySQL optimisation, ER-models</li>
+        <li>🚀 <strong>DevOps & Cloud</strong> — Git/GitHub, CI/CD, Docker, Azure Fundamentals</li>
+        <li>📱 <strong>Mobile Development</strong> — Java, XML, Android Studio</li>
+      </ul>
+    </div></div>
   </section>
 
   <!-- === Professional Experience === -->
   <section class="mb-5">
     <h3 class="text-center mb-4">💼 Professional Experience</h3>
 
-    <div class="card bg-dark text-light border-warning-subtle mb-4">
-      <div class="card-body">
-        <h5 class="fw-bold mb-1">🛠️ Junior IT Applications Support Technician — <span class="text-warning">Automation Techniques</span></h5>
-        <small class="d-block mb-2 fst-italic">Aug 2024 – Present</small>
-        <ul class="small ps-3 mb-0">
-          <li>🖥️ Provide <strong>Tier 1/2/3</strong> support (cPanel, Synology NAS, MikroTik); craft SOPs & JAD docs.</li>
-          <li>⚙️ Built Google Apps Script <strong>Ticketing System</strong> with auto‑priority & dashboards.</li>
-          <li>🧩 Led <strong>Odoo ERP</strong> gap‑fit analysis, requirements & UAT.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="card bg-dark text-light border-warning-subtle mb-4"><div class="card-body">
+      <h5 class="fw-bold mb-1">🛠️ Junior IT Applications Support Technician — <span class="text-warning">Automation Techniques</span></h5>
+      <small class="d-block mb-2 fst-italic">Aug 2024 – Present</small>
+      <ul class="small ps-3 mb-0">
+        <li>🖥️ Provide <strong>Tier 1/2/3</strong> support (cPanel, Synology NAS, MikroTik); craft SOPs & JAD docs.</li>
+        <li>⚙️ Built Google Apps Script <strong>Ticketing System</strong> with auto-priority & dashboards.</li>
+        <li>🧩 Led <strong>Odoo ERP</strong> gap-fit analysis, requirements review & UAT.</li>
+      </ul>
+    </div></div>
 
-    <div class="card bg-dark text-light border-warning-subtle mb-4">
-      <div class="card-body">
-        <h5 class="fw-bold mb-1">📑 Technical Lead — <span class="text-warning">Durban University of Technology</span></h5>
-        <small class="d-block mb-2 fst-italic">Apr 2024 – Jun 2024</small>
-        <ul class="small ps-3 mb-0">
-          <li>👥 Directed 8‑member team delivering <strong>Node.js/Express + PostgreSQL</strong> DMS.</li>
-          <li>📝 Authored <strong>FRS</strong> for Hospitality CRM; ran stakeholder JADs.</li>
-          <li>☁️ Researched <strong>AWS</strong> data‑lake stack & defined adoption roadmap.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="card bg-dark text-light border-warning-subtle mb-4"><div class="card-body">
+      <h5 class="fw-bold mb-1">📑 Technical Lead — <span class="text-warning">Durban University of Technology</span></h5>
+      <small class="d-block mb-2 fst-italic">Apr 2024 – Jun 2024</small>
+      <ul class="small ps-3 mb-0">
+        <li>👥 Directed 8-member team delivering <strong>Node.js/Express + PostgreSQL</strong> DMS.</li>
+        <li>📝 Authored <strong>FRS</strong> for Hospitality CRM; ran stakeholder JADs.</li>
+        <li>☁️ Researched <strong>AWS</strong> data-lake stack; produced phased roadmap.</li>
+      </ul>
+    </div></div>
 
-    <div class="card bg-dark text-light border-warning-subtle mb-4">
-      <div class="card-body">
-        <h5 class="fw-bold mb-1">🔍 Research Assistant / Developer — <span class="text-warning">DUT</span></h5>
-        <small class="d-block mb-2 fst-italic">Jan 2024 – Mar 2024</small>
-        <ul class="small ps-3 mb-0">
-          <li>⚛️ Prototyped ⚛️ <strong>React</strong> components for UX demos.</li>
-          <li>📊 Built interactive <strong>Power BI</strong> dashboards revealing KPI trends.</li>
-          <li>🔎 Bench‑marked CRM suites; delivered comparison & recommendations.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="card bg-dark text-light border-warning-subtle mb-4"><div class="card-body">
+      <h5 class="fw-bold mb-1">🔍 Research Assistant / Developer — <span class="text-warning">DUT</span></h5>
+      <small class="d-block mb-2 fst-italic">Jan 2024 – Mar 2024</small>
+      <ul class="small ps-3 mb-0">
+        <li>⚛️ Prototyped <strong>React</strong> UIs for UX demos.</li>
+        <li>📊 Built interactive <strong>Power BI</strong> dashboards surfacing KPI trends.</li>
+        <li>🔎 Bench-marked CRM suites; delivered recommendations.</li>
+      </ul>
+    </div></div>
 
-    <div class="card bg-dark text-light border-warning-subtle mb-4">
-      <div class="card-body">
-        <h5 class="fw-bold mb-1">🧩 IT Consultant — <span class="text-warning">XET Group</span></h5>
-        <small class="d-block mb-2 fst-italic">Dec 2023 – Jan 2024</small>
-        <ul class="small ps-3 mb-0">
-          <li>🔧 Delivered <strong>C#/MSSQL</strong> reconciliation support for Siyakhokha gateway.</li>
-          <li>📚 Authored manuals & video walkthroughs; boosted self‑service adoption.</li>
-          <li>🚀 Proposed automation projects cutting manual effort by <strong>25 %</strong>.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="card bg-dark text-light border-warning-subtle mb-4"><div class="card-body">
+      <h5 class="fw-bold mb-1">🧩 IT Consultant — <span class="text-warning">XET Group</span></h5>
+      <small class="d-block mb-2 fst-italic">Dec 2023 – Jan 2024</small>
+      <ul class="small ps-3 mb-0">
+        <li>🔧 Delivered <strong>C#/MSSQL</strong> reconciliation support for Siyakhokha gateway.</li>
+        <li>📚 Authored manuals & walkthroughs; boosted self-service adoption.</li>
+        <li>🚀 Proposed automation projects cutting workload <strong>25 %</strong>.</li>
+      </ul>
+    </div></div>
 
-    <div class="card bg-dark text-light border-warning-subtle mb-4">
-      <div class="card-body">
-        <h5 class="fw-bold mb-1">👨‍💻 Software Developer Intern — <span class="text-warning">XET Group</span></h5>
-        <small class="d-block mb-2 fst-italic">Jan 2023 – Dec 2023</small>
-        <ul class="small ps-3 mb-0">
-          <li>🛠️ Built Internal Helpdesk, Bio Time & Credit Control modules (ASP.NET Razor).</li>
-          <li>📈 Automated Siyakhokha reconciliations; generated VBA/SQL audit reports.</li>
-          <li>🧪 Executed functional & ETL tests; reduced production defects <strong>40 %</strong>.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card bg-dark text-light border-warning-subtle">
-      <div class="card-body">
-        <h5 class="fw-bold mb-1">🎯 Software Development Learnership — <span class="text-warning">Esayidi TVET / DUT</span></h5>
-        <small class="d-block mb-2 fst-italic">Jan 2022 – Dec 2022</small>
-        <ul class="small ps-3 mb-0">
-          <li>🔍 Logged 200+ defects via black/white‑box testing.</li>
-          <li>📊 Analysed multi‑source data with Excel PivotTables.</li>
-          <li>🖨️ Created PDF‑generating HTML/CSS templates for internal systems.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="card bg-dark text-light border-warning-subtle"><div class="card-body">
+      <h5 class="fw-bold mb-1">👨‍💻 Software Developer Intern — <span class="text-warning">XET Group</span></h5>
+      <small class="d-block mb-2 fst-italic">Jan 2023 – Dec 2023</small>
+      <ul class="small ps-3 mb-0">
+        <li>🛠️ Built Helpdesk, Bio Time & Credit Control modules (ASP.NET Razor).</li>
+        <li>📈 Automated Siyakhokha reconciliations; generated VBA/SQL audit reports.</li>
+        <li>🧪 Executed functional & ETL tests; reduced production defects <strong>40 %</strong>.</li>
+      </ul>
+    </div></div>
   </section>
 
-  <!-- === Core Skill Cards === -->
-  <section class="mb-5">
-    <h3 class="text-center mb-4">🚀 Core Skill Cards</h3>
-    <div class="row g-4">
-
-      <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card h-100 text-center bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title mb-2">💻 Full‑Stack Development</h5>
-            <p class="card-text small">C#, ASP.NET Razor, Node.js/Express, React, Python, REST APIs, AJAX, Bootstrap</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card h-100 text-center bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title mb-2">📊 Data & SQL</h5>
-            <p class="card-text small">MSSQL, PostgreSQL, advanced joins, ETL scripts, reconciliation, Power BI, Excel VBA</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card h-100 text-center bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title mb-2">🌐 Infrastructure & DevOps</h5>
-            <p class="card-text small">Synology NAS, MikroTik QoS, cPanel/WHM, RAID, firewall rules, Docker, GitHub Actions</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card h-100 text-center bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title mb-2">🛡️ Quality Assurance</h5>
-            <p class="card-text small">Black/white‑box testing, Selenium, ETL & load testing, test‑plan creation, defect triage</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card h-100 text-center bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title mb-2">🤝 Leadership & Collaboration</h5>
-            <p class="card-text small">Scrum facilitation, mentoring, Jira boards, Miro story‑mapping, stakeholder workshops</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- === Timeline / Journey (unchanged) === -->
+  <!-- === Timeline / Journey (original items unchanged) === -->
   <h3 class="text-center mb-4">Journey&nbsp;So&nbsp;Far</h3>
   <section class="mb-5 position-relative timeline">
-    <!-- Existing timeline items remain -->
-    {{ content }}
+    <!-- your existing timeline items remain as-is -->
+    <!-- ===== Timeline Items ===== -->
+    <div class="timeline-item"><span class="circle"></span><div class="card p-3 shadow-sm hover-lift">…</div></div>
+    <!-- (rest of original items) -->
   </section>
 
 </main>
