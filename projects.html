@@ -53,7 +53,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         {%- for p in projects -%}
           <div class="col-md-6 col-lg-4 project-card" data-cat="{{ p.category | downcase }}">
             <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-              <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot">
+              <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot" loading="lazy">
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ p.title }}</h5>
                 <p class="small mb-2 text-light">{{ p.stack }}</p>
@@ -71,7 +71,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
        <!-- Ticket Management System -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="web">
   <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder8.png' | relative_url }}" class="card-img-top" alt="Ticket Management System">
+    <img src="{{ 'assets/images/quest-placeholder8.png' | relative_url }}" class="card-img-top" alt="Ticket Management System" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">Ticket Management System</h5>
       <p class="small mb-2 text-light">Google Forms · Google Sheets · Apps Script · JavaScript · HTML Email Templates</p>
@@ -85,7 +85,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         <!-- Document Management System -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="web">
   <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder7.png' | relative_url }}" class="card-img-top" alt="Document Management System">
+    <img src="{{ 'assets/images/quest-placeholder7.png' | relative_url }}" class="card-img-top" alt="Document Management System" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">Document Management System</h5>
       <p class="small mb-2 text-light">Node.js · Express.js · PostgreSQL</p>
@@ -99,7 +99,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         <!-- Odoo ERP Roll‑out -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="infra">
   <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder4.png' | relative_url }}" class="card-img-top" alt="Odoo ERP Roll‑out">
+    <img src="{{ 'assets/images/quest-placeholder4.png' | relative_url }}" class="card-img-top" alt="Odoo ERP Roll‑out" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">Odoo ERP Roll‑out</h5>
       <p class="small mb-2 text-light">Business Analysis · JAD Workshops · Odoo · PostgreSQL · Tier 
@@ -117,7 +117,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
 <!-- Crypto‑Lab -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="data">
   <div class="card bg-dark h-100 border-info-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="card-img-top" alt="Crypto‑Lab">
+    <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="card-img-top" alt="Crypto‑Lab" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">Crypto‑Lab</h5>
       <p class="small mb-2 text-light">Python · Flask · Dash · Parquet</p>
@@ -133,7 +133,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         <!-- Breakdown Management System -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="web">
   <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="card-img-top" alt="Breakdown Management System">
+    <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="card-img-top" alt="Breakdown Management System" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">Breakdown Management System</h5>
       <p class="small mb-2 text-light">ASP.NET&nbsp;6 · React · SQL&nbsp;Server</p>
@@ -149,7 +149,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
 <!-- SiyaKhokha Payment Support -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="web">
   <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder5.png' | relative_url }}" class="card-img-top" alt="SiyaKhokha Support">
+    <img src="{{ 'assets/images/quest-placeholder5.png' | relative_url }}" class="card-img-top" alt="SiyaKhokha Support" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">SiyaKhokha Payment Platform – Support &amp; Admin</h5>
       <p class="small mb-2 text-light">C# · ASP.NET&nbsp;MVC · Razor · MSSQL · SSIS · JavaScript · HTML/CSS</p>
@@ -164,7 +164,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
       <!-- Credit Control System (Front‑end Enhancements) -->
 <div class="col-md-6 col-lg-4 project-card" data-cat="web">
   <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-    <img src="{{ 'assets/images/quest-placeholder6.png' | relative_url }}" class="card-img-top" alt="Credit Control System">
+    <img src="{{ 'assets/images/quest-placeholder6.png' | relative_url }}" class="card-img-top" alt="Credit Control System" loading="lazy">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title">Credit Control System – UI Fixes</h5>
       <p class="small mb-2 text-light">Razor · HTML/CSS · JavaScript</p>
@@ -179,7 +179,7 @@ extra_js: assets/js/projects-filter.js   # optional – see inline JS block
         <!-- EasyGames Client-Transaction Manager -->
         <div class="col-md-6 col-lg-4 project-card" data-cat="web">
           <div class="card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
-            <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="card-img-top" alt="EasyGames Manager">
+            <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="card-img-top" alt="EasyGames Manager" loading="lazy">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">EasyGames Client-Transaction Manager</h5>
               <p class="small mb-2 text-light">JavaScript · Bootstrap</p>
