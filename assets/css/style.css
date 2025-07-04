@@ -464,3 +464,7 @@ body.ready { opacity: 1; }
     white-space: nowrap;
   }
 }
+/* ===== 3D model container + loader ===== */
+.hero-model{position:relative;width:200px;height:200px;margin:0 auto 1rem;}
+.model-loader{position:absolute;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;border:4px solid #ccc;border-top-color:#ffc107;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
