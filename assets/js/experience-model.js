@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // GLTF loader for JourneyScroll.glb (replace with your model file)
   const loader = new THREE.GLTFLoader();
   loader.load(
-    '/assets/models/JourneyScroll.glb',
+    'assets/models/JourneyScroll.glb',
     gltf => {
       container.removeChild(spinner);
       const model = gltf.scene;

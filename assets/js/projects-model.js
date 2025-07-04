@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // GLTF loader for TreasureChest.glb (replace with your model file)
   const loader = new THREE.GLTFLoader();
   loader.load(
-    '/assets/models/TreasureChest.glb',
+    'assets/models/TreasureChest.glb',
     gltf => {
       container.removeChild(spinner);
       const model = gltf.scene;
