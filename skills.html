@@ -4,10 +4,7 @@ title: Skills
 permalink: /skills.html
 description: Mohammed Farhaan Buckas – gold-tile interactive skill map
 extra_js:
-    - assets/js/skill-tree.js   # ← d3 is no longer needed
-  - https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.js
-  - assets/js/skills-model.js
+  - "assets/js/skill-tree.js"   # ← d3 is no longer needed
 hero_background: /assets/videos/Index_Wallpaper.gif
 hero_title: Skill Map
 hero_tagline: Explore My Toolkit & Certifications
@@ -28,7 +25,6 @@ hero_tagline: Explore My Toolkit & Certifications
   <div  class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');">
   </div>
   <div class="hero-content text-center">
-    <div id="skills-model" class="hero-model"></div>
     <h1 class="hero-title">{{ page.hero_title }}</h1>
     <p  class="hero-tagline">{{ page.hero_tagline }}</p>
   </div>

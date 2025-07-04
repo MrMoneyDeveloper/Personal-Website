@@ -18,9 +18,6 @@ extra_js:
   - assets/js/tetris.js
   - assets/js/snake.js
   - assets/js/breakout.js
-  - https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.js
-  - assets/js/index-model.js
 ---
 
 
@@ -29,7 +26,6 @@ extra_js:
   <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
 <div class="hero-stars"></div>
   <div class="hero-content text-center">
-    <div id="index-model" class="hero-model"></div>
     <h1 class="hero-title">{{ page.hero_title }}</h1>
     <p class="hero-tagline">{{ page.hero_tagline }}</p>
     {%- if page.hero_cta_text -%}

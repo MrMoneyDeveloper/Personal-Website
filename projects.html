@@ -3,16 +3,11 @@ layout: default
 title: Projects
 permalink: /projects.html
 description: Portfolio quests of Mohammed Farhaan Buckas – web, data, infrastructure.
-extra_js:
-  - assets/js/projects-filter.js
-  - https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.js
-  - assets/js/projects-model.js
+extra_js: assets/js/projects-filter.js   # optional – see inline JS block
 ---
 
 <!-- ========================== PROJECTS HERO =========================== -->
 <header class="sub-hero-section text-center py-5 bg-mid border-bottom border-warning-subtle">
-   <div id="projects-model" class="hero-model"></div>
   <h1 class="display-5 fw-bold mb-2">Completed Quests</h1>
   <p class="lead mx-auto" style="max-width:720px">
     A showcase of systems, scripts, and data adventures I’ve completed in the last few
@@ -202,4 +197,45 @@ extra_js:
 </section>
 
 
+<!-- ========================== PAGE SCRIPTS =========================== -->
+<script>
+  // simple front-end filter (vanilla JS); if you move to separate JS file, delete here
+  document.querySelectorAll(".filter-pills button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-pills button").forEach(b => b.classList.remove("active","btn-warning"));
+      btn.classList.add("active","btn-warning");
+      const cat = btn.dataset.filter;
+      document.querySelectorAll(".project-card").forEach(card => {
+        card.style.display = (cat === "all" || card.dataset.cat === cat) ? "" : "none";
+      });
+    });
+  });
 
+  // Scroll-trigger reveal
+  gsap.utils.toArray(".reveal-on-scroll").forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%"
+      }
+    });
+  });
+
+   // Info modal for cards without links
+  const infoModalEl = document.getElementById('projectInfoModal');
+  const infoModal = new bootstrap.Modal(infoModalEl);
+  document.querySelectorAll('.project-card .card').forEach(card => {
+    if(!card.querySelector('a.stretched-link')) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        infoModalEl.querySelector('.modal-title').textContent = card.querySelector('.card-title').textContent;
+        infoModalEl.querySelector('#projectInfoStack').textContent = card.querySelector('.small.mb-2').textContent;
+        infoModalEl.querySelector('#projectInfoDesc').textContent = card.querySelector('.card-text').textContent;
+        infoModal.show();
+      });
+    }
+  });
+</script>
