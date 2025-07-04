@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // GLTF loader for GameController.glb (replace with your model file)
   const loader = new THREE.GLTFLoader();
   loader.load(
-    'assets/models/GameController.glb',
+   window.BASE_URL + 'assets/models/GameController.glb',
     gltf => {
       container.removeChild(spinner);
       const model = gltf.scene;
