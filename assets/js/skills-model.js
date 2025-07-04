@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // GLTF loader for SkillBook.glb (replace with your model file)
   const loader = new THREE.GLTFLoader();
   loader.load(
-    window.BASE_URL + 'assets/models/SkillBook.glb',
+    'assets/models/SkillBook.glb',
     gltf => {
       container.removeChild(spinner);
       const model = gltf.scene;
