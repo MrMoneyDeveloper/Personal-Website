@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // GSAP scroll-trigger reveal
+  // GSAP scroll-trigger reveal without hiding elements before animation
   if (window.gsap) {
     gsap.utils.toArray('.reveal-on-scroll').forEach(el => {
       gsap.from(el, {
@@ -22,7 +22,8 @@ window.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
           trigger: el,
           start: 'top 85%'
-        }
+        },
+        immediateRender: false
       });
     });
   }

@@ -76,7 +76,8 @@
           opacity: 0,
           y: 30,
           duration: 0.8,
-          scrollTrigger: { trigger: el, start: 'top 85%' }
+           scrollTrigger: { trigger: el, start: 'top 85%' },
+          immediateRender: false
         });
       });
     }
