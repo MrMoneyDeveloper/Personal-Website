@@ -18,22 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // show all projects by default
   document.querySelector('.filter-pills button.active')?.click();
 
-  // GSAP scroll-trigger reveal without hiding elements before animation
-  if (window.gsap && window.ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.reveal-on-scroll').forEach(el => {
-      gsap.from(el, {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%'
-        },
-        immediateRender: false
-      });
-    });
-  }
+  
 
   // Info modal for cards without links
   const infoModalEl = document.getElementById('projectInfoModal');

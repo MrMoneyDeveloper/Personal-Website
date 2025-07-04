@@ -34,10 +34,15 @@
       });
     });
 
+ // ---- Ensure ScrollTrigger registered for any page using GSAP ----
+    if(window.gsap && window.ScrollTrigger){
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+
     // ---- Hero parallax depth ----
     var heroBg = document.querySelector('.hero-bg');
     if(heroBg && window.gsap && window.ScrollTrigger){
-      gsap.registerPlugin(ScrollTrigger);
       gsap.to(heroBg, {
         scale: 1.1,
         scrollTrigger: {
