@@ -140,6 +140,42 @@ description: Professional journey of Mohammed Farhaan Buckas – roles, projects
   </div>
 </section>
 
+<!-- Anime.js animations -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.anime) {
+      anime({
+        targets: '.sub-hero-section h1, .sub-hero-section p',
+        opacity: [0, 1],
+        translateY: [-20, 0],
+        delay: anime.stagger(200),
+        duration: 700,
+        easing: 'easeOutQuad'
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime({
+              targets: entry.target,
+              opacity: [0, 1],
+              translateY: [20, 0],
+              duration: 700,
+              easing: 'easeOutQuad'
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.timeline-item').forEach(el => {
+        el.style.opacity = 0;
+        observer.observe(el);
+      });
+    }
+  });
+</script>
+
 <!-- ============================ CTA TO CONTACT ============================ -->
 <section class="py-5 bg-mid text-center reveal-on-scroll">
   <div class="container">

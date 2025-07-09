@@ -4,7 +4,34 @@ window.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.filter-pills button');
   function applyFilter(cat) {
     document.querySelectorAll('.project-card').forEach(card => {
-      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+      const show = (cat === 'all' || card.dataset.cat === cat);
+      if (show) {
+        card.style.display = '';
+        if (window.anime) {
+          anime({
+            targets: card,
+            opacity: [0, 1],
+            scale: [0.95, 1],
+            duration: 400,
+            easing: 'easeOutQuad'
+          });
+        } else {
+          card.style.opacity = '1';
+        }
+      } else {
+        if (window.anime) {
+          anime({
+            targets: card,
+            opacity: [1, 0],
+            scale: [1, 0.95],
+            duration: 400,
+            easing: 'easeOutQuad',
+            complete: () => { card.style.display = 'none'; }
+          });
+        } else {
+          card.style.display = 'none';
+        }
+      }
     });
   }
 
