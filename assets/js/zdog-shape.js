@@ -1,5 +1,5 @@
 (function(){
-  document.addEventListener('DOMContentLoaded', function(){
+  function init(){
     if(!window.Zdog) return;
 
     var size = 120;
@@ -56,5 +56,10 @@
       requestAnimationFrame(animate);
     }
     animate();
-  });
+  }
+  if(document.readyState === 'complete' || document.readyState === 'interactive'){
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
 })();
