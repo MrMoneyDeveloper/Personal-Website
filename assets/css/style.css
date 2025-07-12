@@ -470,7 +470,8 @@ body.ready { opacity: 1; }
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ===== Zdog random shape ===== */
-#zdog-canvas {
+#zdog-canvas,
+.zdog-canvas {
   width: 120px;
   height: 120px;
 }
