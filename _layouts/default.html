@@ -28,7 +28,7 @@ layout: null
     {%- endfor -%}
   {%- endif -%}
 </head>
-<body class="d-flex flex-column min-vh-100 text-light" data-zdog-shape="{{ page.zdog_shape }}">
+<body class="d-flex flex-column min-vh-100 text-light">
   <div id="vanta-bg"></div>
   {%- assign current = page.url | downcase | default:'/' -%}
   <!-- =============== NAVBAR =============== -->
@@ -70,10 +70,9 @@ layout: null
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.topology.min.js"></script>
-  <!-- Local copy of Zdog so shapes render even without internet access -->
-  <script defer src="{{ '/assets/js/zdog.min.js' | relative_url }}"></script>
+ 
   <script defer src="{{ '/assets/js/main.js'  | relative_url }}"></script>
-  <script defer src="{{ '/assets/js/zdog-shape.js' | relative_url }}"></script>
+
   {%- if page.extra_js -%}
         {%- for js in page.extra_js -%}
       <script defer src="{{ js }}"></script>
