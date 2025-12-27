@@ -38,10 +38,10 @@ hero_tagline: Explore My Toolkit & Certifications
   <div id="skill-garden" data-skills-src="{{ '/assets/data/skills.json' | relative_url }}"></div>
   <noscript>
     <ul>
-      {% for category, items in site.data.skills %}
+      {% for category in site.data.skills %}
       <li>
-        {{ category }}:
-        {% for item in items %}
+        {{ category[0] }}:
+        {% for item in category[1] %}
         {{ item.name }}{% unless forloop.last %}, {% endunless %}
         {% endfor %}
       </li>
