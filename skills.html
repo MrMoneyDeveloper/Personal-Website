@@ -4,7 +4,8 @@ title: Skills
 permalink: /skills.html
 description: Mohammed Farhaan Buckas – gold-tile interactive skill map
 extra_js:
-  - "assets/js/skill-tree.js"   # ← d3 is no longer needed
+  - "https://d3js.org/d3.v7.min.js"
+  - "assets/js/skill-tree.js"
 hero_background: /assets/videos/Index_Wallpaper.gif
 hero_title: Skill Map
 hero_tagline: Explore My Toolkit & Certifications
@@ -15,9 +16,11 @@ hero_tagline: Explore My Toolkit & Certifications
   body            { background:#0d1117; color:#f8f9fa; font-family:'Inter',sans-serif }
   h1,h2,h3        { font-family:'Cinzel',serif; letter-spacing:1px }
 
-  /* --- host container for sidebar + panel (our JS fills it) --- */
-  #skills-tree    { min-height:650px; display:flex; border:2px solid #343a40;
-                    border-radius:.5rem; margin-top:2rem }
+  /* --- host container for the digital garden --- */
+  #skill-garden   { min-height:650px; border:2px solid #343a40;
+                    border-radius:.5rem; margin-top:2rem; position: relative;
+                    overflow: hidden }
+  #skill-garden svg { width: 100%; height: 100%; display: block; }
 </style>
 
 <!-- ───── Hero banner ───── -->
@@ -30,7 +33,19 @@ hero_tagline: Explore My Toolkit & Certifications
   </div>
 </header>
 
-<!-- ───── Skill Map host ───── -->
+<!-- ───── Skill Garden host ───── -->
 <main class="container-fluid flex-grow-1">
-  <div id="skills-tree"></div>
+  <div id="skill-garden" data-skills-src="{{ '/assets/data/skills.json' | relative_url }}"></div>
+  <noscript>
+    <ul>
+      {% for category, items in site.data.skills %}
+      <li>
+        {{ category }}:
+        {% for item in items %}
+        {{ item.name }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </li>
+      {% endfor %}
+    </ul>
+  </noscript>
 </main>

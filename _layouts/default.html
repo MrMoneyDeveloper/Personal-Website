@@ -30,6 +30,8 @@ layout: null
 </head>
 <body class="d-flex flex-column min-vh-100 text-light">
   <div id="vanta-bg"></div>
+  <img src="/assets/img/icons/planet.svg" class="floating-icon icon-top-left" alt="" />
+  <img src="/assets/img/icons/code.svg" class="floating-icon icon-bottom-right" alt="" />
   {%- assign current = page.url | downcase | default:'/' -%}
   <!-- =============== NAVBAR =============== -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm border-bottom border-warning-subtle">
@@ -71,6 +73,10 @@ layout: null
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.topology.min.js"></script>
  
+  <script>
+    window.siteCompany = "{{ page.company | default: '' }}";
+  </script>
+  <script defer src="{{ '/assets/js/theme-switcher.js'  | relative_url }}"></script>
   <script defer src="{{ '/assets/js/main.js'  | relative_url }}"></script>
 
   {%- if page.extra_js -%}
@@ -78,5 +84,6 @@ layout: null
       <script defer src="{{ js }}"></script>
     {%- endfor -%}
   {%- endif -%}
+  <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 </body>
 </html>

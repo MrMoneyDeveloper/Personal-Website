@@ -22,14 +22,14 @@ extra_js:
 
 
 <!-- ============================= HERO SECTION ============================= -->
-<header class="hero-section hero-bleed">
-  <div class="hero-bg" style="background-image:url('{{ page.hero_background | relative_url }}');"></div>
-<div class="hero-stars"></div>
+<header class="hero-section hero-bleed cinematic-hero">
+  <div class="hero-bg" style="--cinematic-bg: url('{{ page.hero_background | relative_url }}'); background-image:url('{{ page.hero_background | relative_url }}');"></div>
+  <div class="hero-stars"></div>
   <div class="hero-content text-center">
     <h1 class="hero-title">{{ page.hero_title }}</h1>
     <p class="hero-tagline">{{ page.hero_tagline }}</p>
     {%- if page.hero_cta_text -%}
-    <a href="{{ page.hero_cta_link | relative_url }}" class="btn btn-cta" data-tilt>
+    <a href="{{ page.hero_cta_link | relative_url }}" class="neo-button" data-tilt>
       <i class="fa-solid fa-dungeon me-2"></i>{{ page.hero_cta_text }}
     </a>
     {%- endif -%}
@@ -299,10 +299,12 @@ extra_js:
       scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true }
     });
 
-    // Headline fade-in
-    gsap.from('.hero-content', {
-      opacity: 0, y: 40, duration: 1, ease: 'power2.out', delay: 0.2
-    });
+    // Headline fade-in (skip if cinematic CSS handles it)
+    if (!document.querySelector('.cinematic-hero')) {
+      gsap.from('.hero-content', {
+        opacity: 0, y: 40, duration: 1, ease: 'power2.out', delay: 0.2
+      });
+    }
 
     // Section fade-ins + revealSound trigger
     gsap.utils.toArray('section').forEach(sec => {

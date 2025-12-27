@@ -1,0 +1,79 @@
+---
+layout: default
+title: "Personal Projects"
+permalink: /company/personal.html
+company: "personal"
+description: "Personal, academic, and independent work highlights."
+extra_js:
+  - assets/js/projects-filter.js
+---
+
+<!-- ======================== PERSONAL HERO ======================== -->
+<header class="sub-hero-section text-center py-5 bg-mid border-bottom border-warning-subtle">
+  <h1 class="display-5 fw-bold mb-2">Personal and Independent Work</h1>
+  <p class="lead mx-auto" style="max-width:720px">
+    Side projects, academic builds, and experiments beyond client work.
+  </p>
+</header>
+
+<!-- ====================== WORK HIGHLIGHTS ====================== -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Work Highlights</h2>
+    <ul class="list-unstyled mx-auto" style="max-width:760px">
+      <li class="mb-2"><strong>Diploma in Application Development</strong> - Durban University of Technology (Feb 2020 - Dec 2022)</li>
+      <li class="mb-2"><strong>.NET Learnership Programme</strong> - XET Group (Jan 2022 - Dec 2022)</li>
+      <li class="mb-2"><strong>Software Developer Intern &amp; IT Consultant</strong> - XET Group (Jan 2023 - Jan 2024)</li>
+      <li class="mb-2"><strong>Research Assistant / Software Developer</strong> - Durban University of Technology (Jan 2024 - Mar 2024)</li>
+      <li class="mb-2"><strong>Technical Lead</strong> - Durban University of Technology (Mar 2024 - May 2024)</li>
+    </ul>
+    <p class="text-center small mt-3">
+      Full timeline available on <a href="{{ '/experience.html' | relative_url }}">Experience</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ======================== PROJECTS =========================== -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Projects</h2>
+    <div class="row g-4">
+      {%- assign company_key = page.company | downcase -%}
+      {%- assign company_projects = site.data.projects | where_exp: "item", "item.company contains company_key" -%}
+      {%- if company_projects == empty -%}
+        {%- assign company_projects = site.data.projects -%}
+      {%- endif -%}
+      {%- for p in company_projects -%}
+        <div class="col-md-6 col-lg-4 project-card" data-category="{{ p.category }}">
+          <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot" loading="lazy">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ p.title }}</h5>
+              <p class="small mb-2 text-light">{{ p.stack }}</p>
+              <p class="card-text small flex-grow-1">{{ p.blurb }}</p>
+              {%- if p.link -%}
+                <a href="{{ p.link }}" target="_blank" class="stretched-link" aria-label="External link"></a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<!-- Info Modal for projects without external links -->
+<div class="modal fade" id="projectInfoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="small mb-2" id="projectInfoStack"></p>
+        <p id="projectInfoDesc" class="mb-0"></p>
+      </div>
+    </div>
+  </div>
+</div>

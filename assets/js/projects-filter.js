@@ -1,10 +1,13 @@
 // Project page interactions: filtering, scroll reveals, modal info
 window.addEventListener('DOMContentLoaded', () => {
-  // filter projects by data-cat
-    const filterButtons = document.querySelectorAll('.filter-pills button');
-  function applyFilter(cat) {
-    document.querySelectorAll('.project-card').forEach(card => {
-      const show = (cat === 'all' || card.dataset.cat === cat);
+  // filter projects by data-category
+  const filterButtons = document.querySelectorAll('.projects-filters button');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  function applyFilter(filter) {
+    projectCards.forEach(card => {
+      const category = card.dataset.category || '';
+      const show = (filter === 'all' || category === filter);
       if (show) {
         card.style.display = '';
         if (window.anime) {
@@ -35,15 +38,27 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-       filterButtons.forEach(b => b.classList.remove('active','btn-warning'));
-      btn.classList.add('active','btn-warning');
-      applyFilter(btn.dataset.filter);
+  function setActiveButton(activeButton) {
+    filterButtons.forEach(btn => {
+      btn.classList.remove('active', 'btn-warning');
+      btn.classList.add('btn-outline-warning');
     });
-  });
-// show all projects by default
-  document.querySelector('.filter-pills button.active')?.click();
+    activeButton.classList.add('active', 'btn-warning');
+    activeButton.classList.remove('btn-outline-warning');
+  }
+
+  if (filterButtons.length) {
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveButton(btn);
+        applyFilter(btn.dataset.filter);
+      });
+    });
+
+    // show all projects by default
+    const initialButton = document.querySelector('.projects-filters button.active') || filterButtons[0];
+    initialButton?.click();
+  }
 
   
 

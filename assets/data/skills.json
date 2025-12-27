@@ -1,0 +1,99 @@
+{
+  "Languages": [
+    { "name": "C# / .NET", "years": 3 },
+    { "name": "JavaScript (ES6+)", "years": 3 },
+    { "name": "HTML / CSS", "years": 3 },
+    { "name": "Python", "years": 3 },
+    { "name": "SQL (T-SQL)", "years": 2 },
+    { "name": "Java (academic)", "years": 0.5 },
+    { "name": "VBA", "years": 2 }
+  ],
+  "Frameworks & Libs": [
+    { "name": "ASP.NET MVC / Core / Razor", "years": 3 },
+    { "name": "Entity Framework", "years": 1.5 },
+    { "name": "LINQ", "years": 1.5 },
+    { "name": "React 18", "years": 1 },
+    { "name": "React Native", "years": 0.8 },
+    { "name": "Node.js & Express", "years": 1 },
+    { "name": "jQuery", "years": 1 },
+    { "name": "AJAX", "years": 2 },
+    { "name": "Bootstrap", "years": 2 },
+    { "name": "Flask / Dash", "years": 0.8 },
+    { "name": "Dapper ORM", "years": 0.7 },
+    { "name": "NumPy / Pandas / Plotly", "years": 0.5 },
+    { "name": "D3.js", "years": 0.5 },
+    { "name": "Webpack / Babel", "years": 0.3 }
+  ],
+  "Databases": [
+    { "name": "PostgreSQL", "years": 2 },
+    { "name": "MSSQL", "years": 2 },
+    { "name": "MySQL", "years": 0.5 },
+    { "name": "SQL Server Mgmt Studio", "years": 2 },
+    { "name": "Database Architecture Design", "years": 1 },
+    { "name": "pgAdmin", "years": 1 }
+  ],
+  "Dev-Ops & Cloud": [
+    { "name": "Git / GitHub", "years": 3 },
+    { "name": "GitLab", "years": 1 },
+    { "name": "GitHub Actions", "years": 3 },
+    { "name": "Azure", "years": 2 },
+    { "name": "AWS (S3 / Glue / Redshift)", "years": 0.5 },
+    { "name": "Docker (learning)", "years": 0 }
+  ],
+  "Testing & QA": [
+    { "name": "xUnit / NUnit", "years": 2 },
+    { "name": "pytest", "years": 0.8 },
+    { "name": "Black- / White-Box", "years": 3 },
+    { "name": "ETL Testing", "years": 1 },
+    { "name": "A/B Testing", "years": 3 }
+  ],
+  "Methodologies": [
+    { "name": "Scrum (Agile)", "years": 1 },
+    { "name": "Kanban", "years": 1 },
+    { "name": "Waterfall", "years": 3 },
+    { "name": "Incremental Model", "years": 3 },
+    { "name": "RAD", "years": 3 },
+    { "name": "Iterative Prototyping / Pretotyping", "years": 2 }
+  ],
+  "Data & BI": [
+    { "name": "Power BI", "years": 0.5 },
+    { "name": "Entity-Relationship Diagrams (ERD)", "years": 2 },
+    { "name": "UML", "years": 2 },
+    { "name": "Excel (data cleansing)", "years": 3 },
+    { "name": "Google Sheets / Forms", "years": 1 },
+    { "name": "Data Analysis", "years": 2 }
+  ],
+  "Infrastructure": [
+    { "name": "MikroTik RouterOS", "years": 1 },
+    { "name": "cPanel Email", "years": 1 },
+    { "name": "Synology NAS + RAID", "years": 1 },
+    { "name": "Active Directory", "years": 1 },
+    { "name": "Firewall / Spam Filtering", "years": 1 }
+  ],
+  "Proj & Dev Tools": [
+    { "name": "JIRA", "years": 1 },
+    { "name": "Microsoft Visual Studio", "years": 3 },
+    { "name": "Visual Studio Code", "years": 3 },
+    { "name": "Android Studio", "years": 0.5 },
+    { "name": "Wireframing (Miro / ERD / UML)", "years": 3 },
+    { "name": "Figma", "years": 0.5 },
+    { "name": "Miro (flows / PM)", "years": 3 },
+    { "name": "User-Manual Design", "years": 1 }
+  ],
+  "Certifications": [
+    { "name": "Linux Essentials (NDG) - 2021", "cert": true },
+    { "name": "Linux Unhatched (NDG) - 2020", "cert": true },
+    { "name": "Intro to Packet Tracer - 2020", "cert": true },
+    { "name": "Intro to PostgreSQL - 2024", "cert": true },
+    { "name": "Intro to Data Science - 2024", "cert": true },
+    { "name": "Intro to Cybersecurity - 2021", "cert": true },
+    { "name": "Cybersecurity Essentials - 2021", "cert": true },
+    { "name": "ChatGPT Templates - 2024", "cert": true },
+    { "name": "Networking Foundations - LANs - 2024", "cert": true },
+    { "name": "Business Dev Foundations - Market & Customer - 2024", "cert": true },
+    { "name": "Learning SOLID Programming Principles - 2024", "cert": true },
+    { "name": "Nano Tips - Speak Up in Meetings - 2024", "cert": true },
+    { "name": "Get Connected - 2020", "cert": true },
+    { "name": "Introduction to IoT - 2020", "cert": true }
+  ]
+}

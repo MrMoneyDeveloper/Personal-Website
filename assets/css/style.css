@@ -8,13 +8,26 @@
 
 /* ========== 1. ROOT TOKENS & GLOBAL RESET ========= */
 :root {
+  /* base colours */
+  --bg-dark: #0d1117;
+  --bg-mid: #161b22;
+  --text-light: #f5f5f5;
+
   /* Colours */
   --rpg-gold: #d4af37;         /* Primary accent */
   --rpg-gold-light: #ffc107;   /* Secondary accent (yellow) */
-  --rpg-bg-dark: #0d1117;      /* Body background */
-  --rpg-bg-mid:  #161b22;      /* Cards / dark panels */
+  --rpg-bg-dark: var(--bg-dark);      /* Body background */
+  --rpg-bg-mid:  var(--bg-mid);       /* Cards / dark panels */
   --rpg-bg-hero: #111318;      /* Darker hero overlay */
-  --rpg-text-light: #f8f9fa;   /* Main text colour */
+  --rpg-text-light: var(--text-light); /* Main text colour */
+
+  /* company palettes */
+  --theme-cx-bg: #0A0E23;      /* deep indigo */
+  --theme-cx-accent: #00FFFF;  /* electric teal */
+  --theme-atg-bg: #1F222E;     /* charcoal */
+  --theme-atg-accent: #D4913D; /* warm copper */
+  --theme-personal-bg: #191635; /* midnight purple */
+  --theme-personal-accent: #FF0099; /* magenta */
 
   /* Organic blob tints */
   --blob-amber: rgba(255,193,7,.18);
@@ -181,6 +194,40 @@ h3 { font-weight: 700; letter-spacing: .4px; line-height: 1.2; }
   -webkit-text-stroke: 0.5px #000;
 }
 
+/* Cinematic hero treatment */
+.cinematic-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: var(--text-light);
+}
+.cinematic-hero .hero-bg {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0,255,255,0.2), transparent 60%),
+    var(--cinematic-bg) no-repeat center / cover;
+  animation: fade-bg 20s linear infinite;
+  filter: saturate(1.05) contrast(1.05);
+}
+.cinematic-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  animation: slide-up 1.5s ease-out forwards;
+  opacity: 0;
+}
+@keyframes fade-bg {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+@keyframes slide-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 /* ========== 4. BUTTONS ========= */
 .btn-cta {
   padding: .75rem 1.5rem;
@@ -345,6 +392,49 @@ footer {
   animation: bounceY 2s infinite;
 }
 
+@keyframes floatY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+  100% { transform: translateY(0); }
+}
+.floating-icon {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+  animation: floatY 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.icon-top-left { top: 10%; left: 2%; }
+.icon-bottom-right { bottom: 15%; right: 3%; }
+
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.contact-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-icons img {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 0 0.5rem;
+  opacity: 1;
+  pointer-events: auto;
+  animation: floatY 4s ease-in-out infinite;
+}
+.contact-icons a:nth-child(2) img { animation-delay: 0.2s; }
+.contact-icons a:nth-child(3) img { animation-delay: 0.4s; }
+.contact-card {
+  max-width: 640px;
+}
 /* Parallax helper – any element with class .parallax-y will move slower */
 .parallax-y { will-change: transform; }
 
@@ -388,6 +478,7 @@ a.link-underline:hover::after{ transform: scaleX(1); }
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; }
+  .cinematic-hero .hero-content { opacity: 1; transform: none; }
 }
 
 /* --- Pop-out 3D card effect --- */
@@ -557,4 +648,94 @@ a.link-underline:hover::after{ transform: scaleX(1); }
 .hero-model{position:relative;width:200px;height:200px;margin:0 auto 1rem;}
 .model-loader{position:absolute;top:50%;left:50%;width:32px;height:32px;margin:-16px 0 0 -16px;border:4px solid #ccc;border-top-color:#ffc107;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* Neomorphic card style */
+.neo-card {
+  border-radius: 20px;
+  background: var(--bg-mid);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.5),
+              -5px -5px 15px rgba(255,255,255,0.05); /* highlights */
+  padding: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+.neo-card:hover {
+  box-shadow: 10px 10px 20px rgba(0,0,0,0.6),
+              -10px -10px 20px rgba(255,255,255,0.05);
+}
+/* Neomorphic button */
+.neo-button {
+  border-radius: 30px;
+  background: var(--bg-mid);
+  color: var(--text-light);
+  padding: 0.75rem 1.5rem;
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.4),
+              -3px -3px 6px rgba(255,255,255,0.04);
+  text-decoration: none;
+}
+.neo-button:hover {
+  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.5),
+              inset -3px -3px 6px rgba(255,255,255,0.05);
+}
+
+/* ===== Skill Garden ===== */
+#skill-garden {
+  background: radial-gradient(120% 120% at 50% 0%, rgba(212,175,55,0.08), rgba(13,17,23,0.6));
+}
+.garden-root {
+  fill: var(--rpg-bg-mid);
+  stroke: #343a40;
+  stroke-width: 2;
+  opacity: 0.9;
+}
+.garden-stem {
+  stroke: rgba(212,175,55,0.35);
+  stroke-width: 2;
+}
+.garden-plant circle {
+  fill: var(--rpg-bg-mid);
+  stroke: var(--rpg-gold-light);
+  stroke-width: 2;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.45));
+}
+.garden-plant-label {
+  fill: var(--rpg-text-light);
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.garden-leaf {
+  cursor: pointer;
+}
+.garden-leaf circle {
+  fill: var(--rpg-gold);
+  stroke: rgba(0,0,0,0.35);
+  stroke-width: 1;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.45));
+}
+.garden-leaf.is-cert circle {
+  fill: var(--rpg-gold-light);
+}
+.garden-leaf.is-active circle {
+  stroke: #ffffff33;
+}
+.garden-leaf-label {
+  pointer-events: none;
+}
+.garden-leaf-label rect {
+  fill: rgba(13,17,23,0.9);
+  stroke: #343a40;
+  stroke-width: 1;
+}
+.garden-leaf-label text {
+  fill: var(--rpg-text-light);
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  paint-order: stroke;
+  stroke: #000000;
+  stroke-width: 3px;
+}
+.garden-leaf-detail {
+  fill: #ffffffcc;
+  font-size: 11px;
+}
 
