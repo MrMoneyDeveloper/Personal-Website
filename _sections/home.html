@@ -1,0 +1,320 @@
+---
+title: "Home"
+id: "home"
+order: 0
+class: "section-home"
+show_title: false
+hero_background: "/assets/videos/Index_Wallpaper.gif"
+hero_title: "Mohammed Farhaan Buckas"
+hero_tagline: "Full-stack Developer · IT Applications Support & Network Specialist · Passionate about performant systems, elegant code & immersive UX."
+hero_cta_text: "Explore My Skills"
+hero_cta_link: "/#skills"
+---
+
+<!-- ============================= HERO SECTION ============================= -->
+<header class="hero-section hero-bleed cinematic-hero">
+  <div class="hero-bg" style="--cinematic-bg: url('{{ page.hero_background | relative_url }}'); background-image:url('{{ page.hero_background | relative_url }}');"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-content text-center">
+    <h1 class="hero-title">{{ page.hero_title }}</h1>
+    <p class="hero-tagline">{{ page.hero_tagline }}</p>
+    {%- if page.hero_cta_text -%}
+    <a href="{{ page.hero_cta_link | relative_url }}" class="neo-button" data-tilt>
+      <i class="fa-solid fa-dungeon me-2"></i>{{ page.hero_cta_text }}
+    </a>
+    {%- endif -%}
+  </div>
+
+  <div class="scroll-cue"><i class="fa-solid fa-chevron-down"></i></div>
+</header>
+
+<!-- ============================= ABOUT PREVIEW ============================ -->
+<section class="py-5 about-preview reveal-on-scroll">
+  <div class="container text-center">
+    <h2 class="mb-4">Meet the Adventurer</h2>
+    <p class="lead mx-auto" style="max-width:760px">
+      Armed with a National Diploma in Software Development and a toolkit spanning
+      <strong>.NET</strong>, <strong>Node.js</strong>, <strong>MSSQL</strong>, and <strong>Python</strong>,
+      I traverse the realms of code, infrastructure, and data—slaying bugs and forging robust
+      solutions for every quest.
+    </p>
+    <a class="btn btn-outline-warning mt-3" href="{{ '/' | relative_url }}#about">
+      Read Full Chronicle <i class="bi bi-arrow-right-short"></i>
+    </a>
+  </div>
+</section>
+
+<!-- ============================ CORE PILLARS ============================== -->
+<section class="py-5 bg-mid text-light reveal-on-scroll">
+  <div class="container">
+    <h2 class="text-center mb-5">Core Pillars of Expertise</h2>
+    <div class="row g-4">
+      <!-- Pillar 1 – Full-Stack Craft -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="pillar-card pop-card p-4 text-center h-100 hover-lift" data-tilt>
+          <i class="bi bi-code-slash display-6 text-warning"></i>
+          <h5 class="mt-3">Full-Stack Craft</h5>
+          <p class="small mb-0">C# / ASP.NET · Razor · Node / Express · React basics</p>
+        </div>
+      </div>
+
+      <!-- Pillar 2 – Infrastructure -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="pillar-card pop-card p-4 text-center h-100 hover-lift" data-tilt>
+          <i class="bi bi-diagram-3 display-6 text-warning"></i>
+          <h5 class="mt-3">Infrastructure</h5>
+          <p class="small mb-0">MikroTik · Synology NAS · cPanel · Firewalls</p>
+        </div>
+      </div>
+
+      <!-- Pillar 3 – Data & BI -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="pillar-card pop-card p-4 text-center h-100 hover-lift" data-tilt>
+          <i class="bi bi-database-check display-6 text-warning"></i>
+          <h5 class="mt-3">Data &amp; BI</h5>
+          <p class="small mb-0">MSSQL · PostgreSQL · Power BI · Excel wizardry</p>
+        </div>
+      </div>
+
+      <!-- Pillar 4 – Leadership -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="pillar-card pop-card p-4 text-center h-100 hover-lift" data-tilt>
+          <i class="bi bi-people-fill display-6 text-warning"></i>
+          <h5 class="mt-3">Leadership</h5>
+          <p class="small mb-0">8-member teams · Agile/Scrum · Mentorship</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================== GAME CAROUSEL =============================== -->
+<section class="py-5 reveal-on-scroll">
+  <div class="container text-center">
+     <h2 class="mb-4">Retro Games</h2>
+    <div id="gameCarousel" class="carousel slide" data-bs-ride="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active text-center">
+          <h3 class="game-title">Tetris</h3>
+          <canvas id="tetris-canvas" width="200" height="400"></canvas>
+          <div class="mt-2">
+            <button id="tetris-start" class="btn btn-outline-warning">Start</button>
+            <button id="tetris-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+          <div class="touch-controls mt-2">
+            <button data-key="37" class="btn btn-warning">&#9664;</button>
+            <button data-key="40" class="btn btn-warning">&#9660;</button>
+            <button data-key="39" class="btn btn-warning">&#9654;</button>
+            <button data-key="81" class="btn btn-warning">Q/W</button>
+          </div>
+          <div id="tetris-score" class="mt-2"></div>
+        </div>
+        <div class="carousel-item text-center">
+           <h3 class="game-title">Snake</h3>
+          <canvas id="snake-canvas" width="200" height="200"></canvas>
+          <div class="mt-2">
+            <button id="snake-start" class="btn btn-outline-warning">Start</button>
+            <button id="snake-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+          <div class="touch-controls mt-2">
+            <button data-key="38" class="btn btn-warning">&#9650;</button>
+            <button data-key="37" class="btn btn-warning">&#9664;</button>
+            <button data-key="40" class="btn btn-warning">&#9660;</button>
+            <button data-key="39" class="btn btn-warning">&#9654;</button>
+          </div>
+        </div>
+        <div class="carousel-item text-center">
+           <h3 class="game-title">Breakout</h3>
+          <canvas id="breakout-canvas" width="200" height="300"></canvas>
+          <div class="mt-2">
+            <button id="breakout-start" class="btn btn-outline-warning">Start</button>
+            <button id="breakout-stop" class="btn btn-outline-warning ms-2">Stop</button>
+          </div>
+          <div class="touch-controls mt-2">
+            <button data-key="37" class="btn btn-warning">&#9664;</button>
+            <button data-key="39" class="btn btn-warning">&#9654;</button>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ========================= CALL TO ADVENTURE =========================== -->
+<section id="call-to-adventure" class="py-5 bg-mid text-center reveal-on-scroll">
+  <div class="container">
+    <h2 class="mb-3">Ready to Start a New Quest Together?</h2>
+    <p class="lead mx-auto mb-4" style="max-width:720px">
+      I’m always keen to collaborate on challenging builds, debug thorny issues, or brainstorm the next big idea.
+      Reach out and let’s forge something epic!
+    </p>
+    <a href="{{ '/' | relative_url }}#contact" class="btn btn-cta" data-tilt>
+      <i class="bi bi-envelope-paper-fill me-2"></i>Summon&nbsp;Me
+    </a>
+  </div>
+</section>
+
+<!-- ============================== PAGE SCRIPTS ============================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.3/vanilla-tilt.min.js"></script>
+<script>
+  let revealSound;
+  function initCarousel() {
+    const el = document.getElementById('gameCarousel');
+    if (!el || !window.bootstrap?.Carousel || el.dataset.carouselInit) return;
+    new bootstrap.Carousel(el, { interval: false });
+    el.addEventListener('slide.bs.carousel', () => {
+        stopTetris?.();
+        stopSnake?.();
+        stopBreakout?.();
+      });
+        el.dataset.carouselInit = 'true';
+    }
+
+    function setupGameControls() {
+    if (setupGameControls.done) return;
+    if (typeof startTetris !== 'function' || typeof stopTetris !== 'function' ||
+        typeof startSnake !== 'function' || typeof stopSnake !== 'function' ||
+        typeof startBreakout !== 'function' || typeof stopBreakout !== 'function') {
+      return;
+    }
+    document.getElementById('tetris-start')?.addEventListener('click', startTetris);
+    document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
+    document.getElementById('snake-start')?.addEventListener('click', startSnake);
+    document.getElementById('snake-stop')?.addEventListener('click', stopSnake);
+    document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
+    document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
+    setupGameControls.done = true;
+  }
+
+  function sendKey(code, type='keydown') {
+    const evt = new KeyboardEvent(type, { keyCode: code, which: code, bubbles: true });
+    document.dispatchEvent(evt);
+  }
+
+  function bindTouchControls() {
+
+    document.querySelectorAll('.touch-controls button').forEach(btn => {
+      btn.addEventListener('touchstart', e => {
+        e.preventDefault();
+        sendKey(parseInt(btn.dataset.key), 'keydown');
+      });
+      btn.addEventListener('touchend', e => {
+        e.preventDefault();
+        sendKey(parseInt(btn.dataset.key), 'keyup');
+      });
+      btn.addEventListener('mousedown', () => sendKey(parseInt(btn.dataset.key), 'keydown'));
+      btn.addEventListener('mouseup', () => sendKey(parseInt(btn.dataset.key), 'keyup'));
+    });
+  }
+
+     if (typeof startTetris === 'function')
+      document.getElementById('tetris-start')?.addEventListener('click', startTetris);
+    if (typeof stopTetris === 'function')
+      document.getElementById('tetris-stop')?.addEventListener('click', stopTetris);
+    if (typeof startSnake === 'function')
+      document.getElementById('snake-start')?.addEventListener('click', startSnake);
+    if (typeof stopSnake === 'function')
+      document.getElementById('snake-stop')?.addEventListener('click', stopSnake);
+    if (typeof startBreakout === 'function')
+      document.getElementById('breakout-start')?.addEventListener('click', startBreakout);
+    if (typeof stopBreakout === 'function')
+      document.getElementById('breakout-stop')?.addEventListener('click', stopBreakout);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('ready');
+    initCarousel();
+    bindTouchControls();
+    setupGameControls();
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    });
+
+  /* ---------------- WINDOW LOAD ---------------- */
+  window.addEventListener('load', () => {
+    initCarousel();
+    setupGameControls();
+    // Tilt on buttons & links (desktop only)
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+        max: 10, speed: 400, glare: true, 'max-glare': 0.20
+      });
+    }
+
+    // Howler.js sounds
+    const heroSound    = new Howl({ src: ['assets/sounds/reveal.wav'], volume: 0.5 });
+    const flipSound    = new Howl({ src: ['assets/sounds/flip.wav'],   volume: 0.5 });
+    const cueSound     = new Howl({ src: ['assets/sounds/cue.wav'],    volume: 0.5 });
+    const gallerySound = new Howl({ src: ['assets/sounds/hover.wav'],  volume: 0.5 });
+    revealSound  = new Howl({ src: ['assets/sounds/reveal.wav'], volume: 0.4 });
+
+    heroSound.play();
+    document.querySelector('.scroll-cue')?.addEventListener('click', () => cueSound.play());
+    document.querySelectorAll('#gallery img').forEach(img =>
+      img.addEventListener('mouseenter', () => gallerySound.play())
+    );
+
+    // play revealSound on hover of our Call-to-Adventure block
+    document.querySelector('#call-to-adventure')?.addEventListener('mouseenter', () => revealSound.play());
+  
+
+   if (window.ScrollTrigger) {
+      ScrollTrigger.refresh(true);
+      setTimeout(() => ScrollTrigger.refresh(true), 200);
+    }
+  });
+   window.addEventListener('orientationchange', () => {
+    if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(true), 300);
+  });
+
+  /* ---------------- GSAP ANIMATIONS ---------------- */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.gsap?.registerPlugin && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+   // Hero parallax layers
+    gsap.to('.hero-bg', {
+      yPercent: 15, ease: 'none',
+      scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true }
+    });
+ gsap.to('.hero-stars', {
+      yPercent: 25, ease: 'none',
+      scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    // Headline fade-in (skip if cinematic CSS handles it)
+    if (!document.querySelector('.cinematic-hero')) {
+      gsap.from('.hero-content', {
+        opacity: 0, y: 40, duration: 1, ease: 'power2.out', delay: 0.2
+      });
+    }
+
+    // Section fade-ins + revealSound trigger
+    gsap.utils.toArray('section').forEach(sec => {
+      gsap.from(sec, {
+        opacity: 0, y: 30, duration: 0.8,
+        scrollTrigger: {
+          trigger: sec,
+          start: 'top 80%',
+          onEnter: () => revealSound.play()
+        }
+      });
+    });
+
+   // Game canvas entrance
+    gsap.from('#gameCarousel canvas', {
+      opacity: 0, y: 40, duration: 0.6, ease: 'power1.out',
+      scrollTrigger: { trigger: '#gameCarousel', start: 'top 85%' }
+    });
+  }
+   window.addEventListener('load', () => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
+</script>

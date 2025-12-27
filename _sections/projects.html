@@ -1,0 +1,207 @@
+---
+title: "Projects"
+id: "projects"
+order: 3
+class: "section-projects"
+show_title: false
+---
+
+<!-- ========================== PROJECTS HERO =========================== -->
+<header class="sub-hero-section text-center py-5 bg-mid border-bottom border-warning-subtle">
+  <h1 class="display-5 fw-bold mb-2">Completed Quests</h1>
+  <p class="lead mx-auto" style="max-width:720px">
+    A showcase of systems, scripts, and data adventures I’ve completed in the last few
+    years – each quest has forged new skills and battle-hardened experience.
+  </p>
+</header>
+
+<!-- ========================== CATEGORY FILTER ========================= -->
+<section class="py-4 bg-dark sticky-top shadow-sm" style="z-index:10">
+  <div class="container text-center">
+    <div class="projects-filters d-inline-flex flex-wrap gap-2">
+      <button class="btn btn-sm btn-warning active" data-filter="all" data-tilt>All</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="Professional" data-tilt>Professional</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="Passion" data-tilt>Passion Projects</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="Challenges" data-tilt>Challenges &amp; Experiments</button>
+      <button class="btn btn-sm btn-outline-warning" data-filter="OpenSource" data-tilt>Open Source &amp; Collaborations</button>
+    </div>
+  </div>
+</section>
+
+<!-- Info Modal for projects without external links -->
+<div class="modal fade" id="projectInfoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="small mb-2" id="projectInfoStack"></p>
+        <p id="projectInfoDesc" class="mb-0"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================== PROJECTS GRID =========================== -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4" id="projectsGrid">
+
+      {%- assign projects = site.data.projects | default: nil -%}
+      {%- if projects -%}
+        {%- for p in projects -%}
+          <div class="col-md-6 col-lg-4 project-card" data-category="{{ p.category }}">
+            <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+              <img src="{{ p.image | relative_url }}" class="card-img-top" alt="{{ p.title }} screenshot" loading="lazy">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ p.title }}</h5>
+                <p class="small mb-2 text-light">{{ p.stack }}</p>
+                <p class="card-text small flex-grow-1">{{ p.blurb }}</p>
+                {%- if p.link -%}
+                  <a href="{{ p.link }}" target="_blank" class="stretched-link" aria-label="External link"></a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- STATIC placeholders if _data/projects.yml not present -->
+
+       <!-- Ticket Management System -->
+<div class="col-md-6 col-lg-4 project-card" data-category="Professional">
+  <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder8.png' | relative_url }}" class="card-img-top" alt="Ticket Management System" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">Ticket Management System</h5>
+      <p class="small mb-2 text-light">Google Forms · Google Sheets · Apps Script · JavaScript · HTML Email Templates</p>
+      <p class="card-text small flex-grow-1">
+        End-to-end automated ticketing with field validation and task allocation via Google Forms backed by Sheets. Features include update/comments, SLA tracking, HTML-styled email alerts on ticket events, daily summary reports, analytics dashboards on ticket volume and user activity, plus full documentation, user training, and system administration.
+      </p>
+    </div>
+  </div>
+</div>
+
+        <!-- Document Management System -->
+<div class="col-md-6 col-lg-4 project-card" data-category="Professional">
+  <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder7.png' | relative_url }}" class="card-img-top" alt="Document Management System" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">Document Management System</h5>
+      <p class="small mb-2 text-light">Node.js · Express.js · PostgreSQL</p>
+      <p class="card-text small flex-grow-1">
+        End-to-end role-based DMS for DUT postgraduate records. Led an 8‑member technical team, conducted comprehensive technical documentation review, and implemented both backend (Express.js) and frontend features. Designed database schema and enforced secure access controls throughout the process.
+      </p>
+    </div>
+  </div>
+</div>
+
+        <!-- Odoo ERP Roll‑out -->
+<div class="col-md-6 col-lg-4 project-card" data-category="Professional">
+  <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder4.png' | relative_url }}" class="card-img-top" alt="Odoo ERP Roll‑out" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">Odoo ERP Roll‑out</h5>
+      <p class="small mb-2 text-light">Business Analysis · JAD Workshops · Odoo · PostgreSQL · Tier 
+        
+        
+        1 Support</p>
+      <p class="card-text small flex-grow-1">
+        Drove end‑to‑end rollout by capturing requirements, running Joint Application Development sessions, drafting SOPs, liaising with our implementation partner, and ensuring seamless workflows from Manufacturing through Sales, Accounting, and Reporting. Provided first‑line support post‑go‑live.
+      </p>
+      <a href="https://techniques-group-sa.odoo.com/web/login" target="_blank" class="stretched-link" aria-label="Live Odoo link"></a>
+    </div>
+  </div>
+</div>
+
+<!-- Crypto‑Lab -->
+<div class="col-md-6 col-lg-4 project-card" data-category="Challenges">
+  <div class="card neo-card bg-dark h-100 border-info-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder3.jpeg' | relative_url }}" class="card-img-top" alt="Crypto‑Lab" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">Crypto‑Lab</h5>
+      <p class="small mb-2 text-light">Python · Flask · Dash · Parquet</p>
+      <p class="card-text small flex-grow-1">
+        End‑to‑end crypto data lab: hourly BTC/ETH ingest → partitioned Parquet with schema‑safe evolution, AutoARIMA forecasts, Flask micro‑service, live Dash dashboard & single‑page PDF reporting – all containerised and CI‑gated.
+      </p>
+      <a href="https://github.com/MrMoneyDeveloper/crypto_lab" target="_blank" class="stretched-link" aria-label="GitHub source"></a>
+    </div>
+  </div>
+</div>
+
+
+        <!-- Breakdown Management System -->
+<div class="col-md-6 col-lg-4 project-card" data-category="OpenSource">
+  <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder2.png' | relative_url }}" class="card-img-top" alt="Breakdown Management System" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">Breakdown Management System</h5>
+      <p class="small mb-2 text-light">ASP.NET&nbsp;6 · React · SQL&nbsp;Server</p>
+      <p class="card-text small flex-grow-1">
+        Vehicle breakdown tracker with CRUD API (ASP.NET&nbsp;6 &amp; EF Core), paginated React UI, unique‑reference validation, landing‑page components, and request/response logging middleware. Auto‑seed SQL scripts and Docker‑friendly.
+      </p>
+      <a href="https://github.com/MrMoneyDeveloper/RNR" target="_blank" class="stretched-link" aria-label="GitHub source"></a>
+    </div>
+  </div>
+</div>
+
+
+<!-- SiyaKhokha Payment Support -->
+<div class="col-md-6 col-lg-4 project-card" data-category="Professional">
+  <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder5.png' | relative_url }}" class="card-img-top" alt="SiyaKhokha Support" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">SiyaKhokha Payment Platform – Support &amp; Admin</h5>
+      <p class="small mb-2 text-light">C# · ASP.NET&nbsp;MVC · Razor · MSSQL · SSIS · JavaScript · HTML/CSS</p>
+      <p class="card-text small flex-grow-1">
+        Delivered front‑end Razor enhancements, live DBA support, SSIS‑automated reconciliations, Excel reporting, fraud‑blocking logic, technical user manuals and back‑office system administration for the SiyaKhokha municipal e‑payment platform—ensuring smooth daily operations without modifying the core payment integration.
+      </p>
+      <a href="https://siyakhokha.ekurhuleni.gov.za/Account/Login?AspxAutoDetectCookieSupport=1" target="_blank" class="stretched-link" aria-label="Live SiyaKhokha link"></a>
+    </div>
+  </div>
+</div>
+
+      <!-- Credit Control System (Front‑end Enhancements) -->
+<div class="col-md-6 col-lg-4 project-card" data-category="Professional">
+  <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+    <img src="{{ 'assets/images/quest-placeholder6.png' | relative_url }}" class="card-img-top" alt="Credit Control System" loading="lazy">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">Credit Control System – UI Fixes</h5>
+      <p class="small mb-2 text-light">Razor · HTML/CSS · JavaScript</p>
+      <p class="card-text small flex-grow-1">
+        Refactored front‑end views: rebuilt data tables, graphs and pages for clearer credit balances &amp; invoice tracking. Focused solely on UI/UX polish—no backend changes.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+        <!-- EasyGames Client-Transaction Manager -->
+        <div class="col-md-6 col-lg-4 project-card" data-category="Passion">
+          <div class="card neo-card bg-dark h-100 border-warning-subtle reveal-on-scroll hover-lift" data-tilt>
+            <img src="{{ 'assets/images/quest-placeholder1.png' | relative_url }}" class="card-img-top" alt="EasyGames Manager" loading="lazy">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">EasyGames Client-Transaction Manager</h5>
+              <p class="small mb-2 text-light">JavaScript · Bootstrap</p>
+              <p class="card-text small flex-grow-1">
+                Vanilla JS app for clients & transactions: live balance updates, add/edit entries, filtering & sorting.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================== GITHUB REPOS =========================== -->
+<section class="py-5 bg-mid">
+  <div class="container" id="githubProjects">
+    <h2 class="text-center mb-4">Latest GitHub Repositories</h2>
+    <p class="repo-status text-center small mb-3"></p>
+    <div class="row g-4 repo-list"></div>
+  </div>
+</section>

@@ -13,6 +13,19 @@
   --bg-mid: #161b22;
   --text-light: #f5f5f5;
 
+  /* spacing scale */
+  --spacing-base: 1rem;
+  --spacing-2xs: calc(var(--spacing-base) * 0.25);
+  --spacing-xs: calc(var(--spacing-base) * 0.5);
+  --spacing-sm: var(--spacing-base);
+  --spacing-md: calc(var(--spacing-base) * 1.5);
+  --spacing-lg: calc(var(--spacing-base) * 2);
+  --spacing-xl: calc(var(--spacing-base) * 3);
+  --spacing-2xl: calc(var(--spacing-base) * 4);
+  --section-pad-y: var(--spacing-lg);
+  --section-pad-x: var(--spacing-base);
+  --nav-height: 4.5rem;
+
   /* Colours */
   --rpg-gold: #d4af37;         /* Primary accent */
   --rpg-gold-light: #ffc107;   /* Secondary accent (yellow) */
@@ -59,6 +72,41 @@ main {
   flex: 1 0 auto;
 }
 
+/* ========== LAYOUT & SPACING ========= */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+.mt-navbar { padding-top: var(--nav-height); }
+
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-md);
+  padding-block: var(--section-pad-y);
+  padding-inline: var(--section-pad-x);
+  scroll-margin-top: var(--nav-height);
+}
+.section-title {
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-base);
+  align-items: start;
+}
+.section-home { padding-top: 0; }
+
+@media (max-width: 768px) {
+  .section {
+    padding-block: var(--spacing-lg);
+    padding-inline: var(--spacing-sm);
+  }
+  .section-grid { grid-template-columns: 1fr; }
+}
+
 h1,h2,h3,h4,h5,h6,
 .navbar-brand { font-family: 'Cinzel', serif; letter-spacing: .5px; font-weight: 700; }
 /* Bold expressive headings with responsive scale */
@@ -95,7 +143,7 @@ h3 { font-weight: 700; letter-spacing: .4px; line-height: 1.2; }
 .nav-link:hover::after, .nav-link.active::after{ transform: scaleX(1); }
 
 /* Sticky offset (because navbar is fixed‑top) */
-.page-offset { margin-top: 4.5rem; }
+.page-offset { margin-top: var(--nav-height); }
 
 /* ========== 3. HERO SECTIONS ========= */
 .hero-section,

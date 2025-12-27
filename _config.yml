@@ -3,3 +3,6 @@ description: RPG-themed portfolio
 # disables future theme warnings
 theme: null
 baseurl: "/Personal-Website"
+collections:
+  sections:
+    output: false

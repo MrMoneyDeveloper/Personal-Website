@@ -1,6 +1,5 @@
 ---
-# Central default layout – used by every page
-# Save as /_layouts/default.html
+# Single-page layout that composes sections from the _sections collection
 layout: null
 ---
 <!DOCTYPE html>
@@ -14,14 +13,14 @@ layout: null
   <title>{{ page.title | default: site.title }}</title>
   <link rel="icon" type="image/png" href="{{ '/assets/images/Tab_Icon.png' | relative_url }}">
 
-  <!-- =============== VENDOR CSS =============== -->
+  <!-- =============== VENDORS CSS =============== -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <!-- =============== MASTER THEME =============== -->
- <link href="{{ '/assets/css/style.css' | relative_url }}" rel="stylesheet">
+  <link href="{{ '/assets/css/style.css' | relative_url }}" rel="stylesheet">
   {%- if page.extra_css -%}
     {%- for css in page.extra_css -%}
       <link rel="stylesheet" href="{{ css }}">
@@ -54,25 +53,34 @@ layout: null
   </nav>
 
   <!-- =============== PAGE CONTENT =============== -->
-  <main id="main-content" class="container-fluid flex-grow-1 py-5 mt-navbar">
-    {{ content }}
+  <main id="main-content" class="container-fluid flex-grow-1 mt-navbar">
+    {%- assign sections = site.sections | sort: "order" -%}
+    {%- for section in sections -%}
+      {%- assign section_id = section.id | default: section.title | slugify -%}
+      <section id="{{ section_id }}" class="section {{ section.class }}">
+        {%- if section.title and section.show_title != false -%}
+          <h2 class="section-title">{{ section.title }}</h2>
+        {%- endif -%}
+        {{ section.content }}
+      </section>
+    {%- endfor -%}
   </main>
 
   <!-- =============== FOOTER =============== -->
   <footer class="bg-dark text-center py-3 border-top border-warning mt-auto">
-   <small class="text-white">© {{ 'now' | date: '%Y' }} Mohammed Farhaan Buckas — Built with 💻 &amp; ☕.</small>
+   <small class="text-white">Ac {{ 'now' | date: '%Y' }} Mohammed Farhaan Buckas ƒ?" Built with dY'¯ &amp; ƒ~.</small>
   </footer>
 
-  <!-- =============== VENDOR JS =============== -->
-   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <!-- =============== VENDORS JS =============== -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-  <!-- Anime.js for additional micro‑animations -->
+  <!-- Anime.js for additional micro animations -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.topology.min.js"></script>
- 
+
   <script>
     window.siteCompany = "{{ page.company | default: '' }}";
   </script>
