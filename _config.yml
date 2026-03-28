@@ -1,8 +1,4 @@
-title: FB Realm
-description: RPG-themed portfolio
-# disables future theme warnings
+title: Placeholder Studio
+description: Immersive placeholder website redesign
 theme: null
 baseurl: "/Personal-Website"
-collections:
-  sections:
-    output: false

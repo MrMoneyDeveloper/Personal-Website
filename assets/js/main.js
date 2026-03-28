@@ -1,107 +1,81 @@
-// Global site enhancements: sound & tilt effects
-// Requires Howler.js and GSAP already loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.site-nav');
 
-(function(){
-  document.addEventListener('DOMContentLoaded', function(){
-    // ---- Click sound ----
-    var clickSound = new Howl({
-      src: ['assets/sounds/click.wav'],
-      volume: 0.4
+  if (menuToggle && nav) {
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('open');
     });
-    document.body.addEventListener('click', function(e){
-      if(e.target.closest('a, button')) {
-        clickSound.play();
+  }
+
+  if (window.VANTA && window.VANTA.NET && window.innerWidth > 768) {
+    window.VANTA.NET({
+      el: '#vanta-bg',
+      color: 0x6cbfff,
+      backgroundColor: 0x06080f,
+      points: 11.0,
+      maxDistance: 19.0,
+      spacing: 15.0,
+      showDots: false,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false
+    });
+  }
+
+  if (window.gsap) {
+    gsap.registerPlugin(window.ScrollTrigger);
+    gsap.to('.hero .display', {
+      y: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
       }
     });
 
-    // ---- Hover sound placeholder ----
-    var hoverSound = new Howl({ src: ['assets/sounds/hover.wav'], volume: 0.4 });
-    document.querySelectorAll('a, button').forEach(function(el){
-      el.addEventListener('mouseenter', function(){ hoverSound.play(); });
-    });
-
-    // ---- Tilt effect ----
-    document.querySelectorAll('[data-tilt]').forEach(function(el){
-      var height = el.clientHeight;
-      var width  = el.clientWidth;
-      el.addEventListener('mousemove', function(ev){
-        var x = (ev.offsetX - width/2) / width * 20;
-        var y = (ev.offsetY - height/2) / height * -20;
-        el.style.transform = 'rotateX(' + y + 'deg) rotateY(' + x + 'deg)';
-      });
-      el.addEventListener('mouseleave', function(){
-        el.style.transform = '';
-      });
-    });
-
- // ---- Ensure ScrollTrigger registered for any page using GSAP ----
-    if(window.gsap && window.ScrollTrigger){
-      gsap.registerPlugin(ScrollTrigger);
-    }
-
-
-    // ---- Hero parallax depth ----
-    var heroBg = document.querySelector('.hero-bg');
-    if(heroBg && window.gsap && window.ScrollTrigger){
-      gsap.to(heroBg, {
-        scale: 1.1,
+    gsap.utils.toArray('.reveal').forEach((item, index) => {
+      gsap.to(item, {
+        opacity: 1,
+        y: 0,
+        duration: 0.85,
+        delay: index % 3 * 0.05,
+        ease: 'power2.out',
         scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
+          trigger: item,
+          start: 'top 84%',
+          once: true
         }
       });
-    }
-    
- // ---- Particles effect removed ----
+    });
 
- // ---- Vanta Topology background ----
-    if(window.VANTA){
-      document.querySelectorAll('#vanta-bg').forEach(function(el){
-        VANTA.TOPOLOGY({
-          el: el,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          color: 0xf6f6aa,
-          backgroundColor: 0x222121
+    gsap.utils.toArray('.card, .project-card, .news-item').forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(card, {
+          rotateY: x * 6,
+          rotateX: -y * 5,
+          transformPerspective: 900,
+          transformOrigin: 'center',
+          duration: 0.25,
+          ease: 'power1.out'
         });
       });
-    }
 
-    // ---- Scroll reveal animations ----
-    if(window.gsap && window.ScrollTrigger){
-      gsap.utils.toArray('.reveal-on-scroll').forEach(function(el){
-        gsap.from(el, {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-           scrollTrigger: { trigger: el, start: 'top 85%' },
-          immediateRender: false
-        });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.45, ease: 'power3.out' });
       });
-    }
-     if(window.ScrollTrigger){
-      ScrollTrigger.refresh();
-    }
-  });
-})();
-
-window.addEventListener('load', function(){
-  if(window.ScrollTrigger){
-    ScrollTrigger.refresh(true);
-    // mobile browsers sometimes need an extra tick
-    setTimeout(function(){ ScrollTrigger.refresh(true); }, 200);
-  }
-});
-
-window.addEventListener('orientationchange', function(){
-  if(window.ScrollTrigger){
-    setTimeout(function(){ ScrollTrigger.refresh(true); }, 200);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
   }
 });
