@@ -127,7 +127,7 @@ a {
 
 .atmosphere-gif--network {
   inset: -18%;
-  background-image: url('../images/atmosphere/ambient-network-rift.gif');
+  background-image: url('../images/atmosphere/ambient-network-rift-wallpaper.gif');
   background-size: min(110rem, 145vw) auto;
   background-position: center 46%;
   opacity: 0.18;
@@ -143,7 +143,7 @@ a {
 
 .atmosphere-gif--botanical {
   inset: -6% 42% -10% -12%;
-  background-image: url('../images/atmosphere/ambient-botanical-neon.gif');
+  background-image: url('../images/atmosphere/ambient-botanical-neon-window.gif');
   background-position: left center;
   opacity: 0.22;
   filter: saturate(1.18) brightness(0.42) contrast(1.08);
@@ -158,7 +158,7 @@ a {
 
 .atmosphere-gif--structure {
   inset: 26% -10% -18% 56%;
-  background-image: url('../images/atmosphere/ambient-abyss-structure.gif');
+  background-image: url('../images/atmosphere/ambient-abyss-structure-verticle-window.gif');
   background-position: center bottom;
   opacity: 0.18;
   filter: saturate(1.18) brightness(0.54) contrast(1.12);
@@ -173,7 +173,7 @@ a {
 
 .atmosphere-gif--profile {
   inset: 8% 54% 18% 8%;
-  background-image: url('../images/atmosphere/ambient-botanical-neon.gif');
+  background-image: url('../images/atmosphere/ambient-botanical-neon-window.gif');
   background-size: min(44rem, 52vw) auto;
   background-position: left center;
   opacity: 0.16;
@@ -189,7 +189,7 @@ a {
 
 .atmosphere-gif--meteor {
   inset: 10% 4% 12% 68%;
-  background-image: url('../images/atmosphere/ambient-network-rift.gif');
+  background-image: url('../images/atmosphere/ambient-network-rift-wallpaper.gif');
   background-size: min(26rem, 28vw) auto;
   background-position: center center;
   opacity: 0.2;
@@ -205,7 +205,7 @@ a {
 
 .atmosphere-gif--ocean {
   inset: 42% 40% -22% 2%;
-  background-image: url('../images/atmosphere/ambient-abyss-structure.gif');
+  background-image: url('../images/atmosphere/ambient-abyss-structure-verticle-window.gif');
   background-size: min(42rem, 44vw) auto;
   background-position: left bottom;
   opacity: 0.17;
@@ -277,11 +277,11 @@ html.has-vanta .atmosphere-gif--ocean {
   inset: 0;
   opacity: 1;
   background:
-    linear-gradient(90deg, rgba(4, 7, 13, 0.24) 0%, rgba(4, 7, 13, 0.08) 38%, rgba(4, 7, 13, 0.18) 100%),
-    radial-gradient(circle at 58% 16%, rgba(87, 195, 255, 0.2), transparent 24%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(2, 5, 11, 0.24)),
-    url('../images/atmosphere/ambient-network-rift.gif') right center / min(82rem, 88vw) auto no-repeat;
-  filter: saturate(132%) brightness(0.9) contrast(116%);
+    linear-gradient(90deg, rgba(4, 7, 13, 0.42) 0%, rgba(4, 7, 13, 0.14) 34%, rgba(4, 7, 13, 0.2) 100%),
+    radial-gradient(circle at 62% 18%, rgba(87, 195, 255, 0.24), transparent 22%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(2, 5, 11, 0.16)),
+    url('../images/atmosphere/neon-grid-wallpaper.gif') right center / min(92rem, 96vw) auto no-repeat;
+  filter: saturate(138%) brightness(1) contrast(116%);
   mix-blend-mode: normal;
   transform: translate3d(
     calc(var(--atmosphere-shift-x) * -0.08),
@@ -305,12 +305,12 @@ html.has-vanta .atmosphere-gif--ocean {
 
 #vanta-bg::before {
   background:
-    linear-gradient(90deg, rgba(4, 7, 13, 0.18), rgba(4, 7, 13, 0.02) 46%, transparent 76%),
-    radial-gradient(circle at 22% 40%, rgba(152, 235, 255, 0.14), transparent 22%),
-    url('../images/atmosphere/ambient-botanical-neon.gif') left center / min(42rem, 48vw) auto no-repeat;
-  opacity: 0.56;
-  filter: saturate(1.14) brightness(0.74) contrast(1.08);
-  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.94) 44%, rgba(0, 0, 0, 0.28) 78%, transparent 100%);
+    linear-gradient(90deg, rgba(4, 7, 13, 0.22), rgba(4, 7, 13, 0.04) 48%, transparent 86%),
+    radial-gradient(circle at 18% 34%, rgba(152, 235, 255, 0.16), transparent 24%),
+    url('../images/atmosphere/ambient-network-rift-wallpaper.gif') left center / min(48rem, 52vw) auto no-repeat;
+  opacity: 0.38;
+  filter: saturate(1.1) brightness(0.76) contrast(1.04);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.9) 38%, rgba(0, 0, 0, 0.16) 70%, transparent 100%);
   animation: wallpaper-drift 30s ease-in-out infinite alternate-reverse;
 }
 
@@ -397,8 +397,8 @@ html.has-vanta .vignette {
   z-index: 1;
   isolation: isolate;
   background:
-    linear-gradient(180deg, rgba(5, 9, 18, 0.08), rgba(5, 9, 18, 0.18)),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.84), rgba(2, 5, 11, 0.92));
+    linear-gradient(180deg, rgba(5, 9, 18, 0.04), rgba(5, 9, 18, 0.1)),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.62), rgba(2, 5, 11, 0.8));
 }
 
 html.has-vanta .site-frame {
@@ -454,8 +454,8 @@ html.has-vanta .site-frame {
   padding-top: 1.2rem;
   min-height: calc(100vh - var(--header-height));
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 12%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(4, 7, 13, 0.16));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.014), transparent 12%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.01), rgba(4, 7, 13, 0.08));
 }
 
 html.has-vanta .site-main {
@@ -564,30 +564,34 @@ html[data-loader-mode] .site-loader,
 .site-loader__frame {
   position: absolute;
   inset: 0;
-  opacity: 0;
+  opacity: 1;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  transform: scale(1.06);
-  filter: grayscale(0.16) saturate(0.74) hue-rotate(182deg) brightness(0.4) contrast(1.12);
-  animation: loader-media-cycle 10s ease-in-out infinite, loader-media-float 10s ease-in-out infinite;
+  transform: scale(1.04);
+  filter: saturate(0.96) brightness(0.42) contrast(1.08);
+  animation: loader-media-float 10s ease-in-out infinite;
 }
 
-.site-loader__frame--network {
+.site-loader__frame--wallpaper {
   background-image:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.08), rgba(4, 8, 16, 0.42)),
-    url('../images/atmosphere/ambient-network-rift.gif');
+    linear-gradient(180deg, rgba(4, 8, 16, 0.04), rgba(4, 8, 16, 0.38)),
+    url('../images/atmosphere/neon-grid-wallpaper.gif');
   background-size: cover, cover;
   background-position: center;
 }
 
-.site-loader__frame--structure {
-  background-image:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.12), rgba(4, 8, 16, 0.46)),
-    url('../images/atmosphere/ambient-abyss-structure.gif');
-  background-size: cover, cover;
-  background-position: center;
-  animation-delay: -2.5s, -2.5s;
+.site-loader__glyph {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 9.4rem;
+  height: 9.4rem;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at center, rgba(6, 10, 19, 0), rgba(6, 10, 19, 0.24) 52%, rgba(6, 10, 19, 0.72) 100%),
+    url('../images/atmosphere/loader-icon.gif') center / contain no-repeat;
+  filter: saturate(1.02) brightness(0.92) contrast(1.02);
+  z-index: 2;
 }
 
 .site-loader__eyebrow,
@@ -1101,7 +1105,7 @@ html[data-loader-mode] .site-loader,
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 -18px 44px rgba(0, 0, 0, 0.16),
     0 24px 46px rgba(1, 4, 12, 0.28);
-  backdrop-filter: blur(14px) saturate(126%);
+  backdrop-filter: blur(12px) saturate(122%);
 }
 
 .glass-pane::before,
@@ -1114,18 +1118,18 @@ html[data-loader-mode] .site-loader,
 
 .glass-pane::before {
   background:
-    linear-gradient(180deg, rgba(4, 7, 13, 0.04), rgba(4, 7, 13, 0.22) 32%, rgba(4, 7, 13, 0.62) 100%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 28%, transparent 68%, rgba(152, 235, 255, 0.12)),
-    radial-gradient(circle at 18% 18%, rgba(152, 235, 255, 0.18), transparent 36%);
+    linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(4, 7, 13, 0.14) 28%, rgba(4, 7, 13, 0.46) 100%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 30%, transparent 70%, rgba(152, 235, 255, 0.14)),
+    radial-gradient(circle at 18% 18%, rgba(152, 235, 255, 0.22), transparent 36%);
   z-index: 1;
 }
 
 .glass-pane::after {
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(4, 7, 13, 0.2), transparent 24%, transparent 76%, rgba(4, 7, 13, 0.22)),
-    radial-gradient(circle at 50% 86%, rgba(152, 235, 255, 0.12), transparent 38%);
-  filter: blur(8px);
+    linear-gradient(90deg, rgba(4, 7, 13, 0.12), transparent 22%, transparent 78%, rgba(4, 7, 13, 0.16)),
+    radial-gradient(circle at 50% 86%, rgba(152, 235, 255, 0.16), transparent 42%);
+  filter: blur(6px);
   z-index: 1;
 }
 
@@ -1133,74 +1137,73 @@ html[data-loader-mode] .site-loader,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.94;
-  filter: saturate(0.98) brightness(0.92) contrast(1.08);
+  opacity: 1;
+  filter: saturate(1.04) brightness(0.98) contrast(1.06);
   transform: scale(1.03);
 }
 
 .glass-stack--hero .glass-pane--hero-main {
   left: 0;
-  top: 1.2rem;
-  width: 58%;
-  aspect-ratio: 16 / 10;
-  transform: rotate(-6deg);
-}
-
-.glass-stack--hero .glass-pane--hero-side {
-  left: 36%;
-  top: 0;
-  width: 42%;
-  aspect-ratio: 5 / 6;
-  transform: rotate(5deg);
-}
-
-.glass-stack--hero .glass-pane--hero-icon {
-  right: 3%;
-  bottom: 0;
-  width: 5.8rem;
-  aspect-ratio: 1;
-  border-radius: 18px;
-  transform: rotate(4deg);
-}
-
-.glass-stack--hero .glass-pane--hero-main img {
-  object-position: center 58%;
-}
-
-.glass-stack--hero .glass-pane--hero-side img {
-  object-position: center 40%;
-}
-
-.glass-stack--hero .glass-pane--hero-icon img {
-  object-fit: contain;
-  padding: 0.6rem;
-  opacity: 0.96;
-  filter: saturate(1.08) brightness(0.98) contrast(1.04);
-}
-
-.glass-stack--projects .glass-pane--project-main {
-  left: 4%;
-  top: 14%;
-  width: 46%;
+  top: 1rem;
+  width: 54%;
   aspect-ratio: 16 / 10;
   transform: rotate(-5deg);
 }
 
+.glass-stack--hero .glass-pane--hero-side {
+  left: 34%;
+  top: 0;
+  width: 44%;
+  aspect-ratio: 5 / 6;
+  transform: rotate(3deg);
+}
+
+.glass-stack--hero .glass-pane--hero-icon {
+  right: 2%;
+  bottom: 0.4rem;
+  width: 5.2rem;
+  aspect-ratio: 1;
+  border-radius: 18px;
+  transform: rotate(2deg);
+}
+
+.glass-stack--hero .glass-pane--hero-main img {
+  object-position: center 52%;
+}
+
+.glass-stack--hero .glass-pane--hero-side img {
+  object-position: center 46%;
+}
+
+.glass-stack--hero .glass-pane--hero-icon img {
+  object-fit: contain;
+  padding: 0.4rem;
+  filter: saturate(1.08) brightness(1.04) contrast(1.02);
+}
+
+.glass-stack--projects .glass-pane--project-main {
+  left: 4%;
+  top: 12%;
+  width: 46%;
+  aspect-ratio: 16 / 10;
+  transform: rotate(-4deg);
+}
+
 .glass-stack--projects .glass-pane--project-side {
   right: 6%;
-  top: 8%;
-  width: 36%;
+  top: 6%;
+  width: 34%;
   aspect-ratio: 5 / 6;
-  transform: rotate(4deg);
+  transform: rotate(2deg);
 }
 
 .glass-stack--projects .glass-pane--project-icon {
   left: 46%;
   bottom: 5%;
-  width: 6.6rem;
+  width: 6rem;
   aspect-ratio: 1;
   border-radius: 18px;
-  transform: rotate(-4deg);
+  transform: rotate(-3deg);
 }
 
 .glass-stack--projects .glass-pane--project-main img {
@@ -1208,14 +1211,13 @@ html[data-loader-mode] .site-loader,
 }
 
 .glass-stack--projects .glass-pane--project-side img {
-  object-position: center 40%;
+  object-position: center 52%;
 }
 
 .glass-stack--projects .glass-pane--project-icon img {
   object-fit: contain;
-  padding: 0.65rem;
-  opacity: 0.92;
-  filter: sepia(0.12) saturate(1.04) brightness(0.9) contrast(1.02);
+  padding: 0.52rem;
+  filter: sepia(0.08) saturate(1.02) brightness(0.98) contrast(1.02);
 }
 
 .hero-portal,
@@ -1328,22 +1330,23 @@ html[data-loader-mode] .site-loader,
   border-radius: 22px;
   background:
     radial-gradient(circle at 50% 50%, rgba(7, 12, 22, 0), rgba(7, 12, 22, 0.16) 42%, rgba(7, 12, 22, 0.64) 100%),
-    url('../images/atmosphere/ambient-signal-orb.gif') center / 42% no-repeat;
-  opacity: 0.24;
-  filter: grayscale(0.08) saturate(0.96) hue-rotate(178deg) brightness(0.66) contrast(1.02);
+    url('../images/atmosphere/ambient-signal-orb-icon.gif') center / 38% no-repeat;
+  opacity: 0.34;
+  filter: saturate(1.04) brightness(0.82) contrast(1.02);
   mix-blend-mode: screen;
   mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.96) 16%, rgba(0, 0, 0, 0.82) 40%, transparent 84%);
 }
 
-.portal-atmosphere--structure {
+.portal-atmosphere--window {
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(6, 10, 19, 0.16), rgba(6, 10, 19, 0.48)),
-    url('../images/atmosphere/ambient-abyss-structure.gif') center / cover no-repeat;
-  opacity: 0.26;
-  filter: saturate(1.02) brightness(0.74) contrast(1.04);
+    linear-gradient(180deg, rgba(6, 10, 19, 0.04), rgba(6, 10, 19, 0.28)),
+    radial-gradient(circle at 50% 50%, rgba(152, 235, 255, 0.12), transparent 22%),
+    url('../images/atmosphere/window-3d-pane.gif') center / cover no-repeat;
+  opacity: 0.36;
+  filter: saturate(1.02) brightness(0.86) contrast(1.04);
   mix-blend-mode: screen;
-  mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.98) 14%, rgba(0, 0, 0, 0.76) 48%, transparent 88%);
+  mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.98) 16%, rgba(0, 0, 0, 0.76) 52%, transparent 90%);
 }
 
 .immersive-stage-panel {
@@ -1361,11 +1364,11 @@ html[data-loader-mode] .site-loader,
 
 .immersive-stage-wallpaper--structure {
   background:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.04), rgba(4, 8, 16, 0.28)),
+    linear-gradient(180deg, rgba(4, 8, 16, 0.02), rgba(4, 8, 16, 0.18)),
     radial-gradient(circle at 50% 52%, rgba(152, 235, 255, 0.18), transparent 28%),
-    url('../images/atmosphere/ambient-abyss-structure.gif') center / cover no-repeat;
-  opacity: 0.38;
-  filter: saturate(1.08) brightness(0.86) contrast(1.04);
+    url('../images/atmosphere/ambient-abyss-structure-verticle-window.gif') center / cover no-repeat;
+  opacity: 0.44;
+  filter: saturate(1.1) brightness(0.9) contrast(1.04);
   mix-blend-mode: screen;
   mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.98) 18%, rgba(0, 0, 0, 0.84) 52%, transparent 92%);
 }
