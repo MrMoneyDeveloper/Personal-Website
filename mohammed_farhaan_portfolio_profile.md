@@ -83,7 +83,7 @@ I care about outcomes:
 **Period:** Oct 2025 – Present  
 **Location:** Durban, KwaZulu-Natal, South Africa · Hybrid  
 
-- Built and went live with the **Digify CX Help Centre**, including categories, sections, labels, and the initial article set.
+- Built and went live with the **Digify CX Help Centre**, including categories, sections, labels, and the initial article set. (https://cxe-internal.zendesk.com/hc/en-us)
 - Created **IT / HR / Admin service desk workflows**, including ticket forms, custom fields, triggers, automations, and macros.
 - Delivered a **user segmentation automation proof of concept**, using form approvals, triggers, webhook/API updates, requester tags, and organization assignment.
 - Implemented and tested **dynamic Help Centre filtering and navigation** driven by user tags.
@@ -356,7 +356,7 @@ That means I am comfortable moving between:
   - bot-to-human handoff
   - demo-ready lookup flows
 - Worked on:
-  - CX-Bets Help Centre
+  - CX-Bets Help Centre (https://cxbets.zendesk.com/hc/en-us)
   - AI agent flows
   - ticket forms
   - lightweight API-style lookups for FICA and transaction status style scenarios
@@ -400,7 +400,7 @@ That means I am comfortable moving between:
 ---
 
 ## Working Method / Delivery Philosophy
-### The GPT Developer — method & field guide
+### The GPT Developer — method & field guide (https://gamma.app/docs/The-GPT-Developer-ship-a-real-system-in-8-hours-y2nmfarpen6c632?mode=doc)
 A repeatable workflow for shipping small, reliable systems quickly by using models for scaffolds and then adding invariants such as:
 - validation
 - retries / backoff
