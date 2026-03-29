@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportsHover = window.matchMedia('(hover: hover)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotion = reducedMotionQuery.matches;
-  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-5';
+  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-7';
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
   const progressBar = document.querySelector('.scroll-progress');
@@ -29,12 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const sceneControllers = [];
   const revealObservers = [];
-  const currentDeviceMemory = Number(window.navigator.deviceMemory || 8);
-  const currentConcurrency = Number(window.navigator.hardwareConcurrency || 8);
-  const lowPower = currentDeviceMemory <= 4 || currentConcurrency <= 4 || window.innerWidth < 820;
-  const canUseSceneDepth = finePointer && !prefersReducedMotion && !lowPower && window.innerWidth >= 1040;
-  const canUseAtmosphereMotion = !prefersReducedMotion && !lowPower && window.innerWidth >= 960;
-  const canUseImmersiveStage = body.dataset.immersiveStage === 'true' && !prefersReducedMotion && !lowPower && window.innerWidth >= 1100;
+  const currentDeviceMemory = Number(window.navigator.deviceMemory || 0);
+  const currentConcurrency = Number(window.navigator.hardwareConcurrency || 0);
+  const hardLowPower = (currentDeviceMemory > 0 && currentDeviceMemory <= 2)
+    || (currentConcurrency > 0 && currentConcurrency <= 2);
+  const lowPower = hardLowPower || window.innerWidth < 768;
+  const canUseSceneDepth = finePointer && !prefersReducedMotion && !hardLowPower && window.innerWidth >= 1024;
+  const canUseAtmosphereMotion = !prefersReducedMotion && window.innerWidth >= 900;
+  const canUseImmersiveStage = body.dataset.immersiveStage === 'true' && !prefersReducedMotion && !hardLowPower && window.innerWidth >= 960;
   const atmosphereState = {
     pointerX: 0,
     pointerY: 0,
@@ -76,12 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', scheduleLayoutUpdate, { passive: true });
   window.addEventListener('resize', handleResize, { passive: true });
+  window.addEventListener('load', () => {
+    initVanta();
+    refreshVanta();
+  }, { once: true });
 
   loaderDone.then(() => {
     refreshVanta();
-    queueIdleTask(() => {
-      maybeLoadImmersiveExperience();
-    }, 240);
+    maybeLoadImmersiveExperience();
   });
 
   if (typeof reducedMotionQuery.addEventListener === 'function') {
@@ -767,8 +771,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!(window.VANTA && window.VANTA.NET)) {
-      if (attempt < 10) {
-        window.setTimeout(() => initVanta(attempt + 1), 240);
+      if (attempt < 24) {
+        window.setTimeout(() => initVanta(attempt + 1), 320);
       }
       return;
     }
@@ -792,10 +796,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       vantaEffect = window.VANTA.NET({
         el: vantaTarget,
-        color: 0x86e9ff,
+        color: 0x9befff,
         backgroundColor: 0x04070d,
-        points: lowPower ? 8 : 14,
-        maxDistance: lowPower ? 20 : 26,
+        points: lowPower ? 9 : 16,
+        maxDistance: lowPower ? 22 : 28,
         spacing: lowPower ? 17 : 14,
         showDots: true,
         mouseControls: finePointer,

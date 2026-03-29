@@ -110,14 +110,14 @@ a {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.12), transparent 34%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.96), rgba(2, 5, 11, 1));
+    radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.9), rgba(2, 5, 11, 0.98));
 }
 
 html.has-vanta .site-atmosphere {
   background:
-    radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.08), transparent 34%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.72), rgba(2, 5, 11, 0.86));
+    radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.46), rgba(2, 5, 11, 0.62));
 }
 
 .site-atmosphere::before,
@@ -155,8 +155,8 @@ html.has-vanta .site-atmosphere {
 #vanta-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.78;
-  filter: saturate(145%) brightness(0.98) contrast(118%);
+  opacity: 0.88;
+  filter: saturate(168%) brightness(1.14) contrast(128%);
   transform: translate3d(
     calc(var(--atmosphere-shift-x) * -0.18),
     calc((var(--atmosphere-shift-y) * -0.14) + (var(--atmosphere-scroll) * -0.18)),
@@ -175,6 +175,7 @@ html.has-vanta #vanta-bg {
   width: 100% !important;
   height: 100% !important;
   opacity: 1;
+  mix-blend-mode: screen;
 }
 
 html.has-vanta .noise {
@@ -187,8 +188,8 @@ html.has-vanta .scanlines {
 
 html.has-vanta .vignette {
   background:
-    radial-gradient(circle at 50% 20%, transparent 44%, rgba(0, 0, 0, 0.18) 80%, rgba(0, 0, 0, 0.44) 100%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.16), transparent 14%, transparent 86%, rgba(0, 0, 0, 0.18));
+    radial-gradient(circle at 50% 20%, transparent 48%, rgba(0, 0, 0, 0.12) 82%, rgba(0, 0, 0, 0.34) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent 14%, transparent 86%, rgba(0, 0, 0, 0.14));
 }
 
 .noise,
@@ -249,8 +250,8 @@ html.has-vanta .vignette {
 
 html.has-vanta .site-frame {
   background:
-    linear-gradient(180deg, rgba(5, 9, 18, 0.04), rgba(5, 9, 18, 0.12)),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.64), rgba(2, 5, 11, 0.76));
+    linear-gradient(180deg, rgba(5, 9, 18, 0.02), rgba(5, 9, 18, 0.08)),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.48), rgba(2, 5, 11, 0.58));
 }
 
 .site-frame::before {
@@ -306,8 +307,8 @@ html.has-vanta .site-frame {
 
 html.has-vanta .site-main {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 12%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.01), rgba(4, 7, 13, 0.08));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 12%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.008), rgba(4, 7, 13, 0.05));
 }
 
 .site-main > section {
@@ -1042,6 +1043,7 @@ html[data-loader-mode] .site-loader,
 
 .immersive-stage-slot.is-mounted + .immersive-stage-fallback {
   opacity: 0;
+  visibility: hidden;
 }
 
 .immersive-stage-slot {
@@ -1108,6 +1110,22 @@ html[data-loader-mode] .site-loader,
   border-radius: 24px;
 }
 
+.immersive-stage-slot.is-mounted {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(118, 241, 255, 0.2), transparent 26%),
+    linear-gradient(180deg, rgba(8, 14, 26, 0.26), rgba(5, 9, 18, 0.12));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -22px 44px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(152, 235, 255, 0.08),
+    0 26px 56px rgba(0, 0, 0, 0.24);
+}
+
+.immersive-stage-slot.is-mounted::before,
+.immersive-stage-slot.is-mounted::after {
+  opacity: 0.46;
+}
+
 .immersive-stage {
   position: relative;
   width: 100%;
@@ -1122,6 +1140,10 @@ html[data-loader-mode] .site-loader,
   height: 100%;
 }
 
+.immersive-stage-slot.is-mounted canvas {
+  filter: saturate(1.12) brightness(1.12) contrast(1.08);
+}
+
 .portal-core > .chamber-column,
 .portal-core > .chamber-ring,
 .portal-core > .chamber-floor,
@@ -1131,15 +1153,23 @@ html[data-loader-mode] .site-loader,
 
 html.has-webgl-experience .portal-core .chamber-column,
 html.has-webgl-experience .portal-core .chamber-ring {
-  opacity: 0.22;
+  opacity: 0.12;
 }
 
 html.has-webgl-experience .portal-core .chamber-floor {
-  opacity: 0.3;
+  opacity: 0.14;
 }
 
 html.has-webgl-experience .portal-core .signal-node {
-  opacity: 0.62;
+  opacity: 0.32;
+}
+
+html.has-webgl-experience .portal-core::before {
+  opacity: 0.18;
+}
+
+html.has-webgl-experience .portal-core::after {
+  opacity: 0.22;
 }
 
 .chamber-column,

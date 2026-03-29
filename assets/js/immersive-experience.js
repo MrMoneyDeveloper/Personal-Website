@@ -24,7 +24,7 @@ initExperience();
 function initExperience() {
   const stageNodes = document.querySelectorAll('[data-r3f-root]');
 
-  if (!stageNodes.length || reducedMotionQuery.matches || window.innerWidth < 1100 || !supportsWebGL()) {
+  if (!stageNodes.length || reducedMotionQuery.matches || window.innerWidth < 960 || !supportsWebGL() || isLowPowerDevice()) {
     return;
   }
 
@@ -37,12 +37,12 @@ function initExperience() {
 }
 
 function mountStages() {
-  const canRender = !reducedMotionQuery.matches && supportsWebGL() && window.innerWidth >= 1100;
+  const canRender = !reducedMotionQuery.matches && supportsWebGL() && !isLowPowerDevice() && window.innerWidth >= 960;
   let activeCount = 0;
 
   document.querySelectorAll('[data-r3f-root]').forEach((element) => {
     const stageType = element.getAttribute('data-r3f-root');
-    const minWidth = stageType === 'projects-hero' ? 1180 : 1100;
+    const minWidth = stageType === 'projects-hero' ? 1024 : 960;
     const enabled = canRender && window.innerWidth >= minWidth;
 
     if (enabled) {
@@ -67,6 +67,13 @@ function mountStages() {
 function supportsWebGL() {
   const canvas = document.createElement('canvas');
   return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+}
+
+function isLowPowerDevice() {
+  const reportedMemory = Number(window.navigator.deviceMemory || 0);
+  const reportedConcurrency = Number(window.navigator.hardwareConcurrency || 0);
+
+  return (reportedMemory > 0 && reportedMemory <= 2) || (reportedConcurrency > 0 && reportedConcurrency <= 2);
 }
 
 function StageMount({ type }) {
