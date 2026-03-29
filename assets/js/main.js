@@ -20,12 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const routeLoaderKey = 'portfolio-route-loader';
   const firstVisitKey = 'portfolio-first-visit-complete';
   const soundConfig = {
-    hover: { path: 'sounds/hover.wav', volume: 0.05, playbackRate: 1.06 },
-    click: { path: 'sounds/click.wav', volume: 0.1, playbackRate: 1 },
-    cue: { path: 'sounds/cue.wav', volume: 0.08, playbackRate: 0.98 },
-    reveal: { path: 'sounds/reveal.wav', volume: 0.07, playbackRate: 0.94 },
-    flip: { path: 'sounds/flip.wav', volume: 0.07, playbackRate: 1.02 }
+    hover: { path: 'sounds/Card-slide.wav', volume: 0.045, playbackRate: 1.02 },
+    button: { path: 'sounds/Click-Button.wav', volume: 0.24, playbackRate: 1 },
+    link: { path: 'sounds/Click-Link.wav', volume: 0.12, playbackRate: 1 },
+    cue: { path: 'sounds/Card-slide.wav', volume: 0.055, playbackRate: 0.9 },
+    reveal: { path: 'sounds/Card-slide.wav', volume: 0.065, playbackRate: 0.96 },
+    flip: { path: 'sounds/Card-slide.wav', volume: 0.075, playbackRate: 1.05 },
+    loaderEnd: { path: 'sounds/End-Loading.wav', volume: 0.22, playbackRate: 1 },
+    footer: { path: 'sounds/Reveal-Footer.wav', volume: 0.08, playbackRate: 1 }
   };
+  const preloadedSounds = new Map();
   const sceneControllers = [];
   const revealObservers = [];
   const currentDeviceMemory = Number(window.navigator.deviceMemory || 0);
@@ -203,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    playSound('loaderEnd', { force: true });
     loader.classList.add('is-exiting');
     window.setTimeout(() => {
       root.classList.remove('is-loader-active');
@@ -307,13 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initSound() {
     primeAudio();
+    preloadSoundAssets();
 
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const hoverTargets = document.querySelectorAll('.btn, .site-nav a, .brand, .menu-toggle, .frame-panel, .project-card, .news-item');
-    const clickTargets = document.querySelectorAll('.btn, .site-nav a, .brand, .menu-toggle, .frame-panel, .project-card, .news-item');
+    const hoverTargets = document.querySelectorAll('.frame-panel, .project-card, .news-item, .repo-group, .timeline-item, .project-showcase');
+    const buttonTargets = document.querySelectorAll('.btn, .menu-toggle');
+    const linkTargets = document.querySelectorAll('.text-link, .site-nav a, .brand, .contact-list a');
 
     hoverTargets.forEach((element) => {
       let lastHoverAt = 0;
@@ -334,9 +337,15 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    clickTargets.forEach((element) => {
+    buttonTargets.forEach((element) => {
       element.addEventListener('click', () => {
-        playSound('click');
+        playSound('button');
+      });
+    });
+
+    linkTargets.forEach((element) => {
+      element.addEventListener('click', () => {
+        playSound('link');
       });
     });
 
@@ -361,10 +370,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-sound-scene]').forEach((scene) => {
       sceneObserver.observe(scene);
     });
+
+    const footer = document.querySelector('.site-footer');
+    if (footer) {
+      const footerObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          playSound('footer');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.45 });
+
+      footerObserver.observe(footer);
+    }
+  }
+
+  function preloadSoundAssets() {
+    Object.entries(soundConfig).forEach(([name, config]) => {
+      if (preloadedSounds.has(name)) {
+        return;
+      }
+
+      const audio = new Audio(config.url);
+      audio.preload = 'auto';
+      audio.load();
+      preloadedSounds.set(name, audio);
+    });
   }
 
   function playSound(name, overrides = {}) {
-    if (!overrides.force && (!soundsEnabled || prefersReducedMotion || root.classList.contains('is-loader-active'))) {
+    if (!overrides.force && (!soundsEnabled || root.classList.contains('is-loader-active'))) {
       return;
     }
 
@@ -899,10 +937,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const detachUnlockListeners = () => {
       window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
     };
 
-    window.addEventListener('pointerdown', unlockAudio, { once: true, passive: true });
+    window.addEventListener('pointerdown', unlockAudio, { once: true, passive: true, capture: true });
+    window.addEventListener('touchstart', unlockAudio, { once: true, passive: true, capture: true });
     window.addEventListener('keydown', unlockAudio, { once: true });
   }
 });
