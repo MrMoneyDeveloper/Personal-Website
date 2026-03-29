@@ -1,8 +1,8 @@
-import React, { Suspense, useEffect, useMemo, useRef } from 'https://esm.sh/react@19';
-import { createRoot } from 'https://esm.sh/react-dom@19/client';
-import * as THREE from 'https://esm.sh/three@0.179';
-import { Canvas, useFrame } from 'https://esm.sh/@react-three/fiber?deps=react@19,react-dom@19,three@0.179';
-import { ContactShadows, Float, MeshTransmissionMaterial, PerspectiveCamera, Sparkles, useGLTF, useTexture } from 'https://esm.sh/@react-three/drei?deps=react@19,react-dom@19,three@0.179,@react-three/fiber';
+import React, { Suspense, useEffect, useMemo, useRef } from 'https://esm.sh/react@19?bundle';
+import { createRoot } from 'https://esm.sh/react-dom@19/client?bundle';
+import * as THREE from 'https://esm.sh/three@0.179?bundle';
+import { Canvas, useFrame } from 'https://esm.sh/@react-three/fiber?deps=react@19,react-dom@19,three@0.179&bundle';
+import { Float, PerspectiveCamera, Sparkles, useGLTF, useTexture } from 'https://esm.sh/@react-three/drei?deps=react@19,react-dom@19,three@0.179,@react-three/fiber&bundle';
 
 const asset = (path) => new URL(path, import.meta.url).toString();
 const MODEL_URL = asset('../models/digital_portal.glb');
@@ -84,9 +84,9 @@ function StageMount({ type }) {
       React.createElement(
         Canvas,
         {
-          dpr: [1, 1.25],
-          shadows: true,
-          gl: { antialias: false, alpha: true, powerPreference: 'high-performance' },
+          dpr: [1, 1],
+          shadows: false,
+          gl: { antialias: false, alpha: true, powerPreference: 'default' },
           camera: { position: [0, 0.3, type === 'hero-portal' ? 6.45 : 5.85], fov: type === 'hero-portal' ? 31 : 34 },
           onCreated: ({ gl }) => {
             gl.toneMapping = THREE.ACESFilmicToneMapping;
@@ -113,14 +113,13 @@ function HeroPortalScene() {
       React.createElement(PortalCore, { mode: 'hero' }),
       React.createElement(StageFloor, { scale: 3.6, position: [0, -2.24, 0.1] }),
       React.createElement(Sparkles, {
-        count: 16,
+        count: 8,
         scale: [3.8, 4.8, 2.8],
-        size: 2,
-        speed: 0.18,
-        opacity: 0.25,
+        size: 1.6,
+        speed: 0.14,
+        opacity: 0.18,
         color: '#91ebff'
-      }),
-      React.createElement(ContactShadows, { position: [0, -2.22, 0], opacity: 0.36, scale: 7.4, blur: 2.2, far: 4.4 })
+      })
     )
   );
 }
@@ -152,14 +151,13 @@ function ProjectArchiveScene() {
       }),
       React.createElement(StageFloor, { scale: 3, position: [0, -2, 0.1] }),
       React.createElement(Sparkles, {
-        count: 10,
+        count: 6,
         scale: [3.8, 3.8, 2.6],
-        size: 1.7,
-        speed: 0.14,
-        opacity: 0.18,
+        size: 1.25,
+        speed: 0.1,
+        opacity: 0.14,
         color: '#88dfff'
-      }),
-      React.createElement(ContactShadows, { position: [0, -1.98, 0], opacity: 0.28, scale: 6, blur: 2, far: 3.8 })
+      })
     )
   );
 }
@@ -249,20 +247,16 @@ function PortalCore({ mode }) {
       ),
       React.createElement('mesh', { position: [0, 0.05, -0.48], scale: mode === 'hero' ? [1.5, 2.9, 0.08] : [1.26, 2.38, 0.08] },
         React.createElement('boxGeometry', { args: [1, 1, 1] }),
-        React.createElement(MeshTransmissionMaterial, {
-          backside: true,
-          samples: 4,
-          resolution: 128,
-          thickness: 0.24,
-          anisotropicBlur: 0.14,
-          distortion: 0.05,
-          temporalDistortion: 0.05,
-          roughness: 0.1,
-          clearcoat: 1,
-          chromaticAberration: 0.015,
+        React.createElement('meshPhysicalMaterial', {
           color: '#8ce6ff',
-          attenuationColor: '#7be4ff',
-          attenuationDistance: 0.9
+          transparent: true,
+          opacity: 0.18,
+          roughness: 0.12,
+          metalness: 0.08,
+          clearcoat: 1,
+          reflectivity: 0.72,
+          emissive: new THREE.Color('#0c3140'),
+          emissiveIntensity: 0.28
         })
       )
     )

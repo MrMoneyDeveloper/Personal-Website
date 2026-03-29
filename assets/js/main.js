@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportsHover = window.matchMedia('(hover: hover)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotion = reducedMotionQuery.matches;
-  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-7';
+  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-8';
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
   const progressBar = document.querySelector('.scroll-progress');
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hardLowPower = (currentDeviceMemory > 0 && currentDeviceMemory <= 2)
     || (currentConcurrency > 0 && currentConcurrency <= 2);
   const lowPower = hardLowPower || window.innerWidth < 768;
+  const hasImmersiveMount = body.dataset.immersiveStage === 'true' && Boolean(document.querySelector('[data-r3f-root]'));
   const canUseSceneDepth = finePointer && !prefersReducedMotion && !hardLowPower && window.innerWidth >= 1024;
   const canUseAtmosphereMotion = !prefersReducedMotion && window.innerWidth >= 900;
   const canUseImmersiveStage = body.dataset.immersiveStage === 'true' && !prefersReducedMotion && !hardLowPower && window.innerWidth >= 960;
@@ -74,18 +75,30 @@ document.addEventListener('DOMContentLoaded', () => {
   initScenes();
   initAtmosphere();
   scheduleLayoutUpdate();
-  initVanta();
+  if (!hasImmersiveMount) {
+    initVanta();
+  }
 
   window.addEventListener('scroll', scheduleLayoutUpdate, { passive: true });
   window.addEventListener('resize', handleResize, { passive: true });
   window.addEventListener('load', () => {
-    initVanta();
-    refreshVanta();
+    if (!hasImmersiveMount) {
+      initVanta();
+      refreshVanta();
+    }
   }, { once: true });
 
   loaderDone.then(() => {
+    if (hasImmersiveMount) {
+      maybeLoadImmersiveExperience();
+      window.setTimeout(() => {
+        initVanta();
+        refreshVanta();
+      }, 1200);
+      return;
+    }
+
     refreshVanta();
-    maybeLoadImmersiveExperience();
   });
 
   if (typeof reducedMotionQuery.addEventListener === 'function') {
@@ -798,9 +811,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el: vantaTarget,
         color: 0x9befff,
         backgroundColor: 0x04070d,
-        points: lowPower ? 9 : 16,
-        maxDistance: lowPower ? 22 : 28,
-        spacing: lowPower ? 17 : 14,
+        points: lowPower ? 8 : 13,
+        maxDistance: lowPower ? 20 : 25,
+        spacing: lowPower ? 18 : 16,
         showDots: true,
         mouseControls: finePointer,
         touchControls: false,
@@ -853,10 +866,13 @@ document.addEventListener('DOMContentLoaded', () => {
     import(moduleUrl.toString())
       .then(() => {
         immersiveExperienceLoaded = true;
+        root.classList.remove('immersive-stage-failed');
         root.classList.add('has-immersive-stage');
       })
-      .catch(() => {
+      .catch((error) => {
         immersiveExperienceLoaded = false;
+        root.classList.add('immersive-stage-failed');
+        console.error('Immersive experience failed to load.', error);
       })
       .finally(() => {
         immersiveExperiencePending = false;

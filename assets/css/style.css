@@ -175,7 +175,6 @@ html.has-vanta #vanta-bg {
   width: 100% !important;
   height: 100% !important;
   opacity: 1;
-  mix-blend-mode: screen;
 }
 
 html.has-vanta .noise {
@@ -250,8 +249,8 @@ html.has-vanta .vignette {
 
 html.has-vanta .site-frame {
   background:
-    linear-gradient(180deg, rgba(5, 9, 18, 0.02), rgba(5, 9, 18, 0.08)),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.48), rgba(2, 5, 11, 0.58));
+    linear-gradient(180deg, rgba(5, 9, 18, 0.015), rgba(5, 9, 18, 0.06)),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.36), rgba(2, 5, 11, 0.48));
 }
 
 .site-frame::before {
@@ -307,8 +306,8 @@ html.has-vanta .site-frame {
 
 html.has-vanta .site-main {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 12%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.008), rgba(4, 7, 13, 0.05));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.008), transparent 12%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.005), rgba(4, 7, 13, 0.03));
 }
 
 .site-main > section {
