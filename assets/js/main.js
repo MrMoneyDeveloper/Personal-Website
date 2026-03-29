@@ -913,13 +913,13 @@ document.addEventListener('DOMContentLoaded', () => {
         index: 0,
         interval: clamp(Number(carousel.dataset.carouselInterval || 3600), 2600, 7000),
         active: false,
-        paused: false,
         focusSeen: false
       };
 
       buildCarouselDots(controller);
       bindCarouselControls(controller);
       setCarouselSlide(controller, 0);
+      startCarousel(controller);
 
       if (controller.totalOutput) {
         controller.totalOutput.textContent = padNumber(slides.length);
@@ -935,10 +935,8 @@ document.addEventListener('DOMContentLoaded', () => {
           controller.element.classList.toggle('is-carousel-active', entry.isIntersecting);
 
           if (entry.isIntersecting) {
-            startCarousel(controller);
             syncCarouselVideos(controller);
           } else {
-            stopCarousel(controller);
             pauseCarouselVideos(controller);
           }
         });
@@ -1010,22 +1008,6 @@ document.addEventListener('DOMContentLoaded', () => {
         moveTo(controller.index + 1);
       });
     }
-
-    controller.element.addEventListener('focusin', () => {
-      controller.paused = true;
-      stopCarousel(controller);
-      pauseCarouselVideos(controller);
-    });
-
-    controller.element.addEventListener('focusout', () => {
-      if (controller.element.contains(document.activeElement)) {
-        return;
-      }
-
-      controller.paused = false;
-      startCarousel(controller);
-      syncCarouselVideos(controller);
-    });
   }
 
   function setCarouselSlide(controller, nextIndex) {
@@ -1062,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function startCarousel(controller) {
     stopCarousel(controller);
 
-    if (!controller.active || controller.paused || prefersReducedMotion || lowPower || controller.slides.length <= 1) {
+    if (prefersReducedMotion || controller.slides.length <= 1) {
       return;
     }
 
@@ -1081,7 +1063,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function syncCarouselVideos(controller) {
-    const allowPlayback = controller.active && !controller.paused && !prefersReducedMotion;
+    const allowPlayback = controller.active && !prefersReducedMotion;
 
     controller.slides.forEach((slide, index) => {
       slide.querySelectorAll('video').forEach((video) => {

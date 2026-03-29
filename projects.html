@@ -204,89 +204,27 @@ immersive_stage: true
 <section class="section-pad">
   <div class="container">
     <div class="scene-shell scene-shell-wide" data-depth-scene data-sound-scene="cue">
-      <div class="editorial-band">
-        <div class="editorial-copy" data-depth="0.24">
-          <div class="section-copy">
-            <p class="eyebrow reveal">Archive Atmosphere</p>
-            <h2 class="section-title reveal">A curated media break keeps the page from collapsing into one uninterrupted grid of case-study cards.</h2>
-            <p class="lead reveal">The supporting inserts give the projects page a second rhythm. They sit between the delivery stories and the repository index so the experience feels more layered and less like a long stack of similar panels.</p>
-          </div>
-          <ul class="chip-list reveal-inline">
-            <li>Case-study pause</li>
-            <li>Curated pacing</li>
-            <li>Framed media</li>
-            <li>Editorial density</li>
-          </ul>
-          <div class="editorial-note-grid reveal-inline">
-            <article class="editorial-note">
-              <span>Placement</span>
-              <strong>This is where the page needed a visual reset before switching from featured projects to repository browsing.</strong>
-            </article>
-            <article class="editorial-note">
-              <span>Intent</span>
-              <strong>The media works as an embedded interlude, not as a replacement for the project content itself.</strong>
-            </article>
-          </div>
+      <div class="editorial-carousel editorial-carousel--wide reveal-inline" data-depth="0.58" data-editorial-carousel data-carousel-interval="3900" data-carousel-lock="true" data-carousel-focus-duration="1800" aria-label="Projects image carousel">
+        <div class="editorial-carousel__stage">
+          <article class="editorial-carousel__slide is-active" data-carousel-slide>
+            <div class="project-media project-media--wide">
+              <img src="{{ '/assets/images/editorial/editorial-celestial-figure.webp' | relative_url }}" alt="A luminous celestial figure rising above a futuristic outpost and a ringed planet." />
+            </div>
+          </article>
+
+          <article class="editorial-carousel__slide" data-carousel-slide>
+            <div class="project-media project-media--wide">
+              <img src="{{ '/assets/images/editorial/editorial-kinetic-duel.webp' | relative_url }}" alt="Two futuristic figures sparring above a misty landscape with statues and waterfalls in the background." />
+            </div>
+          </article>
         </div>
-
-        <div class="editorial-carousel editorial-carousel--wide reveal-inline" data-depth="0.58" data-editorial-carousel data-carousel-interval="3900" data-carousel-lock="true" data-carousel-focus-duration="1800" aria-label="Projects archive atmosphere carousel">
-          <div class="editorial-carousel__header">
-            <span class="editorial-carousel__status">Archive Interlude</span>
-            <div class="editorial-carousel__counter"><span data-carousel-current>01</span><span>/</span><span data-carousel-total>04</span></div>
-          </div>
-          <div class="editorial-carousel__stage">
-            <article class="editorial-carousel__slide is-active" data-carousel-slide>
-              <div class="project-media project-media--wide">
-                <img src="{{ '/assets/images/editorial/editorial-celestial-figure.webp' | relative_url }}" alt="A luminous celestial figure rising above a futuristic outpost and a ringed planet." />
-              </div>
-              <div class="editorial-carousel__overlay">
-                <p class="tag">Signal Event</p>
-                <h3>Strong project pages can still carry atmosphere</h3>
-                <p>The goal is not to distract from the work. It is to give the work a more deliberate surrounding frame.</p>
-              </div>
-            </article>
-
-            <article class="editorial-carousel__slide" data-carousel-slide>
-              <div class="project-media project-media--wide">
-                <img src="{{ '/assets/images/editorial/editorial-kinetic-duel.webp' | relative_url }}" alt="Two futuristic figures sparring above a misty landscape with statues and waterfalls in the background." />
-              </div>
-              <div class="editorial-carousel__overlay">
-                <p class="tag">Precision</p>
-                <h3>Execution still depends on controlled movement</h3>
-                <p>The surrounding media reinforces discipline, timing, and repeatability rather than random spectacle.</p>
-              </div>
-            </article>
-
-            <article class="editorial-carousel__slide" data-carousel-slide>
-              <div class="project-media project-media--wide">
-                <img src="{{ '/assets/images/editorial/editorial-command-platform.webp' | relative_url }}" alt="A futuristic command platform rising above a large city at dusk." />
-              </div>
-              <div class="editorial-carousel__overlay">
-                <p class="tag">Control Layer</p>
-                <h3>The page now has a stronger center of gravity</h3>
-                <p>Instead of running card to card, the layout now creates a focused middle moment before the repo lists begin.</p>
-              </div>
-            </article>
-
-            <article class="editorial-carousel__slide" data-carousel-slide>
-              <div class="project-media project-media--wide">
-                <img src="{{ '/assets/images/editorial/editorial-orbital-city-falls.webp' | relative_url }}" alt="A sprawling futuristic city built around a deep circular waterfall basin." />
-              </div>
-              <div class="editorial-carousel__overlay">
-                <p class="tag">Scale Context</p>
-                <h3>Large systems need editorial breathing room too</h3>
-                <p>The insert breaks the page flow just enough to make the repository section feel intentional instead of appended.</p>
-              </div>
-            </article>
-          </div>
-          <div class="editorial-carousel__controls">
-            <div class="editorial-carousel__progress"><span data-carousel-progress></span></div>
-            <div class="editorial-carousel__nav-row">
-              <div class="editorial-carousel__dots" data-carousel-dots></div>
-              <div class="editorial-carousel__nav-group">
-                <button class="editorial-carousel__nav" type="button" data-carousel-prev aria-label="Previous slide">Prev</button>
-                <button class="editorial-carousel__nav" type="button" data-carousel-next aria-label="Next slide">Next</button>
-              </div>
+        <div class="editorial-carousel__controls">
+          <div class="editorial-carousel__progress"><span data-carousel-progress></span></div>
+          <div class="editorial-carousel__nav-row">
+            <div class="editorial-carousel__dots" data-carousel-dots></div>
+            <div class="editorial-carousel__nav-group">
+              <button class="editorial-carousel__nav" type="button" data-carousel-prev aria-label="Previous slide">Prev</button>
+              <button class="editorial-carousel__nav" type="button" data-carousel-next aria-label="Next slide">Next</button>
             </div>
           </div>
         </div>
