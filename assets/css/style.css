@@ -280,7 +280,7 @@ html.has-vanta .atmosphere-gif--ocean {
     linear-gradient(90deg, rgba(4, 7, 13, 0.42) 0%, rgba(4, 7, 13, 0.14) 34%, rgba(4, 7, 13, 0.2) 100%),
     radial-gradient(circle at 62% 18%, rgba(87, 195, 255, 0.24), transparent 22%),
     linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(2, 5, 11, 0.16)),
-    url('../images/atmosphere/neon-grid-wallpaper.gif') right center / min(92rem, 96vw) auto no-repeat;
+    url('../images/atmosphere/neon-grid-wallpaper-slow.gif') right center / min(92rem, 96vw) auto no-repeat;
   filter: saturate(138%) brightness(1) contrast(116%);
   mix-blend-mode: normal;
   transform: translate3d(
@@ -576,7 +576,7 @@ html[data-loader-mode] .site-loader,
 .site-loader__frame--wallpaper {
   background-image:
     linear-gradient(180deg, rgba(4, 8, 16, 0.04), rgba(4, 8, 16, 0.38)),
-    url('../images/atmosphere/neon-grid-wallpaper.gif');
+    url('../images/atmosphere/neon-grid-wallpaper-slow.gif');
   background-size: cover, cover;
   background-position: center;
 }
@@ -1342,7 +1342,7 @@ html[data-loader-mode] .site-loader,
   background:
     linear-gradient(180deg, rgba(6, 10, 19, 0.04), rgba(6, 10, 19, 0.28)),
     radial-gradient(circle at 50% 50%, rgba(152, 235, 255, 0.12), transparent 22%),
-    url('../images/atmosphere/window-3d-pane.gif') center / cover no-repeat;
+    url('../images/atmosphere/ambient-abyss-structure-verticle-window.gif') center / cover no-repeat;
   opacity: 0.36;
   filter: saturate(1.02) brightness(0.86) contrast(1.04);
   mix-blend-mode: screen;
