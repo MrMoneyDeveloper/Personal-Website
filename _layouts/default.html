@@ -7,41 +7,60 @@ layout: null
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ page.description | default: site.description }}" />
+  <meta name="theme-color" content="#060b13" />
   <title>{{ page.title | default: site.title }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
 </head>
 <body>
-  <div id="vanta-bg" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
+  <div class="site-atmosphere" aria-hidden="true">
+    <div id="vanta-bg"></div>
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+    <div class="bloom bloom-a"></div>
+    <div class="bloom bloom-b"></div>
+  </div>
 
-  <header class="site-header">
-    <div class="container nav-shell">
-      <a class="brand" href="{{ '/' | relative_url }}">Placeholder Studio</a>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-      <nav id="site-nav" class="site-nav">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/about.html' | relative_url }}">About</a>
-        <a href="{{ '/services.html' | relative_url }}">Services</a>
-        <a href="{{ '/projects.html' | relative_url }}">Projects</a>
-        <a href="{{ '/news.html' | relative_url }}">News</a>
-        <a href="{{ '/contact.html' | relative_url }}">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <div class="scroll-rail" aria-hidden="true">
+    <span class="scroll-progress"></span>
+  </div>
 
-  <main>
-    {{ content }}
-  </main>
+  <div class="site-frame">
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="brand" href="{{ '/' | relative_url }}">Placeholder Studio</a>
+        <nav id="site-nav" class="site-nav">
+          <a href="{{ '/' | relative_url }}">Home</a>
+          <a href="{{ '/about.html' | relative_url }}">About</a>
+          <a href="{{ '/services.html' | relative_url }}">Services</a>
+          <a href="{{ '/projects.html' | relative_url }}">Projects</a>
+          <a href="{{ '/news.html' | relative_url }}">News</a>
+          <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+        </nav>
+        <div class="nav-controls">
+          <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Enable interface sound">
+            <span class="sound-toggle__dot" aria-hidden="true"></span>
+            <span class="sound-toggle__label">Sound Off</span>
+          </button>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        </div>
+      </div>
+    </header>
 
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <p>© {{ 'now' | date: '%Y' }} Placeholder Studio</p>
-      <p>Built as a premium placeholder redesign.</p>
-    </div>
-  </footer>
+    <main class="site-main">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <p>&copy; {{ 'now' | date: '%Y' }} Placeholder Studio</p>
+        <p>Placeholder environment tuned for depth, motion, and staging.</p>
+      </div>
+    </footer>
+  </div>
 
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
