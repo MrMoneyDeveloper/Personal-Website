@@ -721,6 +721,7 @@ html.has-vanta #vanta-bg {
   background-size: 38px 38px;
   mask-image: radial-gradient(circle at center, black 42%, transparent 92%);
   opacity: 0.45;
+  z-index: 0;
 }
 
 .portal-core::after {
@@ -730,6 +731,115 @@ html.has-vanta #vanta-bg {
   height: 16%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   opacity: 0.55;
+  z-index: 0;
+}
+
+.portal-core > * {
+  position: relative;
+}
+
+.immersive-stage-panel {
+  position: relative;
+  margin-top: 1.15rem;
+  min-height: 18.5rem;
+}
+
+.immersive-stage-slot {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  border: 1px solid rgba(180, 220, 255, 0.12);
+  background:
+    radial-gradient(circle at 50% 14%, rgba(87, 195, 255, 0.2), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 24%),
+    linear-gradient(180deg, rgba(9, 15, 26, 0.94), rgba(5, 9, 18, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -28px 56px rgba(0, 0, 0, 0.24),
+    0 26px 56px rgba(0, 0, 0, 0.28);
+}
+
+.immersive-stage-slot::before {
+  content: "";
+  position: absolute;
+  inset: 0.75rem;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), transparent 34%, transparent 72%, rgba(152, 235, 255, 0.06)),
+    radial-gradient(circle at 50% 28%, rgba(152, 235, 255, 0.12), transparent 38%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.immersive-stage-slot::after {
+  content: "";
+  position: absolute;
+  inset: auto 14% -14% 14%;
+  height: 34%;
+  background: radial-gradient(circle, rgba(152, 235, 255, 0.2), transparent 68%);
+  filter: blur(26px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.immersive-stage-slot--hero {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 24px;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(94, 228, 255, 0.22), transparent 24%),
+    linear-gradient(180deg, rgba(9, 16, 28, 0.46), rgba(4, 8, 15, 0.24));
+  box-shadow: none;
+}
+
+.immersive-stage-slot--hero::before,
+.immersive-stage-slot--hero::after {
+  border-radius: 22px;
+}
+
+.immersive-stage-slot--projects {
+  min-height: 18.5rem;
+  border-radius: 24px;
+}
+
+.immersive-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  transform-style: preserve-3d;
+}
+
+.immersive-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.portal-core > .chamber-column,
+.portal-core > .chamber-ring,
+.portal-core > .chamber-floor,
+.portal-core > .signal-node {
+  z-index: 2;
+}
+
+html.has-webgl-experience .portal-core .chamber-column,
+html.has-webgl-experience .portal-core .chamber-ring {
+  opacity: 0.22;
+}
+
+html.has-webgl-experience .portal-core .chamber-floor {
+  opacity: 0.3;
+}
+
+html.has-webgl-experience .portal-core .signal-node {
+  opacity: 0.62;
 }
 
 .chamber-column,
@@ -996,6 +1106,10 @@ html.has-vanta #vanta-bg {
   flex-wrap: wrap;
   gap: 0.7rem;
   align-content: flex-start;
+}
+
+.page-hero-aside .immersive-stage-panel {
+  transform: translateZ(34px);
 }
 
 .page-hero-shell,
@@ -1643,6 +1757,11 @@ html.has-vanta #vanta-bg {
   .project-media {
     min-height: 12.5rem;
   }
+
+  .immersive-stage-panel,
+  .immersive-stage-slot--projects {
+    min-height: 16.5rem;
+  }
 }
 
 @media (max-width: 980px) {
@@ -1787,6 +1906,11 @@ html.has-vanta #vanta-bg {
 
   .timeline-gallery {
     grid-template-columns: 1fr;
+  }
+
+  .immersive-stage-panel,
+  .immersive-stage-slot--projects {
+    min-height: 13.5rem;
   }
 }
 

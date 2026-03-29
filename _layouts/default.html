@@ -9,6 +9,10 @@ layout: null
   <meta name="description" content="{{ page.description | default: site.description }}" />
   <meta name="theme-color" content="#060b13" />
   <title>{{ page.title | default: site.title }}</title>
+  {% if page.immersive_stage %}
+    <link rel="preconnect" href="https://esm.sh" crossorigin />
+    <link rel="preconnect" href="https://dl.polyhaven.org" crossorigin />
+  {% endif %}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -68,5 +72,8 @@ layout: null
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
   <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  {% if page.immersive_stage %}
+    <script type="module" src="{{ '/assets/js/immersive-experience.js' | relative_url }}"></script>
+  {% endif %}
 </body>
 </html>
