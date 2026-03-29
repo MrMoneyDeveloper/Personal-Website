@@ -103,6 +103,49 @@ a {
   color: inherit;
 }
 
+.semantic-term {
+  color: var(--semantic-color, currentColor);
+  transition: color 180ms ease, text-shadow 180ms ease, filter 180ms ease;
+}
+
+.semantic-term--soft {
+  font-weight: 600;
+}
+
+.semantic-term--strong {
+  font-weight: 700;
+}
+
+.semantic-term--glow {
+  font-weight: 700;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--semantic-color, currentColor) 38%, transparent);
+  filter: saturate(1.04);
+}
+
+.display .semantic-term--glow,
+.display-sm .semantic-term--glow,
+.section-title .semantic-term--glow {
+  text-shadow:
+    0 0 16px color-mix(in srgb, var(--semantic-color, currentColor) 44%, transparent),
+    0 0 28px color-mix(in srgb, var(--semantic-color, currentColor) 18%, transparent);
+}
+
+p .semantic-term,
+li .semantic-term,
+.site-footer .semantic-term {
+  font-weight: 600;
+}
+
+.btn .semantic-term,
+.text-link .semantic-term,
+.hero-meta .semantic-term,
+.telemetry-strip .semantic-term,
+h1 .semantic-term,
+h2 .semantic-term,
+h3 .semantic-term {
+  font-weight: 700;
+}
+
 .site-atmosphere {
   position: fixed;
   inset: 0;

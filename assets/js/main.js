@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   markCurrentRoute();
   initMenu();
   initSound();
+  initSemanticHighlights();
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
@@ -386,6 +387,381 @@ document.addEventListener('DOMContentLoaded', () => {
 
       footerObserver.observe(footer);
     }
+  }
+
+  async function initSemanticHighlights() {
+    const semanticMapUrl = new URL('data/portfolio_word_color_map.md', assetBase).toString();
+
+    try {
+      const response = await fetch(semanticMapUrl, { cache: 'no-store' });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const markdown = await response.text();
+      const semanticMap = parseSemanticColorMap(markdown);
+
+      if (!semanticMap.rules.length || !semanticMap.tokens.length) {
+        return;
+      }
+
+      injectSemanticColorStyles(semanticMap.tokens);
+      applySemanticHighlights(semanticMap.rules);
+    } catch (error) {
+      // Semantic highlighting is optional.
+    }
+  }
+
+  function parseSemanticColorMap(markdown) {
+    const tokenMap = new Map();
+    const ruleMap = new Map();
+    const lines = markdown.split(/\r?\n/);
+
+    lines.forEach((line) => {
+      const trimmed = line.trim();
+
+      if (!trimmed.startsWith('|') || /^\|(?:\s*:?-+:?\s*\|)+$/.test(trimmed)) {
+        return;
+      }
+
+      const cells = trimmed
+        .slice(1, -1)
+        .split('|')
+        .map((cell) => cell.trim());
+
+      if (cells.length < 3) {
+        return;
+      }
+
+      const phrase = normalizeSemanticPhrase(cells[0]);
+      const token = cells[1].replace(/`/g, '').trim();
+      const hex = cells[2].replace(/`/g, '').trim();
+
+      if (!phrase || phrase.toLowerCase() === 'word / phrase' || !token.startsWith('--word-') || !/^#?[0-9a-f]{6}$/i.test(hex)) {
+        return;
+      }
+
+      tokenMap.set(token, hex.startsWith('#') ? hex : `#${hex}`);
+      addSemanticRule(ruleMap, phrase, token);
+    });
+
+    addSemanticAliasRules(lines, ruleMap);
+
+    const tokens = Array.from(tokenMap.entries()).map(([token, hex]) => ({
+      token,
+      hex,
+      className: tokenToSemanticClass(token)
+    }));
+
+    const rules = Array.from(ruleMap.values()).sort((left, right) => {
+      const phraseDelta = right.phrase.length - left.phrase.length;
+
+      if (phraseDelta !== 0) {
+        return phraseDelta;
+      }
+
+      return right.wordCount - left.wordCount;
+    });
+
+    return { tokens, rules };
+  }
+
+  function addSemanticAliasRules(lines, ruleMap) {
+    const familyTokenMap = {
+      'Zendesk family': '--word-zendesk',
+      'CX Experts family': '--word-cxexperts-soft',
+      'Google / Apps Script family': '--word-google',
+      'Data / SQL family': '--word-sql-soft',
+      'AI / automation family': '--word-automation',
+      'Front-end family': '--word-frontend'
+    };
+    let inAliasSection = false;
+    let currentFamily = '';
+
+    lines.forEach((line) => {
+      const trimmed = line.trim();
+
+      if (trimmed === '## Aliases and Phrase Matching') {
+        inAliasSection = true;
+        return;
+      }
+
+      if (inAliasSection && trimmed.startsWith('## ') && trimmed !== '## Aliases and Phrase Matching') {
+        inAliasSection = false;
+        currentFamily = '';
+        return;
+      }
+
+      if (!inAliasSection) {
+        return;
+      }
+
+      if (trimmed.startsWith('### ')) {
+        currentFamily = trimmed.slice(4).trim();
+        return;
+      }
+
+      if (!trimmed.startsWith('- ')) {
+        return;
+      }
+
+      const phrase = normalizeSemanticPhrase(trimmed.slice(2));
+      const token = resolveSemanticAliasToken(currentFamily, phrase, familyTokenMap);
+
+      if (!token) {
+        return;
+      }
+
+      addSemanticRule(ruleMap, phrase, token);
+    });
+  }
+
+  function resolveSemanticAliasToken(family, phrase, familyTokenMap) {
+    const lowered = phrase.toLowerCase();
+
+    if (lowered === 'customer experience') {
+      return '--word-cxexperts-soft';
+    }
+
+    if (lowered === 'database') {
+      return '--word-sql-soft';
+    }
+
+    return familyTokenMap[family] || null;
+  }
+
+  function addSemanticRule(ruleMap, phrase, token) {
+    const normalized = normalizeSemanticPhrase(phrase);
+
+    if (!normalized) {
+      return;
+    }
+
+    const key = normalized.toLowerCase();
+
+    if (ruleMap.has(key)) {
+      return;
+    }
+
+    ruleMap.set(key, {
+      phrase: normalized,
+      phraseLower: normalized.toLowerCase(),
+      token,
+      className: tokenToSemanticClass(token),
+      wordCount: normalized.split(/\s+/).length
+    });
+  }
+
+  function normalizeSemanticPhrase(value) {
+    return value
+      .replace(/[`*_]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function tokenToSemanticClass(token) {
+    return `semantic-token--${token.replace(/^--/, '')}`;
+  }
+
+  function injectSemanticColorStyles(tokens) {
+    const styleId = 'semantic-color-map';
+    const existingStyle = document.getElementById(styleId);
+
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+
+    const style = document.createElement('style');
+    style.id = styleId;
+
+    const rootVariables = tokens
+      .map(({ token, hex }) => `  ${token}: ${hex};`)
+      .join('\n');
+
+    const utilityClasses = tokens
+      .map(({ token, className }) => `.${className} { --semantic-color: var(${token}); }`)
+      .join('\n');
+
+    style.textContent = `:root {\n${rootVariables}\n}\n${utilityClasses}`;
+    document.head.append(style);
+  }
+
+  function applySemanticHighlights(rules) {
+    const targets = Array.from(new Set(document.querySelectorAll([
+      'h1',
+      'h2',
+      'h3',
+      '.lead',
+      'p',
+      'li',
+      '.btn',
+      '.text-link',
+      '.site-nav a',
+      '.brand',
+      '.hero-meta span',
+      '.telemetry-strip span',
+      '.site-footer p'
+    ].join(', '))));
+
+    targets.forEach((target) => {
+      if (shouldSkipSemanticTarget(target)) {
+        return;
+      }
+
+      const budget = getSemanticHighlightBudget(target);
+
+      if (!budget) {
+        return;
+      }
+
+      highlightSemanticTerms(target, rules, budget, getSemanticHighlightMode(target));
+    });
+  }
+
+  function shouldSkipSemanticTarget(element) {
+    if (!element || element.closest('.site-loader, script, style, noscript, code, pre, svg, .project-media, .brand-chip__mark, .semantic-term')) {
+      return true;
+    }
+
+    const text = element.textContent.replace(/\s+/g, ' ').trim();
+    return !text;
+  }
+
+  function getSemanticHighlightBudget(element) {
+    if (element.matches('.display, .display-sm, .section-title')) {
+      return 3;
+    }
+
+    if (element.matches('h1, h2, h3, .lead, .btn, .text-link, .hero-meta span, .telemetry-strip span')) {
+      return 2;
+    }
+
+    return 1;
+  }
+
+  function getSemanticHighlightMode(element) {
+    if (element.matches('.display, .display-sm, .section-title')) {
+      return 'glow';
+    }
+
+    if (element.matches('h1, h2, h3, .btn, .text-link, .hero-meta span, .telemetry-strip span, .tag, .panel-index')) {
+      return 'strong';
+    }
+
+    return 'soft';
+  }
+
+  function highlightSemanticTerms(element, rules, budget, mode) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        if (node.parentElement && node.parentElement.closest('.semantic-term, script, style, noscript, code, pre, svg')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) {
+      textNodes.push(walker.currentNode);
+    }
+
+    let remainingBudget = budget;
+
+    textNodes.forEach((node) => {
+      if (!remainingBudget) {
+        return;
+      }
+
+      const matches = collectSemanticMatches(node.nodeValue, rules, remainingBudget);
+
+      if (!matches.length) {
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+      let cursor = 0;
+
+      matches.forEach((match) => {
+        if (match.start > cursor) {
+          fragment.append(document.createTextNode(node.nodeValue.slice(cursor, match.start)));
+        }
+
+        const span = document.createElement('span');
+        span.className = `semantic-term ${match.className} semantic-term--${mode}`;
+        span.textContent = node.nodeValue.slice(match.start, match.end);
+        fragment.append(span);
+        cursor = match.end;
+      });
+
+      if (cursor < node.nodeValue.length) {
+        fragment.append(document.createTextNode(node.nodeValue.slice(cursor)));
+      }
+
+      node.parentNode.replaceChild(fragment, node);
+      remainingBudget = Math.max(0, remainingBudget - matches.length);
+    });
+  }
+
+  function collectSemanticMatches(text, rules, limit) {
+    const loweredText = text.toLowerCase();
+    const matches = [];
+
+    rules.forEach((rule) => {
+      if (matches.length >= limit) {
+        return;
+      }
+
+      let searchFrom = 0;
+
+      while (searchFrom < loweredText.length && matches.length < limit) {
+        const index = loweredText.indexOf(rule.phraseLower, searchFrom);
+
+        if (index === -1) {
+          break;
+        }
+
+        const end = index + rule.phrase.length;
+
+        if (isSemanticBoundary(text, index, end, rule.phrase) && !matches.some((match) => index < match.end && end > match.start)) {
+          matches.push({
+            start: index,
+            end,
+            className: rule.className
+          });
+        }
+
+        searchFrom = index + rule.phrase.length;
+      }
+    });
+
+    return matches.sort((left, right) => left.start - right.start);
+  }
+
+  function isSemanticBoundary(text, start, end, phrase) {
+    const previousChar = start > 0 ? text[start - 1] : '';
+    const nextChar = end < text.length ? text[end] : '';
+    const isShortToken = phrase.length <= 2;
+
+    if (isSemanticWordChar(previousChar) || isSemanticWordChar(nextChar)) {
+      return false;
+    }
+
+    if (isShortToken && (previousChar === '-' || nextChar === '-')) {
+      return false;
+    }
+
+    return true;
+  }
+
+  function isSemanticWordChar(value) {
+    return /[A-Za-z0-9]/.test(value);
   }
 
   function preloadSoundAssets() {
