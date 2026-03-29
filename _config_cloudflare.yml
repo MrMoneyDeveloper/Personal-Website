@@ -1,1 +1,3 @@
 baseurl: ""
+exclude:
+  - assets/images/atmosphere/ambient-penteract-icon.gif
