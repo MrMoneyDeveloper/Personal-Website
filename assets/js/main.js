@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('.site-nav');
   const soundToggle = document.querySelector('.sound-toggle');
   const progressBar = document.querySelector('.scroll-progress');
+  const siteAtmosphere = document.querySelector('.site-atmosphere');
+  const vantaTarget = document.querySelector('#vanta-bg');
   const scriptTag = document.querySelector('script[src*="assets/js/main.js"]');
   const assetBase = scriptTag
     ? scriptTag.src.replace(/assets\/js\/main\.js(?:\?.*)?$/, 'assets/')
@@ -14,8 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const sceneControllers = [];
   const soundKey = 'placeholder-studio-sound';
   let layoutFrame = 0;
+  let atmosphereFrame = 0;
+  let vantaResizeTimer = 0;
   let lastSceneCueAt = 0;
   let soundsEnabled = false;
+  let vantaEffect = null;
+
+  const atmosphereState = {
+    pointerX: 0,
+    pointerY: 0,
+    currentX: 0,
+    currentY: 0,
+    scroll: 0,
+    currentScroll: 0
+  };
 
   const soundConfig = {
     hover: { path: 'sounds/hover.wav', volume: 0.06, playbackRate: 1.06 },
@@ -32,13 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
   markCurrentRoute();
   initMenu();
   initSound();
+  initAtmosphere();
   initVanta();
   initScenes();
   initAnimations();
   scheduleLayoutUpdate();
 
   window.addEventListener('scroll', scheduleLayoutUpdate, { passive: true });
-  window.addEventListener('resize', scheduleLayoutUpdate);
+  window.addEventListener('resize', () => {
+    scheduleLayoutUpdate();
+    scheduleVantaRefresh();
+  });
 
   function markCurrentRoute() {
     const normalizePath = (value) => value.replace(/index\.html$/, '').replace(/\/$/, '') || '/';
@@ -51,6 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
         link.setAttribute('aria-current', 'page');
       }
     });
+  }
+
+  function initAtmosphere() {
+    if (!siteAtmosphere || prefersReducedMotion) {
+      return;
+    }
+
+    if (finePointer) {
+      window.addEventListener('pointermove', (event) => {
+        atmosphereState.pointerX = clamp(((event.clientX / window.innerWidth) * 2) - 1, -1, 1);
+        atmosphereState.pointerY = clamp(((event.clientY / window.innerHeight) * 2) - 1, -1, 1);
+        queueAtmosphereRender();
+      }, { passive: true });
+
+      window.addEventListener('pointerleave', () => {
+        atmosphereState.pointerX = 0;
+        atmosphereState.pointerY = 0;
+        queueAtmosphereRender();
+      });
+    }
   }
 
   function initMenu() {
@@ -184,18 +222,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initVanta() {
-    if (prefersReducedMotion || !window.VANTA || !window.VANTA.NET || window.innerWidth < 900) {
+    refreshVanta();
+  }
+
+  function refreshVanta() {
+    if (!canUseVanta()) {
+      destroyVanta();
+      return;
+    }
+
+    if (vantaEffect) {
+      if (typeof vantaEffect.resize === 'function') {
+        vantaEffect.resize();
+      }
       return;
     }
 
     try {
-      window.VANTA.NET({
-        el: '#vanta-bg',
+      vantaEffect = window.VANTA.NET({
+        el: vantaTarget,
         color: 0x8be7ff,
-        backgroundColor: 0x05070d,
-        points: 12,
-        maxDistance: 20,
-        spacing: 17,
+        backgroundColor: 0x04070d,
+        points: 15,
+        maxDistance: 22,
+        spacing: 16,
         showDots: false,
         mouseControls: true,
         touchControls: false,
@@ -203,13 +253,40 @@ document.addEventListener('DOMContentLoaded', () => {
         scale: 1,
         scaleMobile: 1
       });
+      document.documentElement.classList.add('has-vanta');
     } catch (error) {
-      // Leave the layered CSS background in place if Vanta fails.
+      destroyVanta();
     }
+  }
+
+  function scheduleVantaRefresh() {
+    window.clearTimeout(vantaResizeTimer);
+    vantaResizeTimer = window.setTimeout(refreshVanta, 140);
+  }
+
+  function destroyVanta() {
+    if (vantaEffect && typeof vantaEffect.destroy === 'function') {
+      vantaEffect.destroy();
+    }
+
+    vantaEffect = null;
+    document.documentElement.classList.remove('has-vanta');
+  }
+
+  function canUseVanta() {
+    return Boolean(
+      !prefersReducedMotion
+      && vantaTarget
+      && window.VANTA
+      && window.VANTA.NET
+      && window.innerWidth >= 720
+    );
   }
 
   function initScenes() {
     document.querySelectorAll('[data-depth-scene]').forEach((scene) => {
+      assignAutoDepth(scene);
+
       const layers = Array.from(scene.querySelectorAll('[data-depth]')).map((element) => ({
         element,
         depth: clamp(parseFloat(element.dataset.depth) || 0.45, 0.1, 1.2)
@@ -249,6 +326,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function assignAutoDepth(scene) {
+    const autoDepths = [0.28, 0.38, 0.48, 0.58];
+    const candidates = scene.querySelectorAll(
+      '.hero-layout > *, .page-hero-layout > *, .section-copy, .scene-copy, .summary-grid > *, .project-showcase-grid > *, .timeline-shell > *, .capability-grid > *, .link-grid > *, .cert-grid > *, .contact-grid > *, .metric-grid > *, .telemetry-wall > *, .repo-groups > *'
+    );
+
+    let depthIndex = 0;
+
+    candidates.forEach((element) => {
+      if (element.hasAttribute('data-depth')) {
+        return;
+      }
+
+      const parentDepth = element.parentElement?.closest('[data-depth]');
+      if (parentDepth && scene.contains(parentDepth)) {
+        return;
+      }
+
+      element.dataset.depth = String(autoDepths[depthIndex % autoDepths.length]);
+      element.dataset.depthAuto = 'true';
+      depthIndex += 1;
+    });
+  }
+
   function queueSceneRender(controller) {
     if (controller.frame) {
       return;
@@ -271,6 +372,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sceneLift = scroll * -26;
 
     controller.scene.style.transform = `translate3d(0, ${sceneLift}px, 0) rotateX(${sceneRotateX}deg) rotateY(${sceneRotateY}deg)`;
+    controller.scene.style.setProperty('--scene-light-x', `${50 + (x * 18)}%`);
+    controller.scene.style.setProperty('--scene-light-y', `${24 + (y * 14) - (scroll * 8)}%`);
+    controller.scene.style.setProperty('--scene-light-opacity', String(0.18 + (Math.abs(x) * 0.08) + (Math.abs(scroll) * 0.12)));
 
     controller.layers.forEach(({ element, depth }) => {
       const layerX = x * depth * 28;
@@ -369,7 +473,50 @@ document.addEventListener('DOMContentLoaded', () => {
       layoutFrame = 0;
       updateProgressBar();
       updateSceneScrollOffsets();
+      updateAtmosphere();
     });
+  }
+
+  function updateAtmosphere() {
+    if (!siteAtmosphere || prefersReducedMotion) {
+      return;
+    }
+
+    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+    atmosphereState.scroll = clamp(window.scrollY / maxScroll, 0, 1);
+    queueAtmosphereRender();
+  }
+
+  function queueAtmosphereRender() {
+    if (atmosphereFrame || !siteAtmosphere) {
+      return;
+    }
+
+    atmosphereFrame = window.requestAnimationFrame(renderAtmosphere);
+  }
+
+  function renderAtmosphere() {
+    atmosphereFrame = 0;
+    atmosphereState.currentX += (atmosphereState.pointerX - atmosphereState.currentX) * 0.08;
+    atmosphereState.currentY += (atmosphereState.pointerY - atmosphereState.currentY) * 0.08;
+    atmosphereState.currentScroll += (atmosphereState.scroll - atmosphereState.currentScroll) * 0.08;
+
+    const x = atmosphereState.currentX;
+    const y = atmosphereState.currentY;
+    const scroll = atmosphereState.currentScroll;
+
+    document.documentElement.style.setProperty('--atmosphere-shift-x', `${x * 34}px`);
+    document.documentElement.style.setProperty('--atmosphere-shift-y', `${y * 24}px`);
+    document.documentElement.style.setProperty('--atmosphere-scroll', `${scroll * -48}px`);
+    document.documentElement.style.setProperty('--atmosphere-intensity', String(0.9 + (Math.abs(x) * 0.08) + (scroll * 0.12)));
+
+    const stillMoving = Math.abs(atmosphereState.pointerX - atmosphereState.currentX) > 0.002
+      || Math.abs(atmosphereState.pointerY - atmosphereState.currentY) > 0.002
+      || Math.abs(atmosphereState.scroll - atmosphereState.currentScroll) > 0.002;
+
+    if (stillMoving) {
+      queueAtmosphereRender();
+    }
   }
 
   function updateProgressBar() {
