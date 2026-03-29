@@ -6,10 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportsHover = window.matchMedia('(hover: hover)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotion = reducedMotionQuery.matches;
-  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-2';
+  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-4';
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
-  const soundToggle = document.querySelector('.sound-toggle');
   const progressBar = document.querySelector('.scroll-progress');
   const siteAtmosphere = document.querySelector('.site-atmosphere');
   const vantaTarget = document.querySelector('#vanta-bg');
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     : `${window.location.origin}/assets/`;
   const routeLoaderKey = 'portfolio-route-loader';
   const firstVisitKey = 'portfolio-first-visit-complete';
-  const soundKey = 'placeholder-studio-sound';
   const soundConfig = {
     hover: { path: 'sounds/hover.wav', volume: 0.05, playbackRate: 1.06 },
     click: { path: 'sounds/click.wav', volume: 0.1, playbackRate: 1 },
@@ -78,10 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', handleResize, { passive: true });
 
   loaderDone.then(() => {
+    initVanta();
     queueIdleTask(() => {
-      initVanta();
       maybeLoadImmersiveExperience();
-    }, 260);
+    }, 180);
   });
 
   if (typeof reducedMotionQuery.addEventListener === 'function') {
@@ -290,39 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initSound() {
-    try {
-      const storedSoundPreference = window.localStorage.getItem(soundKey);
-      soundsEnabled = storedSoundPreference !== 'off';
-    } catch (error) {
-      soundsEnabled = true;
-    }
-
-    updateSoundToggle();
     primeAudio();
-
-    if (soundToggle) {
-      soundToggle.addEventListener('click', () => {
-        soundsEnabled = !soundsEnabled;
-
-        try {
-          window.localStorage.setItem(soundKey, soundsEnabled ? 'on' : 'off');
-        } catch (error) {
-          // Storage access is optional.
-        }
-
-        updateSoundToggle();
-
-        if (soundsEnabled) {
-          playSound('cue', { force: true, volume: 0.08 });
-        }
-      });
-    }
 
     if (prefersReducedMotion) {
       return;
     }
 
-    const hoverTargets = document.querySelectorAll('.btn, .site-nav a, .brand, .sound-toggle, .menu-toggle, .frame-panel, .project-card, .news-item');
+    const hoverTargets = document.querySelectorAll('.btn, .site-nav a, .brand, .menu-toggle, .frame-panel, .project-card, .news-item');
     const clickTargets = document.querySelectorAll('.btn, .site-nav a, .brand, .menu-toggle, .frame-panel, .project-card, .news-item');
 
     hoverTargets.forEach((element) => {
@@ -371,21 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-sound-scene]').forEach((scene) => {
       sceneObserver.observe(scene);
     });
-  }
-
-  function updateSoundToggle() {
-    if (!soundToggle) {
-      return;
-    }
-
-    const label = soundToggle.querySelector('.sound-toggle__label');
-    soundToggle.classList.toggle('is-active', soundsEnabled);
-    soundToggle.setAttribute('aria-pressed', String(soundsEnabled));
-    soundToggle.setAttribute('aria-label', soundsEnabled ? 'Disable interface sound' : 'Enable interface sound');
-
-    if (label) {
-      label.textContent = soundsEnabled ? 'Sound On' : 'Sound Off';
-    }
   }
 
   function playSound(name, overrides = {}) {
@@ -757,16 +714,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initVanta() {
-    if (!canUseVanta()) {
+    if (!canUseVanta() || !(window.VANTA && window.VANTA.NET)) {
       return;
     }
 
-    ensureScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js', () => Boolean(window.THREE))
-      .then(() => ensureScript('https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js', () => Boolean(window.VANTA && window.VANTA.NET)))
-      .then(refreshVanta)
-      .catch(() => {
-        destroyVanta();
-      });
+    refreshVanta();
   }
 
   function refreshVanta() {
@@ -788,9 +740,9 @@ document.addEventListener('DOMContentLoaded', () => {
         color: 0x86e9ff,
         backgroundColor: 0x04070d,
         points: lowPower ? 7 : 12,
-        maxDistance: lowPower ? 16 : 22,
-        spacing: lowPower ? 19 : 17,
-        showDots: !lowPower,
+        maxDistance: lowPower ? 18 : 24,
+        spacing: lowPower ? 18 : 15,
+        showDots: true,
         mouseControls: finePointer,
         touchControls: false,
         gyroControls: false,
@@ -821,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return Boolean(
       vantaTarget
       && !prefersReducedMotion
-      && window.innerWidth >= 760
+      && window.innerWidth >= 680
       && !root.classList.contains('is-loader-active')
     );
   }
@@ -851,31 +803,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .finally(() => {
         immersiveExperiencePending = false;
       });
-  }
-
-  function ensureScript(src, test) {
-    if (test()) {
-      return Promise.resolve();
-    }
-
-    const existing = document.querySelector(`script[data-runtime-src="${src}"]`);
-
-    if (existing) {
-      return new Promise((resolve, reject) => {
-        existing.addEventListener('load', () => resolve(), { once: true });
-        existing.addEventListener('error', reject, { once: true });
-      });
-    }
-
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.defer = true;
-      script.dataset.runtimeSrc = src;
-      script.onload = () => resolve();
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
   }
 
   function queueIdleTask(task, timeout = 200) {
