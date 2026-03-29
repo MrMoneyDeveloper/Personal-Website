@@ -70,33 +70,47 @@ description: Professional summary, positioning, and delivery approach for Mohamm
 <section class="section-pad">
   <div class="container">
     <div class="scene-shell scene-shell-wide" data-depth-scene data-sound-scene="reveal">
-      <div class="editorial-carousel editorial-carousel--wide reveal-inline" data-depth="0.58" data-editorial-carousel data-carousel-interval="4200" aria-label="About image carousel">
-        <div class="editorial-carousel__stage">
-          <article class="editorial-carousel__slide is-active" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-biotech-greenhouse.webp' | relative_url }}" alt="An overgrown greenhouse filled with vines weaving through old industrial machinery." />
-            </div>
-          </article>
-
-          <article class="editorial-carousel__slide" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-luminous-garden.webp' | relative_url }}" alt="A serene garden-like structure where glowing plant forms rise through reclaimed architecture." />
-            </div>
-          </article>
-
-          <article class="editorial-carousel__slide" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-neon-metropolis.webp' | relative_url }}" alt="A dense neon city with stacked walkways, greenery, and many visible infrastructure layers." />
-            </div>
-          </article>
+      <div class="editorial-module editorial-module--image reveal-inline" data-depth="0.58" data-editorial-swiper data-editorial-delay="4200" aria-label="About image carousel">
+        <div class="editorial-module__rail" aria-hidden="true">
+          <span></span>
+          <span></span>
         </div>
-        <div class="editorial-carousel__controls">
-          <div class="editorial-carousel__progress"><span data-carousel-progress></span></div>
-          <div class="editorial-carousel__nav-row">
-            <div class="editorial-carousel__dots" data-carousel-dots></div>
-            <div class="editorial-carousel__nav-group">
-              <button class="editorial-carousel__nav" type="button" data-carousel-prev aria-label="Previous slide">Prev</button>
-              <button class="editorial-carousel__nav" type="button" data-carousel-next aria-label="Next slide">Next</button>
+        <div class="editorial-module__viewport">
+          <div class="swiper editorial-swiper editorial-swiper--image">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-biotech-greenhouse.webp' | relative_url }}" alt="An overgrown greenhouse filled with vines weaving through old industrial machinery." />
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-luminous-garden.webp' | relative_url }}" alt="A serene garden-like structure where glowing plant forms rise through reclaimed architecture." />
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-neon-metropolis.webp' | relative_url }}" alt="A dense neon city with stacked walkways, greenery, and many visible infrastructure layers." />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="editorial-module__dock">
+          <div class="editorial-module__progress"><span data-editorial-progress></span></div>
+          <div class="editorial-module__controls">
+            <div class="swiper-pagination editorial-module__pagination"></div>
+            <div class="editorial-module__nav">
+              <button class="editorial-module__button" type="button" data-editorial-prev aria-label="Previous slide">Prev</button>
+              <button class="editorial-module__button" type="button" data-editorial-next aria-label="Next slide">Next</button>
             </div>
           </div>
         </div>

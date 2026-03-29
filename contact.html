@@ -36,20 +36,44 @@ description: Contact details, professional links, and availability for Mohammed 
 <section class="section-pad">
   <div class="container">
     <div class="scene-shell scene-shell-wide" data-depth-scene data-sound-scene="reveal">
-      <div class="editorial-motion-cluster">
-        <div class="frame-panel editorial-feature-card reveal-inline">
-          <div class="project-media project-media--video project-media--contain">
-            <video muted loop playsinline preload="metadata" aria-label="Muted editorial motion study video.">
-              <source src="{{ '/assets/videos/editorial/editorial-motion-landscape-01.mp4' | relative_url }}" type="video/mp4" />
-            </video>
+      <div class="editorial-module editorial-module--video editorial-module--portrait-mix reveal-inline" data-depth="0.56" data-editorial-swiper data-editorial-delay="4200" data-editorial-lock="true" data-editorial-focus-duration="1800" aria-label="Contact video carousel">
+        <div class="editorial-module__rail" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </div>
+        <div class="editorial-module__viewport">
+          <div class="swiper editorial-swiper editorial-swiper--video">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--motion">
+                  <div class="project-media project-media--video project-media--contain">
+                    <video muted loop playsinline preload="auto" autoplay aria-label="Muted editorial motion study video.">
+                      <source src="{{ '/assets/videos/editorial/editorial-motion-landscape-01.mp4' | relative_url }}" type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--portrait-stage">
+                  <div class="project-media project-media--tall project-media--video project-media--contain">
+                    <video muted loop playsinline preload="auto" autoplay aria-label="Muted portrait editorial motion study video.">
+                      <source src="{{ '/assets/videos/editorial/editorial-motion-portrait-01.mp4' | relative_url }}" type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="frame-panel editorial-feature-card reveal-inline">
-          <div class="project-media project-media--tall project-media--video project-media--contain">
-            <video muted loop playsinline preload="metadata" aria-label="Muted portrait editorial motion study video.">
-              <source src="{{ '/assets/videos/editorial/editorial-motion-portrait-01.mp4' | relative_url }}" type="video/mp4" />
-            </video>
+        <div class="editorial-module__dock">
+          <div class="editorial-module__progress"><span data-editorial-progress></span></div>
+          <div class="editorial-module__controls">
+            <div class="swiper-pagination editorial-module__pagination"></div>
+            <div class="editorial-module__nav">
+              <button class="editorial-module__button" type="button" data-editorial-prev aria-label="Previous slide">Prev</button>
+              <button class="editorial-module__button" type="button" data-editorial-next aria-label="Next slide">Next</button>
+            </div>
           </div>
         </div>
       </div>

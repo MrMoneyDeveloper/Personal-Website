@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
-  initEditorialCarousels();
+  initEditorialSwipers();
   initRevealSystem();
   initScenes();
   initAtmosphere();
@@ -819,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (image.closest('.hero, .page-hero-shell, .site-header')) {
         image.loading = 'eager';
         image.fetchPriority = 'high';
-      } else if (image.closest('[data-editorial-carousel]')) {
+      } else if (image.closest('[data-editorial-swiper]')) {
         image.loading = 'eager';
         image.fetchPriority = 'auto';
       } else {
@@ -844,18 +844,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     videos.forEach((video) => {
       const mediaShell = video.closest('.project-media');
-      const carouselShell = video.closest('[data-editorial-carousel]');
+      const carouselShell = video.closest('[data-editorial-swiper]');
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.preload = carouselShell ? 'metadata' : 'none';
+      video.preload = carouselShell ? 'auto' : 'none';
 
       if (mediaShell) {
         mediaShell.classList.add('is-loaded');
       }
 
       if (carouselShell) {
-        video.autoplay = false;
+        video.autoplay = true;
+        video.load();
         video.pause();
         return;
       }
@@ -885,44 +886,96 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function initEditorialCarousels() {
-    const carousels = Array.from(document.querySelectorAll('[data-editorial-carousel]'));
+  function initEditorialSwipers() {
+    const carousels = Array.from(document.querySelectorAll('[data-editorial-swiper]'));
 
-    if (!carousels.length) {
+    if (!carousels.length || typeof window.Swiper !== 'function') {
       return;
     }
 
     carousels.forEach((carousel) => {
-      const slides = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
+      const swiperElement = carousel.querySelector('.swiper');
 
-      if (!slides.length) {
+      if (!swiperElement) {
+        return;
+      }
+
+      const baseSlides = Array.from(swiperElement.querySelectorAll('.swiper-slide'));
+
+      if (!baseSlides.length) {
         return;
       }
 
       const controller = {
         element: carousel,
-        slides,
-        dotsContainer: carousel.querySelector('[data-carousel-dots]'),
-        prevButton: carousel.querySelector('[data-carousel-prev]'),
-        nextButton: carousel.querySelector('[data-carousel-next]'),
-        currentOutput: carousel.querySelector('[data-carousel-current]'),
-        totalOutput: carousel.querySelector('[data-carousel-total]'),
-        progressBar: carousel.querySelector('[data-carousel-progress]'),
-        dots: [],
-        timer: 0,
-        index: 0,
-        interval: clamp(Number(carousel.dataset.carouselInterval || 3600), 2600, 7000),
+        progressBar: carousel.querySelector('[data-editorial-progress]'),
+        prevButton: carousel.querySelector('[data-editorial-prev]'),
+        nextButton: carousel.querySelector('[data-editorial-next]'),
+        pagination: carousel.querySelector('.swiper-pagination'),
+        delay: clamp(Number(carousel.dataset.editorialDelay || 3800), 2600, 7200),
+        focusSeen: false,
         active: false,
-        focusSeen: false
+        swiper: null
       };
 
-      buildCarouselDots(controller);
-      bindCarouselControls(controller);
-      setCarouselSlide(controller, 0);
-      startCarousel(controller);
+      controller.swiper = new window.Swiper(swiperElement, {
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        loop: baseSlides.length > 1,
+        speed: 1100,
+        allowTouchMove: baseSlides.length > 1,
+        watchOverflow: true,
+        autoplay: prefersReducedMotion || baseSlides.length <= 1
+          ? false
+          : {
+              delay: controller.delay,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: false,
+              waitForTransition: true
+            },
+        navigation: {
+          prevEl: controller.prevButton,
+          nextEl: controller.nextButton
+        },
+        pagination: controller.pagination
+          ? {
+              el: controller.pagination,
+              clickable: true,
+              bulletClass: 'editorial-module__bullet',
+              bulletActiveClass: 'is-active',
+              renderBullet(index, className) {
+                return `<button class="${className}" type="button" aria-label="Go to slide ${index + 1}"></button>`;
+              }
+            }
+          : undefined,
+        on: {
+          init(swiper) {
+            updateEditorialProgress(controller, 0);
+            syncEditorialVideos(controller, swiper);
+          },
+          slideChangeTransitionStart(swiper) {
+            updateEditorialProgress(controller, 0);
+            syncEditorialVideos(controller, swiper);
+          },
+          slideChangeTransitionEnd(swiper) {
+            syncEditorialVideos(controller, swiper);
+          },
+          autoplayTimeLeft(swiper, timeLeft, percentage) {
+            void swiper;
+            void timeLeft;
+            updateEditorialProgress(controller, 1 - percentage);
+          }
+        }
+      });
 
-      if (controller.totalOutput) {
-        controller.totalOutput.textContent = padNumber(slides.length);
+      const initialRect = controller.element.getBoundingClientRect();
+      controller.active = initialRect.bottom > 0 && initialRect.top < window.innerHeight;
+      controller.element.classList.toggle('is-editorial-active', controller.active);
+
+      if (controller.active) {
+        syncEditorialVideos(controller);
       }
 
       const visibilityObserver = new IntersectionObserver((entries) => {
@@ -932,23 +985,23 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           controller.active = entry.isIntersecting;
-          controller.element.classList.toggle('is-carousel-active', entry.isIntersecting);
+          controller.element.classList.toggle('is-editorial-active', entry.isIntersecting);
 
           if (entry.isIntersecting) {
-            syncCarouselVideos(controller);
+            syncEditorialVideos(controller);
           } else {
-            pauseCarouselVideos(controller);
+            pauseEditorialVideos(controller);
           }
         });
       }, {
-        threshold: 0.24,
-        rootMargin: '160px 0px'
+        threshold: 0.28,
+        rootMargin: '180px 0px'
       });
 
       visibilityObserver.observe(controller.element);
       revealObservers.push(visibilityObserver);
 
-      if (controller.element.dataset.carouselLock === 'true') {
+      if (controller.element.dataset.editorialLock === 'true') {
         const focusObserver = new IntersectionObserver((entries, currentObserver) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting || controller.focusSeen) {
@@ -960,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentObserver.unobserve(entry.target);
           });
         }, {
-          threshold: 0.72
+          threshold: 0.68
         });
 
         focusObserver.observe(controller.element);
@@ -971,123 +1024,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function buildCarouselDots(controller) {
-    if (!controller.dotsContainer) {
+  function updateEditorialProgress(controller, value) {
+    if (!controller.progressBar) {
       return;
     }
 
-    controller.dotsContainer.innerHTML = '';
-    controller.dots = controller.slides.map((slide, index) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'editorial-carousel__dot';
-      dot.setAttribute('aria-label', `Show slide ${index + 1}`);
-      dot.addEventListener('click', () => {
-        setCarouselSlide(controller, index);
-        startCarousel(controller);
-      });
-      controller.dotsContainer.append(dot);
-      return dot;
-    });
+    const safeValue = Math.max(0, Math.min(1, value));
+    controller.progressBar.style.transform = `scaleX(${safeValue})`;
   }
 
-  function bindCarouselControls(controller) {
-    const moveTo = (index) => {
-      setCarouselSlide(controller, index);
-      startCarousel(controller);
-    };
+  function syncEditorialVideos(controller, activeSwiper = controller.swiper) {
+    const allowPlayback = controller.active && !prefersReducedMotion && !root.classList.contains('is-loader-active');
 
-    if (controller.prevButton) {
-      controller.prevButton.addEventListener('click', () => {
-        moveTo(controller.index - 1);
-      });
-    }
+    controller.element.querySelectorAll('video').forEach((video) => {
+      const slide = video.closest('.swiper-slide');
+      const isActiveSlide = !!slide && slide.classList.contains('swiper-slide-active');
 
-    if (controller.nextButton) {
-      controller.nextButton.addEventListener('click', () => {
-        moveTo(controller.index + 1);
-      });
-    }
-  }
-
-  function setCarouselSlide(controller, nextIndex) {
-    const total = controller.slides.length;
-
-    if (!total) {
-      return;
-    }
-
-    controller.index = (nextIndex + total) % total;
-
-    controller.slides.forEach((slide, index) => {
-      const isActive = index === controller.index;
-      slide.classList.toggle('is-active', isActive);
-      slide.setAttribute('aria-hidden', String(!isActive));
-    });
-
-    if (controller.currentOutput) {
-      controller.currentOutput.textContent = padNumber(controller.index + 1);
-    }
-
-    if (controller.progressBar) {
-      controller.progressBar.style.width = `${((controller.index + 1) / total) * 100}%`;
-    }
-
-    controller.dots.forEach((dot, index) => {
-      dot.classList.toggle('is-active', index === controller.index);
-      dot.setAttribute('aria-pressed', String(index === controller.index));
-    });
-
-    syncCarouselVideos(controller);
-  }
-
-  function startCarousel(controller) {
-    stopCarousel(controller);
-
-    if (prefersReducedMotion || controller.slides.length <= 1) {
-      return;
-    }
-
-    controller.timer = window.setInterval(() => {
-      setCarouselSlide(controller, controller.index + 1);
-    }, controller.interval);
-  }
-
-  function stopCarousel(controller) {
-    if (!controller.timer) {
-      return;
-    }
-
-    window.clearInterval(controller.timer);
-    controller.timer = 0;
-  }
-
-  function syncCarouselVideos(controller) {
-    const allowPlayback = controller.active && !prefersReducedMotion;
-
-    controller.slides.forEach((slide, index) => {
-      slide.querySelectorAll('video').forEach((video) => {
-        if (allowPlayback && index === controller.index) {
-          video.play().catch(() => {
-            // Ignore autoplay interruptions.
-          });
-        } else {
-          video.pause();
+      if (allowPlayback && isActiveSlide) {
+        if (video.paused && video.readyState >= 2) {
+          try {
+            video.currentTime = 0;
+          } catch (error) {
+            void error;
+          }
         }
-      });
+
+        video.play().catch(() => {
+          // Ignore autoplay interruptions.
+        });
+        return;
+      }
+
+      video.pause();
+
+      if (slide && !slide.classList.contains('swiper-slide-active')) {
+        try {
+          video.currentTime = 0;
+        } catch (error) {
+          void error;
+        }
+      }
     });
+
+    if (activeSwiper && !activeSwiper.params.autoplay) {
+      updateEditorialProgress(controller, 1);
+    }
   }
 
-  function pauseCarouselVideos(controller) {
-    controller.slides.forEach((slide) => {
-      slide.querySelectorAll('video').forEach((video) => {
-        video.pause();
-      });
+  function pauseEditorialVideos(controller) {
+    controller.element.querySelectorAll('video').forEach((video) => {
+      video.pause();
     });
   }
 
   function triggerCarouselFocusMoment(controller) {
-    const focusDuration = clamp(Number(controller.element.dataset.carouselFocusDuration || 1900), 1400, 2600);
+    const focusDuration = clamp(Number(controller.element.dataset.editorialFocusDuration || 1900), 1400, 2600);
 
     controller.element.classList.add('is-focus-active');
     window.setTimeout(() => {
@@ -1166,10 +1157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollLockState.touchHandler = null;
     scrollLockState.keyHandler = null;
     scrollLockState.bodyPaddingRight = '';
-  }
-
-  function padNumber(value) {
-    return String(value).padStart(2, '0');
   }
 
   function initShellFirstPaint() {

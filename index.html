@@ -130,39 +130,55 @@ immersive_stage: true
 <section class="section-pad">
   <div class="container">
     <div class="scene-shell scene-shell-wide" data-depth-scene data-sound-scene="cue">
-      <div class="editorial-carousel editorial-carousel--wide reveal-inline" data-depth="0.56" data-editorial-carousel data-carousel-interval="3800" data-carousel-lock="true" data-carousel-focus-duration="1800" aria-label="Home image carousel">
-        <div class="editorial-carousel__stage">
-          <article class="editorial-carousel__slide is-active" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-chessboard-cosmos.webp' | relative_url }}" alt="Oversized chess pieces standing on a glowing grid beneath a star-filled night sky." />
-            </div>
-          </article>
-
-          <article class="editorial-carousel__slide" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-future-promenade.webp' | relative_url }}" alt="A polished futuristic promenade filled with reflective surfaces, people, and towering city structures." />
-            </div>
-          </article>
-
-          <article class="editorial-carousel__slide" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-command-platform.webp' | relative_url }}" alt="A futuristic command platform overlooking a sprawling city at dusk with hovering ships overhead." />
-            </div>
-          </article>
-
-          <article class="editorial-carousel__slide" data-carousel-slide>
-            <div class="project-media project-media--wide">
-              <img src="{{ '/assets/images/editorial/editorial-orbital-city-falls.webp' | relative_url }}" alt="A vast futuristic city circling a deep chasm with waterfalls descending into the center." />
-            </div>
-          </article>
+      <div class="editorial-module editorial-module--image editorial-module--panoramic reveal-inline" data-depth="0.56" data-editorial-swiper data-editorial-delay="3800" data-editorial-lock="true" data-editorial-focus-duration="1800" aria-label="Home image carousel">
+        <div class="editorial-module__rail" aria-hidden="true">
+          <span></span>
+          <span></span>
         </div>
-        <div class="editorial-carousel__controls">
-          <div class="editorial-carousel__progress"><span data-carousel-progress></span></div>
-          <div class="editorial-carousel__nav-row">
-            <div class="editorial-carousel__dots" data-carousel-dots></div>
-            <div class="editorial-carousel__nav-group">
-              <button class="editorial-carousel__nav" type="button" data-carousel-prev aria-label="Previous slide">Prev</button>
-              <button class="editorial-carousel__nav" type="button" data-carousel-next aria-label="Next slide">Next</button>
+        <div class="editorial-module__viewport">
+          <div class="swiper editorial-swiper editorial-swiper--image">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-chessboard-cosmos.webp' | relative_url }}" alt="Oversized chess pieces standing on a glowing grid beneath a star-filled night sky." />
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-future-promenade.webp' | relative_url }}" alt="A polished futuristic promenade filled with reflective surfaces, people, and towering city structures." />
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-command-platform.webp' | relative_url }}" alt="A futuristic command platform overlooking a sprawling city at dusk with hovering ships overhead." />
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide editorial-swiper__slide">
+                <div class="editorial-swiper__frame editorial-swiper__frame--wide">
+                  <div class="project-media project-media--wide">
+                    <img src="{{ '/assets/images/editorial/editorial-orbital-city-falls.webp' | relative_url }}" alt="A vast futuristic city circling a deep chasm with waterfalls descending into the center." />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="editorial-module__dock">
+          <div class="editorial-module__progress"><span data-editorial-progress></span></div>
+          <div class="editorial-module__controls">
+            <div class="swiper-pagination editorial-module__pagination"></div>
+            <div class="editorial-module__nav">
+              <button class="editorial-module__button" type="button" data-editorial-prev aria-label="Previous slide">Prev</button>
+              <button class="editorial-module__button" type="button" data-editorial-next aria-label="Next slide">Next</button>
             </div>
           </div>
         </div>
