@@ -856,8 +856,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (carouselShell) {
         video.autoplay = true;
-        video.load();
-        video.pause();
         return;
       }
 
@@ -908,6 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const controller = {
         element: carousel,
+        slides: baseSlides,
         progressBar: carousel.querySelector('[data-editorial-progress]'),
         prevButton: carousel.querySelector('[data-editorial-prev]'),
         nextButton: carousel.querySelector('[data-editorial-next]'),
@@ -923,7 +922,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fadeEffect: {
           crossFade: true
         },
-        loop: baseSlides.length > 1,
+        loop: false,
+        rewind: baseSlides.length > 1,
         speed: 1100,
         allowTouchMove: baseSlides.length > 1,
         watchOverflow: true,
@@ -954,6 +954,10 @@ document.addEventListener('DOMContentLoaded', () => {
           init(swiper) {
             updateEditorialProgress(controller, 0);
             syncEditorialVideos(controller, swiper);
+
+            if (controller.active) {
+              resumeEditorialAutoplay(controller);
+            }
           },
           slideChangeTransitionStart(swiper) {
             updateEditorialProgress(controller, 0);
@@ -961,6 +965,10 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           slideChangeTransitionEnd(swiper) {
             syncEditorialVideos(controller, swiper);
+
+            if (controller.active) {
+              resumeEditorialAutoplay(controller);
+            }
           },
           autoplayTimeLeft(swiper, timeLeft, percentage) {
             void swiper;
@@ -976,6 +984,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (controller.active) {
         syncEditorialVideos(controller);
+        resumeEditorialAutoplay(controller);
       }
 
       const visibilityObserver = new IntersectionObserver((entries) => {
@@ -988,9 +997,14 @@ document.addEventListener('DOMContentLoaded', () => {
           controller.element.classList.toggle('is-editorial-active', entry.isIntersecting);
 
           if (entry.isIntersecting) {
+            if (controller.swiper && !controller.swiper.destroyed) {
+              controller.swiper.update();
+            }
             syncEditorialVideos(controller);
+            resumeEditorialAutoplay(controller);
           } else {
             pauseEditorialVideos(controller);
+            pauseEditorialAutoplay(controller);
           }
         });
       }, {
@@ -1035,38 +1049,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function syncEditorialVideos(controller, activeSwiper = controller.swiper) {
     const allowPlayback = controller.active && !prefersReducedMotion && !root.classList.contains('is-loader-active');
+    const safeIndex = activeSwiper && Number.isInteger(activeSwiper.realIndex)
+      ? activeSwiper.realIndex
+      : 0;
 
-    controller.element.querySelectorAll('video').forEach((video) => {
-      const slide = video.closest('.swiper-slide');
-      const isActiveSlide = !!slide && slide.classList.contains('swiper-slide-active');
+    controller.slides.forEach((slide, index) => {
+      slide.querySelectorAll('video').forEach((video) => {
+        const isActiveSlide = index === safeIndex;
 
-      if (allowPlayback && isActiveSlide) {
-        if (video.paused && video.readyState >= 2) {
+        if (allowPlayback && isActiveSlide) {
+          if (video.paused && video.readyState >= 2) {
+            try {
+              video.currentTime = 0;
+            } catch (error) {
+              void error;
+            }
+          }
+
+          video.play().catch(() => {
+            // Ignore autoplay interruptions.
+          });
+          return;
+        }
+
+        video.pause();
+
+        if (!isActiveSlide) {
           try {
             video.currentTime = 0;
           } catch (error) {
             void error;
           }
         }
-
-        video.play().catch(() => {
-          // Ignore autoplay interruptions.
-        });
-        return;
-      }
-
-      video.pause();
-
-      if (slide && !slide.classList.contains('swiper-slide-active')) {
-        try {
-          video.currentTime = 0;
-        } catch (error) {
-          void error;
-        }
-      }
+      });
     });
 
-    if (activeSwiper && !activeSwiper.params.autoplay) {
+    if (activeSwiper && !activeSwiper.autoplay) {
       updateEditorialProgress(controller, 1);
     }
   }
@@ -1075,6 +1093,26 @@ document.addEventListener('DOMContentLoaded', () => {
     controller.element.querySelectorAll('video').forEach((video) => {
       video.pause();
     });
+  }
+
+  function resumeEditorialAutoplay(controller) {
+    if (!controller.swiper || !controller.swiper.autoplay || prefersReducedMotion || controller.slides.length <= 1) {
+      return;
+    }
+
+    if (!controller.swiper.autoplay.running) {
+      controller.swiper.autoplay.start();
+    }
+  }
+
+  function pauseEditorialAutoplay(controller) {
+    if (!controller.swiper || !controller.swiper.autoplay) {
+      return;
+    }
+
+    if (controller.swiper.autoplay.running) {
+      controller.swiper.autoplay.stop();
+    }
   }
 
   function triggerCarouselFocusMoment(controller) {
@@ -1482,8 +1520,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleResize() {
     scheduleLayoutUpdate();
+    updateEditorialSwiperLayouts();
     scheduleVantaRefresh();
     maybeLoadImmersiveExperience();
+  }
+
+  function updateEditorialSwiperLayouts() {
+    carouselControllers.forEach((controller) => {
+      if (!controller.swiper || controller.swiper.destroyed) {
+        return;
+      }
+
+      controller.swiper.update();
+
+      if (controller.active) {
+        syncEditorialVideos(controller);
+      }
+    });
   }
 
   function initVanta(attempt = 0) {
