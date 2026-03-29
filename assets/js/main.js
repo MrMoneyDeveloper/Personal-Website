@@ -953,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
         active: false,
         swiper: null,
         activeVideo: null,
-        autoEnabled: !autoplayDisabled && !prefersReducedMotion && baseSlides.length > 1
+        autoEnabled: !autoplayDisabled && baseSlides.length > 1
       };
       const hasNavigation = Boolean(controller.prevButton && controller.nextButton);
 
@@ -997,6 +997,10 @@ document.addEventListener('DOMContentLoaded', () => {
             updateEditorialProgress(controller, controller.autoEnabled ? 0 : 1);
             syncEditorialVideos(controller, swiper);
 
+            if (controller.autoEnabled && swiper.autoplay && !swiper.autoplay.running) {
+              swiper.autoplay.start();
+            }
+
             if (controller.active) {
               resumeEditorialAutoplay(controller);
             }
@@ -1032,6 +1036,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resumeEditorialAutoplay(controller);
       } else if (!controller.autoEnabled) {
         updateEditorialProgress(controller, 1);
+      } else {
+        pauseEditorialAutoplay(controller);
       }
 
       const visibilityObserver = new IntersectionObserver((entries) => {
