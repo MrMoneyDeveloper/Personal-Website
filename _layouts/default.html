@@ -4,7 +4,7 @@ layout: null
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% assign asset_version = site.build_version | default: '20260329-10' %}
+  {% assign asset_version = site.build_version | default: '20260329-12' %}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ page.description | default: site.description }}" />
@@ -13,9 +13,6 @@ layout: null
   <link rel="icon" type="image/png" sizes="192x192" href="{{ '/assets/img/icons/favicon-192.png' | relative_url }}?v={{ asset_version }}" />
   <link rel="apple-touch-icon" href="{{ '/assets/img/icons/apple-touch-icon.png' | relative_url }}?v={{ asset_version }}" />
   <title>{{ page.title | default: site.title }}</title>
-  {% if page.immersive_stage %}
-    <link rel="preconnect" href="https://esm.sh" crossorigin />
-  {% endif %}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -73,10 +70,8 @@ layout: null
     <div class="site-loader__panel">
       <p class="site-loader__eyebrow">Farhaan Buckas</p>
       <div class="site-loader__media" aria-hidden="true">
-        <span class="site-loader__frame site-loader__frame--glitch"></span>
-        <span class="site-loader__frame site-loader__frame--sword"></span>
         <span class="site-loader__frame site-loader__frame--deku"></span>
-        <span class="site-loader__frame site-loader__frame--kakashi"></span>
+        <span class="site-loader__frame site-loader__frame--ocean"></span>
       </div>
       <div class="site-loader__core" aria-hidden="true">
         <span class="site-loader__ring site-loader__ring--outer"></span>
@@ -92,12 +87,6 @@ layout: null
 
   <div class="site-atmosphere" aria-hidden="true">
     <div id="vanta-bg"></div>
-    <div class="atmosphere-gif atmosphere-gif--network"></div>
-    <div class="atmosphere-gif atmosphere-gif--botanical"></div>
-    <div class="atmosphere-gif atmosphere-gif--structure"></div>
-    <div class="atmosphere-gif atmosphere-gif--profile"></div>
-    <div class="atmosphere-gif atmosphere-gif--meteor"></div>
-    <div class="atmosphere-gif atmosphere-gif--ocean"></div>
     <div class="noise"></div>
     <div class="scanlines"></div>
     <div class="vignette"></div>
@@ -140,8 +129,6 @@ layout: null
     </footer>
   </div>
 
-  <script defer src="{{ '/assets/vendor/three.r134.min.js' | relative_url }}?v={{ asset_version }}"></script>
-  <script defer src="{{ '/assets/vendor/vanta.net.0.5.24.min.js' | relative_url }}?v={{ asset_version }}"></script>
   <script defer src="{{ '/assets/js/main.js' | relative_url }}?v={{ asset_version }}"></script>
 </body>
 </html>
