@@ -149,8 +149,8 @@ a {
 #vanta-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.42;
-  filter: saturate(118%) brightness(0.74) contrast(106%);
+  opacity: 0.54;
+  filter: saturate(126%) brightness(0.84) contrast(112%);
   transform: translate3d(
     calc(var(--atmosphere-shift-x) * -0.18),
     calc((var(--atmosphere-shift-y) * -0.14) + (var(--atmosphere-scroll) * -0.18)),
@@ -161,7 +161,7 @@ a {
 }
 
 html.has-vanta #vanta-bg {
-  opacity: 0.62;
+  opacity: 0.82;
 }
 
 .noise,
@@ -220,6 +220,12 @@ html.has-vanta #vanta-bg {
     linear-gradient(180deg, rgba(4, 7, 13, 0.84), rgba(2, 5, 11, 0.92));
 }
 
+html.has-vanta .site-frame {
+  background:
+    linear-gradient(180deg, rgba(5, 9, 18, 0.04), rgba(5, 9, 18, 0.12)),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.64), rgba(2, 5, 11, 0.76));
+}
+
 .site-frame::before {
   content: "";
   position: fixed;
@@ -269,6 +275,12 @@ html.has-vanta #vanta-bg {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 12%),
     linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(4, 7, 13, 0.16));
+}
+
+html.has-vanta .site-main {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 12%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.01), rgba(4, 7, 13, 0.08));
 }
 
 .site-main > section {
@@ -567,6 +579,10 @@ html[data-loader-mode] .site-loader,
   letter-spacing: -0.05em;
 }
 
+.hero .display {
+  max-width: 13.6ch;
+}
+
 .display-sm {
   max-width: 15ch;
   margin: 0.4rem 0 1rem;
@@ -765,6 +781,10 @@ html[data-loader-mode] .site-loader,
   transform-style: preserve-3d;
 }
 
+.hero-layout {
+  grid-template-columns: minmax(0, 1.16fr) minmax(320px, 0.84fr);
+}
+
 .hero {
   padding-top: clamp(5rem, 8vw, 7rem);
 }
@@ -779,6 +799,7 @@ html[data-loader-mode] .site-loader,
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
 }
 
 .hero-copy {
@@ -790,6 +811,7 @@ html[data-loader-mode] .site-loader,
 .telemetry-wall {
   display: flex;
   align-items: stretch;
+  min-width: 0;
 }
 
 .portal-window {
@@ -886,6 +908,105 @@ html[data-loader-mode] .site-loader,
   position: relative;
   margin-top: 1.15rem;
   min-height: 18.5rem;
+}
+
+.immersive-stage-fallback {
+  position: absolute;
+  inset: 1rem;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(180, 220, 255, 0.08);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(87, 195, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 50% 84%, rgba(255, 212, 160, 0.08), transparent 18%),
+    linear-gradient(180deg, rgba(9, 15, 26, 0.82), rgba(4, 8, 16, 0.96));
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 260ms ease;
+}
+
+.immersive-stage-fallback::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.86), transparent 84%);
+  opacity: 0.4;
+}
+
+.immersive-stage-fallback__ring,
+.immersive-stage-fallback__line,
+.immersive-stage-fallback__node {
+  position: absolute;
+}
+
+.immersive-stage-fallback__ring {
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.immersive-stage-fallback__ring--outer {
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid rgba(152, 235, 255, 0.24);
+  box-shadow: inset 0 0 30px rgba(152, 235, 255, 0.06), 0 0 24px rgba(152, 235, 255, 0.08);
+}
+
+.immersive-stage-fallback__ring--inner {
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 1px solid rgba(255, 212, 160, 0.2);
+  box-shadow: 0 0 24px rgba(255, 212, 160, 0.08);
+}
+
+.immersive-stage-fallback__line {
+  top: 18%;
+  bottom: 18%;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(152, 235, 255, 0.48), transparent);
+  box-shadow: 0 0 12px rgba(152, 235, 255, 0.16);
+}
+
+.immersive-stage-fallback__line--left {
+  left: 18%;
+}
+
+.immersive-stage-fallback__line--right {
+  right: 18%;
+}
+
+.immersive-stage-fallback__node {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 16px rgba(152, 235, 255, 0.55);
+}
+
+.immersive-stage-fallback__node--a {
+  top: 24%;
+  left: 28%;
+}
+
+.immersive-stage-fallback__node--b {
+  top: 42%;
+  right: 24%;
+}
+
+.immersive-stage-fallback__node--c {
+  bottom: 26%;
+  left: 48%;
+}
+
+.immersive-stage-slot.is-mounted + .immersive-stage-fallback {
+  opacity: 0;
 }
 
 .immersive-stage-slot {

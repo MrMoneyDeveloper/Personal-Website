@@ -785,9 +785,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el: vantaTarget,
         color: 0x86e9ff,
         backgroundColor: 0x04070d,
-        points: lowPower ? 8 : 10,
-        maxDistance: lowPower ? 14 : 18,
-        spacing: lowPower ? 18 : 16,
+        points: lowPower ? 7 : 12,
+        maxDistance: lowPower ? 16 : 22,
+        spacing: lowPower ? 19 : 17,
         showDots: false,
         mouseControls: finePointer,
         touchControls: false,
@@ -819,8 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return Boolean(
       vantaTarget
       && !prefersReducedMotion
-      && !lowPower
-      && window.innerWidth >= 980
+      && window.innerWidth >= 760
       && !root.classList.contains('is-loader-active')
     );
   }
