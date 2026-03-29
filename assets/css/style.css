@@ -173,7 +173,7 @@ a {
 
 .atmosphere-gif--profile {
   inset: 8% 54% 18% 8%;
-  background-image: url('../images/atmosphere/ambient-night-profile.gif');
+  background-image: url('../images/atmosphere/ambient-botanical-neon.gif');
   background-size: min(44rem, 52vw) auto;
   background-position: left center;
   opacity: 0.16;
@@ -189,7 +189,7 @@ a {
 
 .atmosphere-gif--meteor {
   inset: 10% 4% 12% 68%;
-  background-image: url('../images/atmosphere/ambient-meteor-sky.gif');
+  background-image: url('../images/atmosphere/ambient-network-rift.gif');
   background-size: min(26rem, 28vw) auto;
   background-position: center center;
   opacity: 0.2;
@@ -205,7 +205,7 @@ a {
 
 .atmosphere-gif--ocean {
   inset: 42% 40% -22% 2%;
-  background-image: url('../images/atmosphere/ambient-ocean-dancer.gif');
+  background-image: url('../images/atmosphere/ambient-abyss-structure.gif');
   background-size: min(42rem, 44vw) auto;
   background-position: left bottom;
   opacity: 0.17;
@@ -275,18 +275,19 @@ html.has-vanta .atmosphere-gif--ocean {
 #vanta-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.92;
+  opacity: 1;
   background:
-    radial-gradient(circle at 50% 16%, rgba(87, 195, 255, 0.18), transparent 28%),
-    linear-gradient(180deg, rgba(4, 7, 13, 0.08), rgba(2, 5, 11, 0.3)),
-    url('../images/atmosphere/ambient-network-rift.gif') center / cover no-repeat;
-  filter: saturate(118%) brightness(0.74) contrast(112%);
-  mix-blend-mode: screen;
+    linear-gradient(90deg, rgba(4, 7, 13, 0.24) 0%, rgba(4, 7, 13, 0.08) 38%, rgba(4, 7, 13, 0.18) 100%),
+    radial-gradient(circle at 58% 16%, rgba(87, 195, 255, 0.2), transparent 24%),
+    linear-gradient(180deg, rgba(4, 7, 13, 0.02), rgba(2, 5, 11, 0.24)),
+    url('../images/atmosphere/ambient-network-rift.gif') right center / min(82rem, 88vw) auto no-repeat;
+  filter: saturate(132%) brightness(0.9) contrast(116%);
+  mix-blend-mode: normal;
   transform: translate3d(
-    calc(var(--atmosphere-shift-x) * -0.12),
-    calc((var(--atmosphere-shift-y) * -0.1) + (var(--atmosphere-scroll) * -0.12)),
+    calc(var(--atmosphere-shift-x) * -0.08),
+    calc((var(--atmosphere-shift-y) * -0.08) + (var(--atmosphere-scroll) * -0.1)),
     0
-  ) scale(1.03);
+  ) scale(1.01);
   transform-origin: center;
   transition: opacity 220ms ease, filter 220ms ease;
   animation: wallpaper-drift 24s ease-in-out infinite alternate;
@@ -304,20 +305,22 @@ html.has-vanta .atmosphere-gif--ocean {
 
 #vanta-bg::before {
   background:
-    radial-gradient(circle at 24% 44%, rgba(4, 7, 13, 0.04), rgba(4, 7, 13, 0.42) 62%, rgba(4, 7, 13, 0.72) 100%),
-    url('../images/atmosphere/ambient-botanical-neon.gif') left center / min(34rem, 42vw) auto no-repeat;
-  opacity: 0.3;
-  filter: saturate(1.02) brightness(0.54);
-  mask-image: radial-gradient(circle at 26% 46%, rgba(0, 0, 0, 0.96) 18%, rgba(0, 0, 0, 0.78) 42%, transparent 82%);
+    linear-gradient(90deg, rgba(4, 7, 13, 0.18), rgba(4, 7, 13, 0.02) 46%, transparent 76%),
+    radial-gradient(circle at 22% 40%, rgba(152, 235, 255, 0.14), transparent 22%),
+    url('../images/atmosphere/ambient-botanical-neon.gif') left center / min(42rem, 48vw) auto no-repeat;
+  opacity: 0.56;
+  filter: saturate(1.14) brightness(0.74) contrast(1.08);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.94) 44%, rgba(0, 0, 0, 0.28) 78%, transparent 100%);
   animation: wallpaper-drift 30s ease-in-out infinite alternate-reverse;
 }
 
 #vanta-bg::after {
   background:
-    radial-gradient(circle at 70% 62%, rgba(87, 195, 255, 0.12), transparent 18%),
-    radial-gradient(circle at 78% 72%, rgba(255, 212, 160, 0.08), transparent 22%);
-  opacity: 0.42;
-  filter: blur(24px);
+    radial-gradient(circle at 66% 54%, rgba(87, 195, 255, 0.2), transparent 16%),
+    radial-gradient(circle at 74% 68%, rgba(255, 212, 160, 0.1), transparent 18%),
+    radial-gradient(circle at 28% 62%, rgba(87, 195, 255, 0.1), transparent 22%);
+  opacity: 0.58;
+  filter: blur(18px);
   animation: wallpaper-drift 28s ease-in-out infinite alternate;
 }
 
@@ -570,39 +573,21 @@ html[data-loader-mode] .site-loader,
   animation: loader-media-cycle 10s ease-in-out infinite, loader-media-float 10s ease-in-out infinite;
 }
 
-.site-loader__frame--glitch {
+.site-loader__frame--network {
   background-image:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.2), rgba(4, 8, 16, 0.56)),
-    url('../images/atmosphere/ambient-glitch-portrait.gif');
-  background-size: cover, 74% auto;
-  background-position: center, right center;
+    linear-gradient(180deg, rgba(4, 8, 16, 0.08), rgba(4, 8, 16, 0.42)),
+    url('../images/atmosphere/ambient-network-rift.gif');
+  background-size: cover, cover;
+  background-position: center;
 }
 
-.site-loader__frame--sword {
+.site-loader__frame--structure {
   background-image:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.16), rgba(4, 8, 16, 0.5)),
-    url('../images/atmosphere/ambient-sword-city.gif');
+    linear-gradient(180deg, rgba(4, 8, 16, 0.12), rgba(4, 8, 16, 0.46)),
+    url('../images/atmosphere/ambient-abyss-structure.gif');
   background-size: cover, cover;
   background-position: center;
   animation-delay: -2.5s, -2.5s;
-}
-
-.site-loader__frame--deku {
-  background-image:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.2), rgba(4, 8, 16, 0.54)),
-    url('../images/atmosphere/ambient-deku-storm.gif');
-  background-size: cover, cover;
-  background-position: center, center 24%;
-  animation-delay: -5s, -5s;
-}
-
-.site-loader__frame--ocean {
-  background-image:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.22), rgba(4, 8, 16, 0.58)),
-    url('../images/atmosphere/ambient-ocean-dancer.gif');
-  background-size: cover, cover;
-  background-position: center;
-  animation-delay: -5s, -5s;
 }
 
 .site-loader__eyebrow,
@@ -1086,78 +1071,151 @@ html[data-loader-mode] .site-loader,
   padding: clamp(1rem, 2vw, 1.2rem) clamp(0.4rem, 1.8vw, 1.15rem) 0 0;
 }
 
-.hero-ambient-strip {
-  display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-  gap: 0.8rem;
-  margin-top: 1.1rem;
-  max-width: min(100%, 29rem);
+.glass-stack {
+  position: relative;
+  pointer-events: none;
 }
 
-.hero-ambient-card {
-  position: relative;
-  min-height: 6.4rem;
-  border-radius: 18px;
+.glass-stack--hero {
+  width: min(100%, 34rem);
+  min-height: 12rem;
+  margin-top: 1.1rem;
+}
+
+.glass-stack--projects {
+  position: absolute;
+  inset: 1rem;
+  z-index: 2;
+}
+
+.glass-pane {
+  position: absolute;
   overflow: hidden;
   isolation: isolate;
-  border: 1px solid rgba(180, 220, 255, 0.1);
+  border-radius: 22px;
+  border: 1px solid rgba(180, 220, 255, 0.16);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 22%),
-    linear-gradient(140deg, rgba(13, 20, 34, 0.92), rgba(7, 11, 20, 0.9));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 18%),
+    linear-gradient(145deg, rgba(15, 22, 38, 0.78), rgba(8, 12, 22, 0.52));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 18px 36px rgba(1, 4, 12, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -18px 44px rgba(0, 0, 0, 0.16),
+    0 24px 46px rgba(1, 4, 12, 0.28);
+  backdrop-filter: blur(14px) saturate(126%);
 }
 
-.hero-ambient-card::before,
-.hero-ambient-card::after {
+.glass-pane::before,
+.glass-pane::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.hero-ambient-card::before {
+.glass-pane::before {
   background:
-    linear-gradient(180deg, rgba(4, 7, 13, 0.16), rgba(4, 7, 13, 0.46) 66%, rgba(4, 7, 13, 0.82)),
-    linear-gradient(135deg, rgba(152, 235, 255, 0.12), transparent 42%, transparent 74%, rgba(152, 235, 255, 0.08)),
-    radial-gradient(circle at 50% 24%, rgba(152, 235, 255, 0.12), transparent 54%);
+    linear-gradient(180deg, rgba(4, 7, 13, 0.04), rgba(4, 7, 13, 0.22) 32%, rgba(4, 7, 13, 0.62) 100%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 28%, transparent 68%, rgba(152, 235, 255, 0.12)),
+    radial-gradient(circle at 18% 18%, rgba(152, 235, 255, 0.18), transparent 36%);
   z-index: 1;
 }
 
-.hero-ambient-card::after {
+.glass-pane::after {
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(4, 7, 13, 0.26), transparent 28%, transparent 72%, rgba(4, 7, 13, 0.26)),
-    radial-gradient(circle at 50% 86%, rgba(152, 235, 255, 0.12), transparent 36%);
-  filter: blur(10px);
+    linear-gradient(90deg, rgba(4, 7, 13, 0.2), transparent 24%, transparent 76%, rgba(4, 7, 13, 0.22)),
+    radial-gradient(circle at 50% 86%, rgba(152, 235, 255, 0.12), transparent 38%);
+  filter: blur(8px);
   z-index: 1;
 }
 
-.hero-ambient-card img {
+.glass-pane img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.78;
-  filter: grayscale(0.12) saturate(0.78) hue-rotate(182deg) brightness(0.66) contrast(1.08);
-  transform: scale(1.04);
-  mix-blend-mode: screen;
+  opacity: 0.94;
+  filter: saturate(0.98) brightness(0.92) contrast(1.08);
+  transform: scale(1.03);
 }
 
-.hero-ambient-card--wide {
-  aspect-ratio: 16 / 8;
+.glass-stack--hero .glass-pane--hero-main {
+  left: 0;
+  top: 1.2rem;
+  width: 58%;
+  aspect-ratio: 16 / 10;
+  transform: rotate(-6deg);
 }
 
-.hero-ambient-card--wide img {
-  object-position: center 34%;
-}
-
-.hero-ambient-card--tall {
+.glass-stack--hero .glass-pane--hero-side {
+  left: 36%;
+  top: 0;
+  width: 42%;
   aspect-ratio: 5 / 6;
+  transform: rotate(5deg);
 }
 
-.hero-ambient-card--tall img {
-  object-position: center 26%;
+.glass-stack--hero .glass-pane--hero-icon {
+  right: 3%;
+  bottom: 0;
+  width: 5.8rem;
+  aspect-ratio: 1;
+  border-radius: 18px;
+  transform: rotate(4deg);
+}
+
+.glass-stack--hero .glass-pane--hero-main img {
+  object-position: center 58%;
+}
+
+.glass-stack--hero .glass-pane--hero-side img {
+  object-position: center 40%;
+}
+
+.glass-stack--hero .glass-pane--hero-icon img {
+  object-fit: contain;
+  padding: 0.6rem;
+  opacity: 0.96;
+  filter: saturate(1.08) brightness(0.98) contrast(1.04);
+}
+
+.glass-stack--projects .glass-pane--project-main {
+  left: 4%;
+  top: 14%;
+  width: 46%;
+  aspect-ratio: 16 / 10;
+  transform: rotate(-5deg);
+}
+
+.glass-stack--projects .glass-pane--project-side {
+  right: 6%;
+  top: 8%;
+  width: 36%;
+  aspect-ratio: 5 / 6;
+  transform: rotate(4deg);
+}
+
+.glass-stack--projects .glass-pane--project-icon {
+  left: 46%;
+  bottom: 5%;
+  width: 6.6rem;
+  aspect-ratio: 1;
+  border-radius: 18px;
+  transform: rotate(-4deg);
+}
+
+.glass-stack--projects .glass-pane--project-main img {
+  object-position: center center;
+}
+
+.glass-stack--projects .glass-pane--project-side img {
+  object-position: center 40%;
+}
+
+.glass-stack--projects .glass-pane--project-icon img {
+  object-fit: contain;
+  padding: 0.65rem;
+  opacity: 0.92;
+  filter: sepia(0.12) saturate(1.04) brightness(0.9) contrast(1.02);
 }
 
 .hero-portal,
@@ -1277,26 +1335,15 @@ html[data-loader-mode] .site-loader,
   mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.96) 16%, rgba(0, 0, 0, 0.82) 40%, transparent 84%);
 }
 
-.portal-atmosphere--glitch {
+.portal-atmosphere--structure {
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(6, 10, 19, 0.9), rgba(6, 10, 19, 0.44) 56%, rgba(6, 10, 19, 0.92)),
-    url('../images/atmosphere/ambient-glitch-portrait.gif') right center / 34% auto no-repeat;
-  opacity: 0.16;
-  filter: grayscale(0.18) saturate(0.72) hue-rotate(184deg) brightness(0.44) contrast(1.12);
+    linear-gradient(180deg, rgba(6, 10, 19, 0.16), rgba(6, 10, 19, 0.48)),
+    url('../images/atmosphere/ambient-abyss-structure.gif') center / cover no-repeat;
+  opacity: 0.26;
+  filter: saturate(1.02) brightness(0.74) contrast(1.04);
   mix-blend-mode: screen;
-  mask-image: linear-gradient(90deg, transparent 44%, rgba(0, 0, 0, 0.84) 58%, rgba(0, 0, 0, 0.98) 74%, transparent 96%);
-}
-
-.portal-atmosphere--sword {
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(6, 10, 19, 0.18), rgba(6, 10, 19, 0.5)),
-    url('../images/atmosphere/ambient-sword-city.gif') center / cover no-repeat;
-  opacity: 0.18;
-  filter: saturate(0.92) brightness(0.52) contrast(1.08);
-  mix-blend-mode: screen;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.18) 36%, rgba(0, 0, 0, 0.74));
+  mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.98) 14%, rgba(0, 0, 0, 0.76) 48%, transparent 88%);
 }
 
 .immersive-stage-panel {
@@ -1314,46 +1361,13 @@ html[data-loader-mode] .site-loader,
 
 .immersive-stage-wallpaper--structure {
   background:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.12), rgba(4, 8, 16, 0.4)),
-    radial-gradient(circle at 50% 52%, rgba(152, 235, 255, 0.12), transparent 28%),
-    url('../images/atmosphere/ambient-abyss-structure.gif') center / cover no-repeat,
-    url('../images/atmosphere/ambient-signal-orb.gif') center / 34% no-repeat;
-  opacity: 0.2;
-  filter: grayscale(0.08) saturate(0.92) hue-rotate(178deg) brightness(0.58) contrast(1.06);
+    linear-gradient(180deg, rgba(4, 8, 16, 0.04), rgba(4, 8, 16, 0.28)),
+    radial-gradient(circle at 50% 52%, rgba(152, 235, 255, 0.18), transparent 28%),
+    url('../images/atmosphere/ambient-abyss-structure.gif') center / cover no-repeat;
+  opacity: 0.38;
+  filter: saturate(1.08) brightness(0.86) contrast(1.04);
   mix-blend-mode: screen;
-  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.96) 22%, rgba(0, 0, 0, 0.82) 46%, transparent 90%);
-}
-
-.immersive-stage-wallpaper--penteract {
-  background:
-    radial-gradient(circle at 50% 48%, rgba(152, 235, 255, 0.14), transparent 18%),
-    linear-gradient(180deg, rgba(4, 8, 16, 0.22), rgba(4, 8, 16, 0.56)),
-    url('../images/atmosphere/ambient-penteract.gif') center / 44% no-repeat;
-  opacity: 0.13;
-  filter: sepia(0.16) grayscale(0.16) saturate(0.78) hue-rotate(330deg) brightness(0.58) contrast(1.04);
-  mix-blend-mode: screen;
-  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.94) 8%, rgba(0, 0, 0, 0.82) 22%, transparent 62%);
-}
-
-.immersive-stage-wallpaper--sword {
-  background:
-    linear-gradient(180deg, rgba(4, 8, 16, 0.22), rgba(4, 8, 16, 0.56)),
-    url('../images/atmosphere/ambient-sword-city.gif') center / cover no-repeat;
-  opacity: 0.15;
-  filter: grayscale(0.18) saturate(0.74) hue-rotate(176deg) brightness(0.38) contrast(1.06);
-  mix-blend-mode: screen;
-  mask-image: linear-gradient(90deg, transparent 12%, rgba(0, 0, 0, 0.8) 26%, rgba(0, 0, 0, 0.94) 54%, transparent 92%);
-}
-
-.immersive-stage-wallpaper--kakashi {
-  background:
-    radial-gradient(circle at 62% 58%, rgba(152, 235, 255, 0.12), transparent 16%),
-    linear-gradient(180deg, rgba(4, 8, 16, 0.16), rgba(4, 8, 16, 0.42)),
-    url('../images/atmosphere/ambient-kakashi-chidori.gif') right center / 46% auto no-repeat;
-  opacity: 0.16;
-  filter: grayscale(0.16) saturate(0.74) hue-rotate(184deg) brightness(0.42) contrast(1.08);
-  mix-blend-mode: screen;
-  mask-image: linear-gradient(90deg, transparent 40%, rgba(0, 0, 0, 0.8) 58%, rgba(0, 0, 0, 0.96) 80%, transparent 100%);
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.98) 18%, rgba(0, 0, 0, 0.84) 52%, transparent 92%);
 }
 
 .immersive-stage-fallback {
@@ -1505,8 +1519,8 @@ html[data-loader-mode] .site-loader,
   border-radius: 24px;
   border: 0;
   background:
-    radial-gradient(circle at 50% 20%, rgba(94, 228, 255, 0.12), transparent 24%),
-    linear-gradient(180deg, rgba(9, 16, 28, 0.12), rgba(4, 8, 15, 0.08));
+    radial-gradient(circle at 50% 20%, rgba(94, 228, 255, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(9, 16, 28, 0.04), rgba(4, 8, 15, 0.02));
   box-shadow: none;
 }
 
@@ -1519,7 +1533,8 @@ html[data-loader-mode] .site-loader,
   min-height: 18.5rem;
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(9, 16, 28, 0.14), rgba(4, 8, 15, 0.08));
+    linear-gradient(180deg, rgba(9, 16, 28, 0.05), rgba(4, 8, 15, 0.02));
+  box-shadow: none;
 }
 
 .immersive-stage-slot.is-mounted {
@@ -2667,13 +2682,13 @@ html.is-low-power .project-body {
     opacity: 0.12;
   }
 
-  .hero-ambient-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .glass-stack--hero {
+    width: min(100%, 30rem);
+    min-height: 10.6rem;
   }
 
-  .hero-ambient-card--tall {
-    grid-column: span 2;
-    aspect-ratio: 16 / 7;
+  .glass-stack--projects .glass-pane--project-icon {
+    width: 5.8rem;
   }
 }
 
@@ -2716,6 +2731,23 @@ html.is-low-power .project-body {
   .atmosphere-gif--ocean {
     inset: 52% 18% -20% -10%;
     background-size: min(34rem, 60vw) auto;
+  }
+
+  .glass-stack--hero {
+    min-height: 9.8rem;
+  }
+
+  .glass-stack--hero .glass-pane--hero-main {
+    width: 56%;
+  }
+
+  .glass-stack--hero .glass-pane--hero-side {
+    left: 42%;
+    width: 38%;
+  }
+
+  .glass-stack--projects {
+    inset: 0.8rem;
   }
 
   .site-frame::before {
@@ -2850,6 +2882,33 @@ html.is-low-power .project-body {
 
   .site-loader__media {
     height: 7.4rem;
+  }
+
+  .glass-stack--hero {
+    min-height: 8.8rem;
+  }
+
+  .glass-stack--hero .glass-pane--hero-main {
+    width: 62%;
+    top: 1rem;
+  }
+
+  .glass-stack--hero .glass-pane--hero-side {
+    left: 48%;
+    width: 34%;
+  }
+
+  .glass-stack--hero .glass-pane--hero-icon,
+  .glass-stack--projects .glass-pane--project-icon {
+    width: 4.6rem;
+  }
+
+  .glass-stack--projects .glass-pane--project-main {
+    width: 50%;
+  }
+
+  .glass-stack--projects .glass-pane--project-side {
+    width: 34%;
   }
 
   .immersive-stage-panel,

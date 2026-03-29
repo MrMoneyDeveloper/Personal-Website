@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportsHover = window.matchMedia('(hover: hover)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotion = reducedMotionQuery.matches;
-  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-12';
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
   const progressBar = document.querySelector('.scroll-progress');
@@ -857,7 +856,6 @@ document.addEventListener('DOMContentLoaded', () => {
     immersiveExperiencePending = true;
     const moduleBase = scriptTag ? scriptTag.src : `${window.location.origin}/assets/js/main.js`;
     const moduleUrl = new URL('immersive-experience.js', moduleBase);
-    moduleUrl.searchParams.set('v', buildVersion);
 
     import(moduleUrl.toString())
       .then(() => {
