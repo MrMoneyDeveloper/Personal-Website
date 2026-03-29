@@ -4,7 +4,7 @@ layout: null
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% assign asset_version = site.build_version | default: '20260329-4' %}
+  {% assign asset_version = site.build_version | default: '20260329-5' %}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ page.description | default: site.description }}" />
@@ -59,7 +59,7 @@ layout: null
         window.setTimeout(function () {
           delete root.dataset.loaderMode;
           delete root.dataset.loaderStart;
-        }, root.dataset.loaderMode === 'first' ? 7200 : 2600);
+        }, root.dataset.loaderMode === 'first' ? 11200 : 5600);
       }
     }());
   </script>

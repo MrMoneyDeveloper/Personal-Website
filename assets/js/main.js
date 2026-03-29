@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportsHover = window.matchMedia('(hover: hover)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotion = reducedMotionQuery.matches;
-  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-4';
+  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-5';
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
   const progressBar = document.querySelector('.scroll-progress');
@@ -65,21 +65,23 @@ document.addEventListener('DOMContentLoaded', () => {
   markCurrentRoute();
   initMenu();
   initSound();
+  initShellFirstPaint();
   initLinkTransitions();
   initMedia();
   initRevealSystem();
   initScenes();
   initAtmosphere();
   scheduleLayoutUpdate();
+  initVanta();
 
   window.addEventListener('scroll', scheduleLayoutUpdate, { passive: true });
   window.addEventListener('resize', handleResize, { passive: true });
 
   loaderDone.then(() => {
-    initVanta();
+    refreshVanta();
     queueIdleTask(() => {
       maybeLoadImmersiveExperience();
-    }, 180);
+    }, 240);
   });
 
   if (typeof reducedMotionQuery.addEventListener === 'function') {
@@ -111,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let duration = 0;
 
     if (initialMode === 'first') {
-      duration = Math.max(0, 6000 - (Date.now() - initialStart));
+      duration = Math.max(0, 10000 - (Date.now() - initialStart));
     } else if (initialMode === 'route') {
       const pendingRoute = readRouteLoader();
       duration = pendingRoute ? Math.max(0, pendingRoute.expires - Date.now()) : 0;
@@ -206,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetUrl = new URL(link.href, window.location.href);
         const pendingRoute = {
           startedAt: Date.now(),
-          expires: Date.now() + 2000,
+          expires: Date.now() + 5000,
           target: `${targetUrl.pathname}${targetUrl.search}${targetUrl.hash}`
         };
 
@@ -430,6 +432,52 @@ document.addEventListener('DOMContentLoaded', () => {
       observer.observe(video);
       revealObservers.push(observer);
     });
+  }
+
+  function initShellFirstPaint() {
+    const shellTargets = Array.from(document.querySelectorAll('.scene-shell, .frame-panel, .repo-group, .timeline-item, .project-showcase'));
+
+    if (!shellTargets.length) {
+      return;
+    }
+
+    const markReady = (element) => {
+      element.classList.remove('is-content-pending');
+      element.classList.add('is-content-ready');
+    };
+
+    const readyInViewport = (element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight * 1.12;
+    };
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        markReady(entry.target);
+        currentObserver.unobserve(entry.target);
+      });
+    }, {
+      threshold: 0.01,
+      rootMargin: '220px 0px'
+    });
+
+    shellTargets.forEach((element) => {
+      element.classList.add('is-shell-ready');
+
+      if (prefersReducedMotion || readyInViewport(element)) {
+        markReady(element);
+        return;
+      }
+
+      element.classList.add('is-content-pending');
+      observer.observe(element);
+    });
+
+    revealObservers.push(observer);
   }
 
   function initRevealSystem() {
@@ -713,8 +761,15 @@ document.addEventListener('DOMContentLoaded', () => {
     maybeLoadImmersiveExperience();
   }
 
-  function initVanta() {
-    if (!canUseVanta() || !(window.VANTA && window.VANTA.NET)) {
+  function initVanta(attempt = 0) {
+    if (!canUseVanta()) {
+      return;
+    }
+
+    if (!(window.VANTA && window.VANTA.NET)) {
+      if (attempt < 10) {
+        window.setTimeout(() => initVanta(attempt + 1), 240);
+      }
       return;
     }
 
@@ -739,9 +794,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el: vantaTarget,
         color: 0x86e9ff,
         backgroundColor: 0x04070d,
-        points: lowPower ? 7 : 12,
-        maxDistance: lowPower ? 18 : 24,
-        spacing: lowPower ? 18 : 15,
+        points: lowPower ? 8 : 14,
+        maxDistance: lowPower ? 20 : 26,
+        spacing: lowPower ? 17 : 14,
         showDots: true,
         mouseControls: finePointer,
         touchControls: false,
@@ -774,7 +829,6 @@ document.addEventListener('DOMContentLoaded', () => {
       vantaTarget
       && !prefersReducedMotion
       && window.innerWidth >= 680
-      && !root.classList.contains('is-loader-active')
     );
   }
 

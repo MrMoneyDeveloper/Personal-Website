@@ -589,8 +589,9 @@ html[data-loader-mode] .site-loader,
 }
 
 .hero .display {
-  max-width: 13.4ch;
-  font-size: clamp(1.75rem, 4.6vw, 4.25rem);
+  max-width: 14.5ch;
+  font-size: clamp(1.55rem, 3.9vw, 3.95rem);
+  line-height: 0.98;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
@@ -750,6 +751,24 @@ html[data-loader-mode] .site-loader,
   transform-style: preserve-3d;
 }
 
+.scene-shell,
+.frame-panel,
+.repo-group,
+.timeline-item,
+.project-showcase {
+  contain: layout paint;
+}
+
+.js-ready .is-shell-ready.is-content-pending > :not(.scene-backlight):not(.scene-grid-mask) {
+  opacity: 0.001;
+  transform: translateY(10px);
+}
+
+.js-ready .is-shell-ready.is-content-ready > :not(.scene-backlight):not(.scene-grid-mask) {
+  opacity: 1;
+  transition: opacity 360ms ease, transform 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .scene-backlight,
 .scene-grid-mask {
   position: absolute;
@@ -796,8 +815,8 @@ html[data-loader-mode] .site-loader,
 }
 
 .hero-layout {
-  grid-template-columns: minmax(0, 1.3fr) minmax(340px, 0.7fr);
-  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.58fr);
+  gap: clamp(1rem, 2.6vw, 1.8rem);
 }
 
 .hero {
@@ -818,8 +837,8 @@ html[data-loader-mode] .site-loader,
 }
 
 .hero-copy {
-  max-width: min(100%, 50rem);
-  padding: clamp(1rem, 2vw, 1.2rem) clamp(0.2rem, 1.4vw, 0.9rem) 0 0;
+  max-width: min(100%, 55rem);
+  padding: clamp(1rem, 2vw, 1.2rem) clamp(0.4rem, 1.8vw, 1.15rem) 0 0;
 }
 
 .hero-portal,
@@ -1986,7 +2005,7 @@ html.has-webgl-experience .portal-core .signal-node {
 
 .js-ready .reveal-inline {
   opacity: 0;
-  filter: blur(10px);
+  transform: translateY(16px) scale(0.985);
 }
 
 .reveal.is-visible {
@@ -1997,8 +2016,8 @@ html.has-webgl-experience .portal-core .signal-node {
 
 .reveal-inline.is-visible {
   opacity: 1;
-  filter: blur(0);
-  transition: filter 620ms ease, opacity 620ms ease;
+  transform: none;
+  transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1), opacity 620ms ease;
 }
 
 @keyframes ring-rotate {
