@@ -86,8 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
-  initEditorialSwipers();
   initRevealSystem();
+  try {
+    initEditorialSwipers();
+  } catch (error) {
+    console.error('Editorial swiper initialization failed.', error);
+  }
   initScenes();
   initAtmosphere();
   scheduleLayoutUpdate();

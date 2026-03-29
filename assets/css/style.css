@@ -1043,8 +1043,8 @@ html[data-loader-mode] .site-loader,
 }
 
 .js-ready .is-shell-ready.is-content-pending > :not(.scene-backlight):not(.scene-grid-mask) {
-  opacity: 0.001;
-  transform: translateY(10px);
+  opacity: 1;
+  transform: none;
 }
 
 .js-ready .is-shell-ready.is-content-ready > :not(.scene-backlight):not(.scene-grid-mask) {
