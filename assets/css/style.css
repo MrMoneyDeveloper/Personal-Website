@@ -171,6 +171,54 @@ a {
   ) scale(1.04);
 }
 
+.atmosphere-gif--profile {
+  inset: 8% 54% 18% 8%;
+  background-image: url('../images/atmosphere/ambient-night-profile.gif');
+  background-size: min(44rem, 52vw) auto;
+  background-position: left center;
+  opacity: 0.16;
+  filter: saturate(0.78) hue-rotate(182deg) brightness(0.46) contrast(1.12);
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.76) 18%, rgba(0, 0, 0, 0.98) 48%, transparent 90%);
+  transform: translate3d(
+    calc(var(--atmosphere-shift-x) * 0.09),
+    calc((var(--atmosphere-shift-y) * 0.06) + (var(--atmosphere-scroll) * 0.05)),
+    0
+  ) scale(1.03);
+}
+
+.atmosphere-gif--meteor {
+  inset: 10% 4% 12% 68%;
+  background-image: url('../images/atmosphere/ambient-meteor-sky.gif');
+  background-size: min(26rem, 28vw) auto;
+  background-position: center center;
+  opacity: 0.2;
+  filter: saturate(1.18) brightness(0.58) contrast(1.12);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 50% 46%, rgba(0, 0, 0, 0.98) 20%, rgba(0, 0, 0, 0.88) 48%, transparent 88%);
+  transform: translate3d(
+    calc(var(--atmosphere-shift-x) * -0.14),
+    calc((var(--atmosphere-shift-y) * -0.08) + (var(--atmosphere-scroll) * 0.06)),
+    0
+  ) scale(1.02);
+}
+
+.atmosphere-gif--ocean {
+  inset: 42% 40% -22% 2%;
+  background-image: url('../images/atmosphere/ambient-ocean-dancer.gif');
+  background-size: min(42rem, 44vw) auto;
+  background-position: left bottom;
+  opacity: 0.17;
+  filter: saturate(0.96) hue-rotate(8deg) brightness(0.42) contrast(1.06);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 42% 46%, rgba(0, 0, 0, 0.96) 12%, rgba(0, 0, 0, 0.84) 42%, transparent 86%);
+  transform: translate3d(
+    calc(var(--atmosphere-shift-x) * 0.12),
+    calc((var(--atmosphere-shift-y) * 0.16) + (var(--atmosphere-scroll) * 0.12)),
+    0
+  ) scale(1.04);
+}
+
 html.has-vanta .site-atmosphere {
   background:
     radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.12), transparent 34%),
@@ -184,6 +232,12 @@ html.has-vanta .atmosphere-gif--network {
 html.has-vanta .atmosphere-gif--botanical,
 html.has-vanta .atmosphere-gif--structure {
   opacity: 0.16;
+}
+
+html.has-vanta .atmosphere-gif--profile,
+html.has-vanta .atmosphere-gif--meteor,
+html.has-vanta .atmosphere-gif--ocean {
+  opacity: 0.13;
 }
 
 .site-atmosphere::before,
@@ -424,6 +478,95 @@ html[data-loader-mode] .site-loader,
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 36px 90px rgba(1, 4, 12, 0.72);
+}
+
+.site-loader__media {
+  position: relative;
+  width: min(23rem, 100%);
+  height: 9rem;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(180, 220, 255, 0.1);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(152, 235, 255, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(8, 14, 25, 0.86), rgba(4, 8, 16, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -18px 42px rgba(0, 0, 0, 0.26);
+}
+
+.site-loader__media::before,
+.site-loader__media::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.site-loader__media::before {
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.96), transparent 92%);
+  opacity: 0.42;
+  z-index: 1;
+}
+
+.site-loader__media::after {
+  inset: auto 10% -18% 10%;
+  height: 42%;
+  background: radial-gradient(circle, rgba(152, 235, 255, 0.18), transparent 68%);
+  filter: blur(22px);
+  opacity: 0.78;
+  z-index: 1;
+}
+
+.site-loader__frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.06);
+  filter: saturate(0.84) brightness(0.42) contrast(1.16);
+  animation: loader-media-cycle 10s ease-in-out infinite, loader-media-float 10s ease-in-out infinite;
+}
+
+.site-loader__frame--glitch {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.2), rgba(4, 8, 16, 0.56)),
+    url('../images/atmosphere/ambient-glitch-portrait.gif');
+  background-size: cover, 74% auto;
+  background-position: center, right center;
+}
+
+.site-loader__frame--sword {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.16), rgba(4, 8, 16, 0.5)),
+    url('../images/atmosphere/ambient-sword-city.gif');
+  background-size: cover, cover;
+  background-position: center;
+  animation-delay: -2.5s, -2.5s;
+}
+
+.site-loader__frame--deku {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.2), rgba(4, 8, 16, 0.54)),
+    url('../images/atmosphere/ambient-deku-storm.gif');
+  background-size: cover, cover;
+  background-position: center, center 24%;
+  animation-delay: -5s, -5s;
+}
+
+.site-loader__frame--kakashi {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.22), rgba(4, 8, 16, 0.58)),
+    url('../images/atmosphere/ambient-kakashi-chidori.gif');
+  background-size: cover, 68% auto;
+  background-position: center, center 26%;
+  animation-delay: -7.5s, -7.5s;
 }
 
 .site-loader__eyebrow,
@@ -1024,6 +1167,28 @@ html[data-loader-mode] .site-loader,
   mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.96) 16%, rgba(0, 0, 0, 0.82) 40%, transparent 84%);
 }
 
+.portal-atmosphere--penteract {
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(8, 12, 22, 0) 0%, rgba(8, 12, 22, 0.08) 40%, rgba(8, 12, 22, 0.56) 100%),
+    url('../images/atmosphere/ambient-penteract.gif') center / 34% no-repeat;
+  opacity: 0.18;
+  filter: sepia(0.22) saturate(1.08) hue-rotate(336deg) brightness(0.56) contrast(1.08);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.98) 8%, rgba(0, 0, 0, 0.88) 22%, transparent 54%);
+}
+
+.portal-atmosphere--glitch {
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6, 10, 19, 0.84), rgba(6, 10, 19, 0.38) 56%, rgba(6, 10, 19, 0.84)),
+    url('../images/atmosphere/ambient-glitch-portrait.gif') right center / 34% auto no-repeat;
+  opacity: 0.16;
+  filter: saturate(0.84) brightness(0.44) contrast(1.22);
+  mix-blend-mode: lighten;
+  mask-image: linear-gradient(90deg, transparent 36%, rgba(0, 0, 0, 0.86) 54%, rgba(0, 0, 0, 0.98) 72%, transparent 96%);
+}
+
 .immersive-stage-panel {
   position: relative;
   margin-top: 1.15rem;
@@ -1047,6 +1212,27 @@ html[data-loader-mode] .site-loader,
   filter: saturate(1.1) brightness(0.72) contrast(1.04);
   mix-blend-mode: screen;
   mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.96) 22%, rgba(0, 0, 0, 0.82) 46%, transparent 90%);
+}
+
+.immersive-stage-wallpaper--sword {
+  background:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.22), rgba(4, 8, 16, 0.56)),
+    url('../images/atmosphere/ambient-sword-city.gif') center / cover no-repeat;
+  opacity: 0.18;
+  filter: saturate(0.92) brightness(0.42) contrast(1.08);
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(90deg, transparent 8%, rgba(0, 0, 0, 0.82) 24%, rgba(0, 0, 0, 0.94) 52%, transparent 94%);
+}
+
+.immersive-stage-wallpaper--kakashi {
+  background:
+    radial-gradient(circle at 62% 58%, rgba(152, 235, 255, 0.12), transparent 16%),
+    linear-gradient(180deg, rgba(4, 8, 16, 0.16), rgba(4, 8, 16, 0.42)),
+    url('../images/atmosphere/ambient-kakashi-chidori.gif') right center / 46% auto no-repeat;
+  opacity: 0.18;
+  filter: saturate(0.88) brightness(0.48) contrast(1.08);
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(90deg, transparent 36%, rgba(0, 0, 0, 0.8) 56%, rgba(0, 0, 0, 0.96) 78%, transparent 100%);
 }
 
 .immersive-stage-fallback {
@@ -2237,6 +2423,34 @@ html.is-low-power .immersive-stage-wallpaper {
   }
 }
 
+@keyframes loader-media-cycle {
+  0%,
+  18% {
+    opacity: 0;
+  }
+
+  24%,
+  42% {
+    opacity: 0.9;
+  }
+
+  48%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loader-media-float {
+  0%,
+  100% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.08) translate3d(0, -4px, 0);
+  }
+}
+
 html.is-low-power .site-atmosphere::before,
 html.is-low-power .site-atmosphere::after,
 html.is-low-power .bloom,
@@ -2305,7 +2519,10 @@ html.is-low-power .project-body {
   }
 
   .atmosphere-gif--botanical,
-  .atmosphere-gif--structure {
+  .atmosphere-gif--structure,
+  .atmosphere-gif--profile,
+  .atmosphere-gif--meteor,
+  .atmosphere-gif--ocean {
     opacity: 0.12;
   }
 }
@@ -2335,6 +2552,20 @@ html.is-low-power .project-body {
 
   .atmosphere-gif--structure {
     inset: 40% -18% -22% 40%;
+  }
+
+  .atmosphere-gif--profile {
+    inset: 12% 42% 18% -8%;
+    background-size: min(32rem, 56vw) auto;
+  }
+
+  .atmosphere-gif--meteor {
+    inset: 16% -8% 18% 58%;
+  }
+
+  .atmosphere-gif--ocean {
+    inset: 52% 18% -20% -10%;
+    background-size: min(34rem, 60vw) auto;
   }
 
   .site-frame::before {
@@ -2467,6 +2698,10 @@ html.is-low-power .project-body {
     border-radius: 24px;
   }
 
+  .site-loader__media {
+    height: 7.4rem;
+  }
+
   .immersive-stage-panel,
   .immersive-stage-slot--projects {
     min-height: 13.5rem;
@@ -2501,6 +2736,7 @@ html.is-low-power .project-body {
   .atmosphere-gif,
   .site-atmosphere::before,
   .site-atmosphere::after,
+  .site-loader__frame,
   .project-media {
     transform: none !important;
   }
