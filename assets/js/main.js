@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const supportsHover = window.matchMedia('(hover: hover)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const prefersReducedMotion = reducedMotionQuery.matches;
-  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-8';
+  const buildVersion = body.dataset.buildVersion || root.dataset.buildVersion || '20260329-9';
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
   const progressBar = document.querySelector('.scroll-progress');
@@ -443,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }, {
         threshold: 0.45,
-        rootMargin: '120px 0px'
+        rootMargin: '240px 0px'
       });
 
       observer.observe(video);
@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const readyInViewport = (element) => {
       const rect = element.getBoundingClientRect();
-      return rect.top < window.innerHeight * 1.12;
+      return rect.top < window.innerHeight * 1.28;
     };
 
     const observer = new IntersectionObserver((entries, currentObserver) => {
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, {
       threshold: 0.01,
-      rootMargin: '220px 0px'
+      rootMargin: '360px 0px'
     });
 
     shellTargets.forEach((element) => {
@@ -634,14 +634,14 @@ document.addEventListener('DOMContentLoaded', () => {
     controller.frame = 0;
     controller.currentX += (controller.pointerX - controller.currentX) * 0.1;
     controller.currentY += (controller.pointerY - controller.currentY) * 0.1;
-    controller.currentScroll += (controller.scrollOffset - controller.currentScroll) * 0.08;
+    controller.currentScroll += (controller.scrollOffset - controller.currentScroll) * 0.055;
 
     const x = controller.currentX;
     const y = controller.currentY;
     const scroll = controller.currentScroll;
-    const sceneRotateX = (-y * 2.8) + (scroll * 2.4);
-    const sceneRotateY = x * 3.8;
-    const sceneLift = scroll * -14;
+    const sceneRotateX = (-y * 2.2) + (scroll * 1.7);
+    const sceneRotateY = x * 3;
+    const sceneLift = scroll * -9;
 
     controller.scene.style.transform = `translate3d(0, ${sceneLift}px, 0) rotateX(${sceneRotateX}deg) rotateY(${sceneRotateY}deg)`;
     controller.scene.style.setProperty('--scene-light-x', `${50 + (x * 10)}%`);
@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
     atmosphereState.frame = 0;
     atmosphereState.currentX += (atmosphereState.pointerX - atmosphereState.currentX) * 0.07;
     atmosphereState.currentY += (atmosphereState.pointerY - atmosphereState.currentY) * 0.07;
-    atmosphereState.currentScroll += (atmosphereState.scroll - atmosphereState.currentScroll) * 0.06;
+    atmosphereState.currentScroll += (atmosphereState.scroll - atmosphereState.currentScroll) * 0.04;
 
     const x = atmosphereState.currentX;
     const y = atmosphereState.currentY;
@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     root.style.setProperty('--atmosphere-shift-x', `${x * 18}px`);
     root.style.setProperty('--atmosphere-shift-y', `${y * 14}px`);
-    root.style.setProperty('--atmosphere-scroll', `${scroll * -24}px`);
+    root.style.setProperty('--atmosphere-scroll', `${scroll * -16}px`);
     root.style.setProperty('--atmosphere-intensity', String(0.82 + (Math.abs(x) * 0.05) + (scroll * 0.08)));
 
     const stillMoving = Math.abs(atmosphereState.pointerX - atmosphereState.currentX) > 0.002

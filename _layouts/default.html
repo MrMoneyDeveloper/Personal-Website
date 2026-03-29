@@ -4,7 +4,7 @@ layout: null
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% assign asset_version = site.build_version | default: '20260329-8' %}
+  {% assign asset_version = site.build_version | default: '20260329-9' %}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ page.description | default: site.description }}" />
@@ -86,6 +86,9 @@ layout: null
 
   <div class="site-atmosphere" aria-hidden="true">
     <div id="vanta-bg"></div>
+    <div class="atmosphere-gif atmosphere-gif--network"></div>
+    <div class="atmosphere-gif atmosphere-gif--botanical"></div>
+    <div class="atmosphere-gif atmosphere-gif--structure"></div>
     <div class="noise"></div>
     <div class="scanlines"></div>
     <div class="vignette"></div>

@@ -114,10 +114,76 @@ a {
     linear-gradient(180deg, rgba(4, 7, 13, 0.9), rgba(2, 5, 11, 0.98));
 }
 
+.atmosphere-gif {
+  position: absolute;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform-origin: center;
+  opacity: 0.16;
+  will-change: transform, opacity;
+}
+
+.atmosphere-gif--network {
+  inset: -18%;
+  background-image: url('../images/atmosphere/ambient-network-rift.gif');
+  background-size: min(110rem, 145vw) auto;
+  background-position: center 46%;
+  opacity: 0.18;
+  filter: sepia(0.32) saturate(2.4) hue-rotate(152deg) brightness(0.44) contrast(1.28);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 50% 42%, rgba(0, 0, 0, 0.98) 12%, rgba(0, 0, 0, 0.92) 38%, transparent 78%);
+  transform: translate3d(
+    calc(var(--atmosphere-shift-x) * -0.24),
+    calc((var(--atmosphere-shift-y) * -0.12) + (var(--atmosphere-scroll) * -0.14)),
+    0
+  ) scale(1.08);
+}
+
+.atmosphere-gif--botanical {
+  inset: -6% 42% -10% -12%;
+  background-image: url('../images/atmosphere/ambient-botanical-neon.gif');
+  background-position: left center;
+  opacity: 0.22;
+  filter: saturate(1.18) brightness(0.42) contrast(1.08);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 60% 48%, rgba(0, 0, 0, 0.95) 12%, rgba(0, 0, 0, 0.82) 42%, transparent 86%);
+  transform: translate3d(
+    calc(var(--atmosphere-shift-x) * 0.18),
+    calc((var(--atmosphere-shift-y) * 0.12) + (var(--atmosphere-scroll) * 0.08)),
+    0
+  ) scale(1.04);
+}
+
+.atmosphere-gif--structure {
+  inset: 26% -10% -18% 56%;
+  background-image: url('../images/atmosphere/ambient-abyss-structure.gif');
+  background-position: center bottom;
+  opacity: 0.18;
+  filter: saturate(1.18) brightness(0.54) contrast(1.12);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 36% 42%, rgba(0, 0, 0, 0.94) 12%, rgba(0, 0, 0, 0.82) 40%, transparent 84%);
+  transform: translate3d(
+    calc(var(--atmosphere-shift-x) * -0.12),
+    calc((var(--atmosphere-shift-y) * -0.08) + (var(--atmosphere-scroll) * 0.12)),
+    0
+  ) scale(1.04);
+}
+
 html.has-vanta .site-atmosphere {
   background:
     radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.12), transparent 34%),
     linear-gradient(180deg, rgba(4, 7, 13, 0.46), rgba(2, 5, 11, 0.62));
+}
+
+html.has-vanta .atmosphere-gif--network {
+  opacity: 0.12;
+}
+
+html.has-vanta .atmosphere-gif--botanical,
+html.has-vanta .atmosphere-gif--structure {
+  opacity: 0.16;
 }
 
 .site-atmosphere::before,
@@ -939,10 +1005,48 @@ html[data-loader-mode] .site-loader,
   position: relative;
 }
 
+.portal-atmosphere,
+.immersive-stage-wallpaper {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.portal-atmosphere--orb {
+  inset: 6% 8%;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(7, 12, 22, 0), rgba(7, 12, 22, 0.16) 42%, rgba(7, 12, 22, 0.64) 100%),
+    url('../images/atmosphere/ambient-signal-orb.gif') center / 42% no-repeat;
+  opacity: 0.34;
+  filter: saturate(1.24) brightness(0.78);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.96) 16%, rgba(0, 0, 0, 0.82) 40%, transparent 84%);
+}
+
 .immersive-stage-panel {
   position: relative;
   margin-top: 1.15rem;
   min-height: 18.5rem;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.immersive-stage-wallpaper {
+  inset: 1rem;
+  border-radius: 20px;
+}
+
+.immersive-stage-wallpaper--structure {
+  background:
+    linear-gradient(180deg, rgba(4, 8, 16, 0.12), rgba(4, 8, 16, 0.4)),
+    radial-gradient(circle at 50% 52%, rgba(152, 235, 255, 0.12), transparent 28%),
+    url('../images/atmosphere/ambient-abyss-structure.gif') center / cover no-repeat,
+    url('../images/atmosphere/ambient-signal-orb.gif') center / 34% no-repeat;
+  opacity: 0.34;
+  filter: saturate(1.1) brightness(0.72) contrast(1.04);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.96) 22%, rgba(0, 0, 0, 0.82) 46%, transparent 90%);
 }
 
 .immersive-stage-fallback {
@@ -956,7 +1060,7 @@ html[data-loader-mode] .site-loader,
   background:
     radial-gradient(circle at 50% 18%, rgba(87, 195, 255, 0.18), transparent 24%),
     radial-gradient(circle at 50% 84%, rgba(255, 212, 160, 0.08), transparent 18%),
-    linear-gradient(180deg, rgba(9, 15, 26, 0.82), rgba(4, 8, 16, 0.96));
+    linear-gradient(180deg, rgba(9, 15, 26, 0.56), rgba(4, 8, 16, 0.72));
   pointer-events: none;
   z-index: 0;
   transition: opacity 260ms ease;
@@ -2049,6 +2153,13 @@ html.has-webgl-experience .portal-core::after {
   transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1), opacity 620ms ease;
 }
 
+html.is-low-power .atmosphere-gif,
+html.is-low-power .portal-atmosphere,
+html.is-low-power .immersive-stage-wallpaper {
+  opacity: 0.12;
+  filter: saturate(1.04) brightness(0.58);
+}
+
 @keyframes ring-rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -2188,6 +2299,15 @@ html.is-low-power .project-body {
   .immersive-stage-slot--projects {
     min-height: 16.5rem;
   }
+
+  .atmosphere-gif--network {
+    inset: -24%;
+  }
+
+  .atmosphere-gif--botanical,
+  .atmosphere-gif--structure {
+    opacity: 0.12;
+  }
 }
 
 @media (max-width: 980px) {
@@ -2211,6 +2331,10 @@ html.is-low-power .project-body {
 
   .scroll-rail {
     display: none;
+  }
+
+  .atmosphere-gif--structure {
+    inset: 40% -18% -22% 40%;
   }
 
   .site-frame::before {
@@ -2374,6 +2498,7 @@ html.is-low-power .project-body {
   }
 
   #vanta-bg,
+  .atmosphere-gif,
   .site-atmosphere::before,
   .site-atmosphere::after,
   .project-media {
