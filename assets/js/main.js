@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let vantaResizeTimer = 0;
   let vantaEffect = null;
   let lastSceneCueAt = 0;
-  let soundsEnabled = false;
+  let soundsEnabled = true;
   let immersiveExperienceLoaded = false;
   let immersiveExperiencePending = false;
 
@@ -291,12 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initSound() {
     try {
-      soundsEnabled = window.localStorage.getItem(soundKey) === 'on';
+      const storedSoundPreference = window.localStorage.getItem(soundKey);
+      soundsEnabled = storedSoundPreference !== 'off';
     } catch (error) {
-      soundsEnabled = false;
+      soundsEnabled = true;
     }
 
     updateSoundToggle();
+    primeAudio();
 
     if (soundToggle) {
       soundToggle.addEventListener('click', () => {
@@ -788,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
         points: lowPower ? 7 : 12,
         maxDistance: lowPower ? 16 : 22,
         spacing: lowPower ? 19 : 17,
-        showDots: false,
+        showDots: !lowPower,
         mouseControls: finePointer,
         touchControls: false,
         gyroControls: false,
@@ -887,5 +889,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
+  }
+
+  function primeAudio() {
+    const unlockAudio = () => {
+      if (!soundsEnabled) {
+        detachUnlockListeners();
+        return;
+      }
+
+      playSound('cue', { force: true, volume: 0.01 });
+      detachUnlockListeners();
+    };
+
+    const detachUnlockListeners = () => {
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+
+    window.addEventListener('pointerdown', unlockAudio, { once: true, passive: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
   }
 });

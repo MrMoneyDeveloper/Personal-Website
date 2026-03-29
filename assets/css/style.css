@@ -580,7 +580,9 @@ html[data-loader-mode] .site-loader,
 }
 
 .hero .display {
-  max-width: 13.6ch;
+  max-width: 11.9ch;
+  font-size: clamp(2.2rem, 6.1vw, 5rem);
+  overflow-wrap: anywhere;
 }
 
 .display-sm {
@@ -803,7 +805,8 @@ html[data-loader-mode] .site-loader,
 }
 
 .hero-copy {
-  padding: clamp(1rem, 2vw, 1.2rem) 0;
+  max-width: min(100%, 42rem);
+  padding: clamp(1rem, 2vw, 1.2rem) clamp(0.2rem, 1.4vw, 0.9rem) 0 0;
 }
 
 .hero-portal,
