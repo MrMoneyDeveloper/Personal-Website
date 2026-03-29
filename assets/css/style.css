@@ -495,7 +495,7 @@ html.has-vanta .site-frame {
 }
 
 .section-pad {
-  padding: clamp(4.5rem, 9vw, 8.5rem) 0;
+  padding: clamp(3.2rem, 6.2vw, 5.2rem) 0;
 }
 
 .site-main {
@@ -988,7 +988,7 @@ html[data-loader-mode] .site-loader,
 
 .scene-shell {
   border-radius: var(--radius-xl);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(1.1rem, 2.8vw, 1.8rem);
   perspective: 1800px;
   transform-style: preserve-3d;
   transform-origin: center top;
@@ -1780,7 +1780,7 @@ html.has-webgl-experience .portal-core::after {
 .contact-form,
 .metric {
   border-radius: var(--radius-lg);
-  padding: clamp(1.15rem, 2vw, 1.5rem);
+  padding: clamp(0.9rem, 1.6vw, 1.2rem);
 }
 
 .frame-panel,
@@ -2167,7 +2167,7 @@ html.has-webgl-experience .portal-core::after {
 
 .project-media {
   position: relative;
-  min-height: clamp(13.5rem, 24vw, 17.5rem);
+  min-height: clamp(10.2rem, 19vw, 13.2rem);
   aspect-ratio: var(--media-ratio-wide);
   display: grid;
   place-items: stretch;
@@ -2768,7 +2768,7 @@ html.has-webgl-experience .portal-core::after {
 .editorial-module__controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.9rem;
   flex-wrap: wrap;
   padding-top: 0.1rem;
@@ -2845,7 +2845,7 @@ html.has-webgl-experience .portal-core::after {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  min-height: clamp(20rem, 34vw, 29rem);
+  min-height: clamp(14rem, 24vw, 19rem);
   border: 1px solid rgba(180, 220, 255, 0.1);
   background:
     radial-gradient(circle at 50% 0%, rgba(87, 195, 255, 0.12), transparent 34%),
@@ -2854,15 +2854,15 @@ html.has-webgl-experience .portal-core::after {
 }
 
 .editorial-module--compact .editorial-swiper {
-  min-height: clamp(18rem, 30vw, 23.5rem);
+  min-height: clamp(13rem, 22vw, 17rem);
 }
 
 .editorial-module--motion .editorial-swiper {
-  min-height: clamp(19.5rem, 32vw, 27rem);
+  min-height: clamp(13.5rem, 23vw, 17.8rem);
 }
 
 .editorial-module--portrait-mix .editorial-swiper {
-  min-height: clamp(23rem, 38vw, 31rem);
+  min-height: clamp(16rem, 27vw, 21rem);
 }
 
 .editorial-swiper .swiper-wrapper {
@@ -2941,7 +2941,7 @@ html.has-webgl-experience .portal-core::after {
   }
 
   .editorial-swiper {
-    min-height: clamp(18rem, 52vw, 24rem);
+    min-height: clamp(13rem, 46vw, 18rem);
     border-radius: 20px;
   }
 
@@ -2970,7 +2970,7 @@ html.has-webgl-experience .portal-core::after {
   }
 
   .editorial-swiper {
-    min-height: 17rem;
+    min-height: 12.2rem;
     border-radius: 18px;
   }
 
@@ -3572,7 +3572,7 @@ html.is-low-power .project-body {
   }
 
   .section-pad {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
 
   .scene-shell,

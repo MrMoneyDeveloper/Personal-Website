@@ -949,26 +949,34 @@ document.addEventListener('DOMContentLoaded', () => {
         active: false,
         swiper: null,
         activeVideo: null,
-        autoEnabled: !autoplayDisabled && baseSlides.length > 1,
-        autoFrame: 0,
-        autoStartedAt: 0,
-        autoElapsed: 0
+        autoEnabled: !autoplayDisabled && !prefersReducedMotion && baseSlides.length > 1
       };
+      const hasNavigation = Boolean(controller.prevButton && controller.nextButton);
 
       controller.swiper = new window.Swiper(swiperElement, {
         effect: 'slide',
-        loop: false,
-        rewind: baseSlides.length > 1,
+        loop: baseSlides.length > 1,
+        rewind: false,
         speed: 760,
         allowTouchMove: baseSlides.length > 1,
         watchOverflow: true,
         observer: true,
         observeParents: true,
         preventInteractionOnTransition: false,
-        navigation: {
-          prevEl: controller.prevButton,
-          nextEl: controller.nextButton
-        },
+        autoplay: controller.autoEnabled
+          ? {
+              delay: controller.delay,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: false,
+              waitForTransition: true
+            }
+          : false,
+        navigation: hasNavigation
+          ? {
+              prevEl: controller.prevButton,
+              nextEl: controller.nextButton
+            }
+          : undefined,
         pagination: controller.pagination
           ? {
               el: controller.pagination,
@@ -990,8 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           },
           slideChangeTransitionStart(swiper) {
-            pauseEditorialAutoplay(controller);
-            resetEditorialAutoplay(controller);
+            updateEditorialProgress(controller, controller.autoEnabled ? 0 : 1);
             syncEditorialVideos(controller, swiper);
           },
           slideChangeTransitionEnd(swiper) {
@@ -1001,8 +1008,13 @@ document.addEventListener('DOMContentLoaded', () => {
               resumeEditorialAutoplay(controller);
             }
           },
-          touchStart() {
-            pauseEditorialAutoplay(controller);
+          autoplayTimeLeft(swiper, timeLeft, percentage) {
+            void swiper;
+            void timeLeft;
+
+            if (controller.autoEnabled) {
+              updateEditorialProgress(controller, 1 - percentage);
+            }
           }
         }
       });
@@ -1031,7 +1043,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (controller.swiper && !controller.swiper.destroyed) {
               controller.swiper.update();
             }
-            resetEditorialAutoplay(controller);
             syncEditorialVideos(controller);
             resumeEditorialAutoplay(controller);
           } else {
@@ -1040,8 +1051,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       }, {
-        threshold: 0.28,
-        rootMargin: '180px 0px'
+        threshold: 0.08,
+        rootMargin: '260px 0px'
       });
 
       visibilityObserver.observe(controller.element);
@@ -1082,8 +1093,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function syncEditorialVideos(controller, activeSwiper = controller.swiper) {
     const allowPlayback = controller.active && !root.classList.contains('is-loader-active');
     const maxIndex = Math.max(controller.slides.length - 1, 0);
-    const requestedIndex = activeSwiper && Number.isInteger(activeSwiper.activeIndex)
-      ? activeSwiper.activeIndex
+    const requestedIndex = activeSwiper && Number.isInteger(activeSwiper.realIndex)
+      ? activeSwiper.realIndex
+      : activeSwiper && Number.isInteger(activeSwiper.activeIndex)
+        ? activeSwiper.activeIndex
       : 0;
     const safeIndex = clamp(requestedIndex, 0, maxIndex);
     let nextActiveVideo = null;
@@ -1161,54 +1174,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function resetEditorialAutoplay(controller) {
-    controller.autoElapsed = 0;
-    updateEditorialProgress(controller, controller.autoEnabled ? 0 : 1);
-  }
-
   function resumeEditorialAutoplay(controller) {
-    if (!controller.swiper || controller.swiper.destroyed || !controller.autoEnabled || !controller.active || controller.slides.length <= 1) {
+    if (!controller.swiper || controller.swiper.destroyed || !controller.autoEnabled || !controller.active || controller.slides.length <= 1 || !controller.swiper.autoplay) {
       return;
     }
 
-    if (controller.autoFrame) {
-      return;
+    if (!controller.swiper.autoplay.running) {
+      controller.swiper.autoplay.start();
     }
-
-    controller.autoStartedAt = performance.now() - controller.autoElapsed;
-
-    const tick = (now) => {
-      controller.autoFrame = 0;
-
-      if (!controller.swiper || controller.swiper.destroyed || !controller.active || !controller.autoEnabled) {
-        return;
-      }
-
-      const elapsed = clamp(now - controller.autoStartedAt, 0, controller.delay);
-      const progress = elapsed / controller.delay;
-      controller.autoElapsed = elapsed;
-      updateEditorialProgress(controller, progress);
-
-      if (progress >= 1) {
-        controller.autoElapsed = 0;
-
-        if (!controller.swiper.animating) {
-          controller.swiper.slideNext();
-        }
-        return;
-      }
-
-      controller.autoFrame = window.requestAnimationFrame(tick);
-    };
-
-    controller.autoFrame = window.requestAnimationFrame(tick);
   }
 
   function pauseEditorialAutoplay(controller) {
-    if (controller.autoFrame) {
-      window.cancelAnimationFrame(controller.autoFrame);
-      controller.autoFrame = 0;
-      controller.autoElapsed = clamp(performance.now() - controller.autoStartedAt, 0, controller.delay);
+    if (!controller.swiper || controller.swiper.destroyed || !controller.swiper.autoplay) {
+      return;
+    }
+
+    if (controller.swiper.autoplay.running) {
+      controller.swiper.autoplay.stop();
     }
   }
 
