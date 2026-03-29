@@ -943,8 +943,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       }, {
-        threshold: 0.55,
-        rootMargin: '0px 0px -8% 0px'
+        threshold: 0.24,
+        rootMargin: '160px 0px'
       });
 
       visibilityObserver.observe(controller.element);
@@ -1010,18 +1010,6 @@ document.addEventListener('DOMContentLoaded', () => {
         moveTo(controller.index + 1);
       });
     }
-
-    controller.element.addEventListener('pointerenter', () => {
-      controller.paused = true;
-      stopCarousel(controller);
-      pauseCarouselVideos(controller);
-    });
-
-    controller.element.addEventListener('pointerleave', () => {
-      controller.paused = false;
-      startCarousel(controller);
-      syncCarouselVideos(controller);
-    });
 
     controller.element.addEventListener('focusin', () => {
       controller.paused = true;

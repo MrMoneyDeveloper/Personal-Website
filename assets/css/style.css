@@ -2303,7 +2303,7 @@ html.has-webgl-experience .portal-core::after {
 
 .editorial-band {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: 1fr;
   gap: clamp(1rem, 3vw, 2rem);
   align-items: start;
 }
@@ -2318,7 +2318,7 @@ html.has-webgl-experience .portal-core::after {
 }
 
 .editorial-band--motion {
-  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+  grid-template-columns: 1fr;
 }
 
 .editorial-copy,
@@ -2328,7 +2328,7 @@ html.has-webgl-experience .portal-core::after {
 }
 
 .editorial-copy {
-  display: grid;
+  display: none;
   gap: 1rem;
   align-content: start;
 }
@@ -2371,7 +2371,7 @@ html.has-webgl-experience .portal-core::after {
 
 .editorial-motion-cluster {
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(260px, 0.72fr);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.42fr);
   gap: 1rem;
   align-items: stretch;
 }
@@ -2442,6 +2442,11 @@ html.has-webgl-experience .portal-core::after {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(152, 235, 255, 0.72);
+}
+
+.editorial-carousel__header,
+.editorial-carousel__overlay {
+  display: none;
 }
 
 .editorial-carousel__counter {
@@ -2616,17 +2621,17 @@ html.has-webgl-experience .portal-core::after {
 
 .editorial-feature-card {
   display: grid;
-  gap: 0.9rem;
+  gap: 0;
   align-content: start;
 }
 
 .editorial-feature-card .project-media {
-  margin-bottom: 0.1rem;
+  margin-bottom: 0;
+  height: 100%;
 }
 
-.editorial-feature-card h3,
-.editorial-feature-card p {
-  margin: 0;
+.editorial-feature-card > :not(.project-media) {
+  display: none;
 }
 
 .project-body {
@@ -3010,8 +3015,6 @@ html.is-low-power .project-body {
     grid-template-columns: 1fr;
   }
 
-  .editorial-band,
-  .editorial-band--motion,
   .editorial-motion-cluster {
     grid-template-columns: 1fr;
   }
