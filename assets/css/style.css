@@ -2896,6 +2896,25 @@ html.has-webgl-experience .portal-core::after {
   min-height: clamp(16rem, 27vw, 21rem);
 }
 
+/* Laptop profile: reduce editorial carousel height by ~25% to keep full media in view */
+@media (min-width: 1024px) and (max-width: 1680px) {
+  .editorial-swiper {
+    min-height: clamp(10.5rem, 18vw, 14.25rem);
+  }
+
+  .editorial-module--compact .editorial-swiper {
+    min-height: clamp(9.75rem, 16.5vw, 12.75rem);
+  }
+
+  .editorial-module--motion .editorial-swiper {
+    min-height: clamp(10.125rem, 17.25vw, 13.35rem);
+  }
+
+  .editorial-module--portrait-mix .editorial-swiper {
+    min-height: clamp(12rem, 20.25vw, 15.75rem);
+  }
+}
+
 .editorial-swiper .swiper-wrapper {
   align-items: stretch;
 }
@@ -3682,6 +3701,39 @@ html.is-low-power .project-body {
 
   .project-body {
     padding: 0.85rem;
+  }
+
+  /* Prevent horizontal overflow on narrow portrait phones (projects/cards/media). */
+  .project-showcase,
+  .repo-card,
+  .timeline-card,
+  .project-body,
+  .project-media,
+  .project-media--wide,
+  .project-media--dashboard,
+  .project-media--portrait,
+  .project-media--video,
+  .project-media--screen {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .project-showcase > *,
+  .repo-card > *,
+  .timeline-card > * {
+    min-width: 0;
+  }
+
+  .project-actions {
+    min-width: 0;
+  }
+
+  .text-link {
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
   }
 
   .editorial-carousel {
