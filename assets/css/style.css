@@ -1254,6 +1254,37 @@ html[data-loader-mode] .site-loader,
   filter: sepia(0.08) saturate(1.02) brightness(0.98) contrast(1.02);
 }
 
+.glass-stack--card {
+  width: min(100%, 21rem);
+  min-height: 11.4rem;
+  margin-top: 1rem;
+  margin-inline: auto;
+}
+
+.glass-stack--card .glass-pane--card-main {
+  left: 4%;
+  top: 12%;
+  width: 56%;
+  aspect-ratio: 4 / 5;
+  transform: rotate(-6deg);
+}
+
+.glass-stack--card .glass-pane--card-side {
+  right: 4%;
+  top: 0;
+  width: 46%;
+  aspect-ratio: 4 / 5;
+  transform: rotate(4deg);
+}
+
+.glass-stack--card .glass-pane img {
+  object-fit: contain;
+  object-position: center center;
+  padding: 0.42rem;
+  transform: none;
+  filter: saturate(1.06) brightness(0.97) contrast(1.04);
+}
+
 .hero-portal,
 .page-hero-aside,
 .telemetry-wall {
@@ -3442,6 +3473,11 @@ html.is-low-power .project-body {
     min-height: 10.6rem;
   }
 
+  .glass-stack--card {
+    width: min(100%, 19rem);
+    min-height: 10.2rem;
+  }
+
   .glass-stack--projects .glass-pane--project-icon {
     width: 5.8rem;
   }
@@ -3493,6 +3529,11 @@ html.is-low-power .project-body {
     min-height: 9.8rem;
   }
 
+  .glass-stack--card {
+    width: min(100%, 18.2rem);
+    min-height: 9.6rem;
+  }
+
   .glass-stack--hero .glass-pane--hero-main {
     width: 56%;
   }
@@ -3500,6 +3541,14 @@ html.is-low-power .project-body {
   .glass-stack--hero .glass-pane--hero-side {
     left: 42%;
     width: 38%;
+  }
+
+  .glass-stack--card .glass-pane--card-main {
+    width: 58%;
+  }
+
+  .glass-stack--card .glass-pane--card-side {
+    width: 45%;
   }
 
   .glass-stack--projects {
@@ -3678,6 +3727,11 @@ html.is-low-power .project-body {
     min-height: 8.8rem;
   }
 
+  .glass-stack--card {
+    width: min(100%, 16.8rem);
+    min-height: 8.8rem;
+  }
+
   .glass-stack--hero .glass-pane--hero-main {
     width: 66%;
     top: 1rem;
@@ -3686,6 +3740,16 @@ html.is-low-power .project-body {
   .glass-stack--hero .glass-pane--hero-side {
     left: 52%;
     width: 32%;
+  }
+
+  .glass-stack--card .glass-pane--card-main {
+    left: 1%;
+    width: 60%;
+  }
+
+  .glass-stack--card .glass-pane--card-side {
+    right: 1%;
+    width: 44%;
   }
 
   .glass-stack--projects .glass-pane--project-icon {
