@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const body = document.body;
+  const editorialAutoplayRevision = '2026-03-30-r3';
+  root.dataset.editorialAutoplayRevision = editorialAutoplayRevision;
   root.classList.add('js-ready');
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const supportsHover = window.matchMedia('(hover: hover)').matches;
@@ -917,9 +919,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
           }
 
+          resumeEditorialAutoplay(controller);
+
           if (controller.active) {
             syncEditorialVideos(controller);
-            resumeEditorialAutoplay(controller);
           }
         });
       });
@@ -1023,7 +1026,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (!controller.autoEnabled) {
         updateEditorialProgress(controller, 1);
       } else {
-        pauseEditorialAutoplay(controller);
+        resumeEditorialAutoplay(controller);
       }
 
       const visibilityObserver = new IntersectionObserver((entries) => {
@@ -1043,7 +1046,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resumeEditorialAutoplay(controller);
           } else {
             pauseEditorialVideos(controller);
-            pauseEditorialAutoplay(controller);
           }
         });
       }, {
@@ -1205,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resumeEditorialAutoplay(controller) {
-    if (!controller.swiper || controller.swiper.destroyed || !controller.autoEnabled || !controller.active || controller.slides.length <= 1) {
+    if (!controller.swiper || controller.swiper.destroyed || !controller.autoEnabled || controller.slides.length <= 1) {
       return;
     }
 
@@ -1217,7 +1219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startEditorialProgressTicker(controller);
 
     controller.autoTimer = window.setInterval(() => {
-      if (!controller.active || !controller.swiper || controller.swiper.destroyed) {
+      if (!controller.swiper || controller.swiper.destroyed) {
         return;
       }
 
