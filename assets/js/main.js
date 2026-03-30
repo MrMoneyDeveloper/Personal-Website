@@ -1478,15 +1478,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const deltaX = event.deltaX;
       const deltaY = event.deltaY;
+      const unitScale = event.deltaMode === 1
+        ? 18
+        : event.deltaMode === 2
+          ? (window.innerHeight || 1)
+          : 1;
+      const normalizedX = deltaX * unitScale;
+      const normalizedY = deltaY * unitScale;
 
-      if (Math.abs(deltaX) < 0.4 && Math.abs(deltaY) < 0.4) {
+      if (Math.abs(normalizedX) < 0.4 && Math.abs(normalizedY) < 0.4) {
         return;
       }
 
       event.preventDefault();
+      const pacedX = clamp(normalizedX * 0.12, -26, 26);
+      const pacedY = clamp(normalizedY * 0.12, -26, 26);
       window.scrollBy({
-        left: deltaX * 0.25,
-        top: deltaY * 0.25,
+        left: pacedX,
+        top: pacedY,
         behavior: 'auto'
       });
     }, { passive: false });
