@@ -522,6 +522,11 @@ html.has-vanta .site-main {
   contain-intrinsic-size: 1px 1080px;
 }
 
+html.is-low-power .site-main > section:not(:first-child) {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
+}
+
 .site-loader {
   position: fixed;
   inset: 0;
@@ -1189,6 +1194,12 @@ html[data-loader-mode] .site-loader,
   opacity: 1;
   filter: saturate(1.04) brightness(0.98) contrast(1.06);
   transform: scale(1.03);
+}
+
+.glass-pane.is-pruned-media {
+  background:
+    radial-gradient(circle at 50% 24%, rgba(152, 235, 255, 0.18), transparent 46%),
+    linear-gradient(145deg, rgba(10, 16, 29, 0.92), rgba(6, 10, 18, 0.88));
 }
 
 .glass-stack--hero .glass-pane--hero-main {
@@ -3275,6 +3286,15 @@ html.is-low-power .immersive-stage-wallpaper {
   filter: saturate(1.04) brightness(0.58);
 }
 
+html.is-low-power .atmosphere-gif {
+  background-image: none !important;
+}
+
+html.is-low-power .site-loader__frame--wallpaper,
+html.is-low-power .site-loader__glyph {
+  background-image: none !important;
+}
+
 @keyframes ring-rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -3422,6 +3442,23 @@ html.is-low-power .project-body {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 18px 42px rgba(1, 4, 12, 0.42);
+}
+
+html.is-low-power .js-ready .reveal,
+html.is-low-power .js-ready .reveal-inline {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+html.is-low-power .project-media img,
+html.is-low-power .project-media video {
+  transition: none;
+}
+
+html.is-low-power .js-ready .project-media img,
+html.is-low-power .js-ready .project-media video {
+  opacity: 1;
 }
 
 @media (max-width: 1100px) {

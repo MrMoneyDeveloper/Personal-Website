@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const body = document.body;
-  const editorialAutoplayRevision = '2026-03-30-r4';
+  const editorialAutoplayRevision = '2026-03-30-r5';
   root.dataset.editorialAutoplayRevision = editorialAutoplayRevision;
   root.classList.add('js-ready');
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (lowPower) {
     root.classList.add('is-low-power');
+    root.classList.add('is-mobile-safe-mode');
   }
 
   const loaderDone = initLoaders();
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMenu();
   initSound();
   initSemanticHighlights();
+  stabilizeMobileDecorativeMedia();
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
@@ -820,10 +822,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const videos = document.querySelectorAll('video');
 
     images.forEach((image) => {
+      const imageSource = String(image.currentSrc || image.getAttribute('src') || '');
+      const isGif = /\.gif(?:$|\?)/i.test(imageSource);
+      const isDecorativeStackImage = Boolean(image.closest('.glass-stack'));
       image.decoding = 'async';
       image.setAttribute('draggable', 'false');
 
-      if (image.closest('.hero, .page-hero-shell, .site-header')) {
+      if (lowPower && (isDecorativeStackImage || isGif)) {
+        image.loading = 'lazy';
+        image.fetchPriority = 'low';
+      } else if (image.closest('.hero, .page-hero-shell, .site-header')) {
         image.loading = 'eager';
         image.fetchPriority = 'high';
       } else if (image.closest('[data-editorial-swiper]')) {
@@ -858,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.playsInline = true;
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
-      video.preload = carouselShell ? 'metadata' : 'none';
+      video.preload = carouselShell ? (lowPower ? 'none' : 'metadata') : 'none';
 
       if (mediaShell) {
         mediaShell.classList.add('is-loaded');
@@ -867,6 +875,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (carouselShell) {
         video.autoplay = false;
         video.pause();
+        if (lowPower) {
+          seekVideoToStart(video);
+        }
         return;
       }
 
@@ -956,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
         active: false,
         swiper: null,
         activeVideo: null,
-        autoEnabled: !autoplayDisabled && baseSlides.length > 1,
+        autoEnabled: !lowPower && !autoplayDisabled && baseSlides.length > 1,
         autoTimer: 0,
         progressFrame: 0,
         cycleStartedAt: 0
@@ -1093,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function syncEditorialVideos(controller, activeSwiper = controller.swiper) {
-    const allowPlayback = controller.active && !root.classList.contains('is-loader-active');
+    const allowPlayback = !lowPower && controller.active && !root.classList.contains('is-loader-active');
     const maxIndex = Math.max(controller.slides.length - 1, 0);
     const requestedIndex = activeSwiper && Number.isInteger(activeSwiper.realIndex)
       ? activeSwiper.realIndex
@@ -1370,7 +1381,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initRevealSystem() {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || lowPower) {
       revealImmediately();
       return;
     }
@@ -1399,6 +1410,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function revealImmediately() {
     document.querySelectorAll('.reveal, .reveal-inline').forEach((element) => {
       element.classList.add('is-visible');
+    });
+  }
+
+  function stabilizeMobileDecorativeMedia() {
+    if (!lowPower) {
+      return;
+    }
+
+    document.querySelectorAll('.glass-stack .glass-pane').forEach((pane) => {
+      const image = pane.querySelector('img');
+
+      if (!image) {
+        return;
+      }
+
+      image.remove();
+      pane.classList.add('is-pruned-media');
     });
   }
 
