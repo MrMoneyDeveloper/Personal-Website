@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const body = document.body;
-  const editorialAutoplayRevision = '2026-03-30-r6';
+  const editorialAutoplayRevision = '2026-03-31-r7';
   root.dataset.editorialAutoplayRevision = editorialAutoplayRevision;
   root.classList.add('js-ready');
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -51,6 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const hardLowPower = (currentDeviceMemory > 0 && currentDeviceMemory <= 2)
     || (currentConcurrency > 0 && currentConcurrency <= 2);
   const lowPower = hardLowPower || window.innerWidth < 768;
+  const routeLoaderEnabled = !lowPower;
+  const loaderDurations = {
+    first: lowPower ? 1200 : 2600,
+    route: lowPower ? 280 : 520
+  };
+  const scrollPacingEnabled = !prefersReducedMotion;
   const hasImmersiveMount = false;
   const canUseSceneDepth = finePointer && !prefersReducedMotion && !hardLowPower && window.innerWidth >= 1024;
   const canUseAtmosphereMotion = !prefersReducedMotion && window.innerWidth >= 900;
@@ -67,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let layoutFrame = 0;
   let vantaResizeTimer = 0;
   let vantaEffect = null;
+  let pacedScrollY = window.scrollY || 0;
+  let scrollPacingFrame = 0;
   let lastSceneCueAt = 0;
   let soundsEnabled = true;
   let immersiveExperienceLoaded = false;
@@ -86,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
   markCurrentRoute();
   initMenu();
   initSound();
-  initSemanticHighlights();
+  queueIdleTask(() => {
+    initSemanticHighlights();
+  }, lowPower ? 1200 : 420);
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
@@ -104,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVanta();
   }
 
-  window.addEventListener('scroll', scheduleLayoutUpdate, { passive: true });
+  window.addEventListener('scroll', handleScrollEvent, { passive: true });
   window.addEventListener('resize', handleResize, { passive: true });
   window.addEventListener('load', () => {
     if (!hasImmersiveMount) {
@@ -155,10 +165,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let duration = 0;
 
     if (initialMode === 'first') {
-      duration = Math.max(0, 10000 - (Date.now() - initialStart));
+      duration = Math.max(0, loaderDurations.first - (Date.now() - initialStart));
     } else if (initialMode === 'route') {
-      const pendingRoute = readRouteLoader();
-      duration = pendingRoute ? Math.max(0, pendingRoute.expires - Date.now()) : 0;
+      if (!routeLoaderEnabled) {
+        duration = 0;
+      } else {
+        const pendingRoute = readRouteLoader();
+        duration = pendingRoute ? Math.max(0, pendingRoute.expires - Date.now()) : 0;
+      }
     }
 
     if (!duration) {
@@ -242,6 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initLinkTransitions() {
+    if (!routeLoaderEnabled) {
+      return;
+    }
+
     document.querySelectorAll('a[href]').forEach((link) => {
       link.addEventListener('click', (event) => {
         if (!shouldHandleRouteTransition(link, event)) {
@@ -251,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetUrl = new URL(link.href, window.location.href);
         const pendingRoute = {
           startedAt: Date.now(),
-          expires: Date.now() + 5000,
+          expires: Date.now() + loaderDurations.route,
           target: `${targetUrl.pathname}${targetUrl.search}${targetUrl.hash}`
         };
 
@@ -414,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const semanticMapUrl = new URL('data/portfolio_word_color_map.md', assetBase).toString();
 
     try {
-      const response = await fetch(semanticMapUrl, { cache: 'no-store' });
+      const response = await fetch(semanticMapUrl, { cache: 'force-cache' });
 
       if (!response.ok) {
         return;
@@ -831,8 +849,8 @@ document.addEventListener('DOMContentLoaded', () => {
         image.loading = 'eager';
         image.fetchPriority = 'high';
       } else if (image.closest('[data-editorial-swiper]')) {
-        image.loading = 'eager';
-        image.fetchPriority = 'auto';
+        image.loading = lowPower ? 'lazy' : 'eager';
+        image.fetchPriority = lowPower ? 'low' : 'auto';
       } else {
         image.loading = 'lazy';
         image.fetchPriority = 'low';
@@ -875,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }, {
         threshold: 0.01,
-        rootMargin: '1400px 0px'
+        rootMargin: lowPower ? '880px 0px' : '1400px 0px'
       });
 
       lazyImages.forEach((image) => preloadObserver.observe(image));
@@ -891,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.playsInline = true;
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
-      video.preload = 'metadata';
+      video.preload = lowPower ? 'none' : (carouselShell ? 'metadata' : 'none');
 
       if (mediaShell) {
         mediaShell.classList.add('is-loaded');
@@ -1491,14 +1509,56 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       event.preventDefault();
-      const pacedX = clamp(normalizedX * 0.12, -26, 26);
-      const pacedY = clamp(normalizedY * 0.12, -26, 26);
+      const pacedX = clamp(normalizedX * 0.08, -18, 18);
+      const pacedY = clamp(normalizedY * 0.08, -18, 18);
       window.scrollBy({
         left: pacedX,
         top: pacedY,
         behavior: 'auto'
       });
     }, { passive: false });
+  }
+
+  function handleScrollEvent() {
+    scheduleLayoutUpdate();
+    queueScrollPacing();
+  }
+
+  function queueScrollPacing() {
+    if (!scrollPacingEnabled || scrollPacingFrame) {
+      return;
+    }
+
+    scrollPacingFrame = window.requestAnimationFrame(applyScrollPacing);
+  }
+
+  function applyScrollPacing() {
+    scrollPacingFrame = 0;
+
+    if (!scrollPacingEnabled || scrollLockState.locked || root.classList.contains('is-loader-active')) {
+      pacedScrollY = window.scrollY || 0;
+      return;
+    }
+
+    const currentY = window.scrollY || 0;
+    const viewportHeight = window.innerHeight || 1;
+    const maxStep = window.innerWidth < 980
+      ? Math.max(24, viewportHeight * 0.05)
+      : Math.max(36, viewportHeight * 0.07);
+    const delta = currentY - pacedScrollY;
+
+    if (Math.abs(delta) <= maxStep) {
+      pacedScrollY = currentY;
+      return;
+    }
+
+    const targetY = pacedScrollY + (Math.sign(delta) * maxStep);
+    window.scrollTo(0, targetY);
+    pacedScrollY = targetY;
+
+    if (Math.abs((window.scrollY || 0) - currentY) > 1) {
+      queueScrollPacing();
+    }
   }
 
   function initScenes() {
@@ -1745,7 +1805,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleResize() {
+    pacedScrollY = window.scrollY || 0;
     scheduleLayoutUpdate();
+    queueScrollPacing();
     updateEditorialSwiperLayouts();
     scheduleVantaRefresh();
     maybeLoadImmersiveExperience();

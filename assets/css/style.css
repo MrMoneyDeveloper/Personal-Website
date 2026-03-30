@@ -3275,6 +3275,14 @@ html.is-low-power .immersive-stage-wallpaper {
   filter: saturate(1.04) brightness(0.58);
 }
 
+html.is-low-power .site-loader__frame--wallpaper {
+  background-image: linear-gradient(180deg, rgba(4, 8, 16, 0.16), rgba(4, 8, 16, 0.58));
+}
+
+html.is-low-power .site-loader__glyph {
+  background: radial-gradient(circle at center, rgba(6, 10, 19, 0.12), rgba(6, 10, 19, 0.62));
+}
+
 @keyframes ring-rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
