@@ -953,7 +953,10 @@ document.addEventListener('DOMContentLoaded', () => {
         active: false,
         swiper: null,
         activeVideo: null,
-        autoEnabled: !autoplayDisabled && baseSlides.length > 1
+        autoEnabled: !autoplayDisabled && baseSlides.length > 1,
+        autoTimer: 0,
+        progressFrame: 0,
+        cycleStartedAt: 0
       };
       const hasNavigation = Boolean(controller.prevButton && controller.nextButton);
 
@@ -967,14 +970,6 @@ document.addEventListener('DOMContentLoaded', () => {
         observer: true,
         observeParents: true,
         preventInteractionOnTransition: false,
-        autoplay: controller.autoEnabled
-          ? {
-              delay: controller.delay,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: false,
-              waitForTransition: true
-            }
-          : false,
         navigation: hasNavigation
           ? {
               prevEl: controller.prevButton,
@@ -997,31 +992,22 @@ document.addEventListener('DOMContentLoaded', () => {
             updateEditorialProgress(controller, controller.autoEnabled ? 0 : 1);
             syncEditorialVideos(controller, swiper);
 
-            if (controller.autoEnabled && swiper.autoplay && !swiper.autoplay.running) {
-              swiper.autoplay.start();
-            }
-
             if (controller.active) {
               resumeEditorialAutoplay(controller);
             }
           },
           slideChangeTransitionStart(swiper) {
+            controller.cycleStartedAt = performance.now();
             updateEditorialProgress(controller, controller.autoEnabled ? 0 : 1);
             syncEditorialVideos(controller, swiper);
           },
           slideChangeTransitionEnd(swiper) {
             syncEditorialVideos(controller, swiper);
+            controller.cycleStartedAt = performance.now();
+            startEditorialProgressTicker(controller);
 
             if (controller.active) {
               resumeEditorialAutoplay(controller);
-            }
-          },
-          autoplayTimeLeft(swiper, timeLeft, percentage) {
-            void swiper;
-            void timeLeft;
-
-            if (controller.autoEnabled) {
-              updateEditorialProgress(controller, 1 - percentage);
             }
           }
         }
@@ -1184,24 +1170,71 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function resumeEditorialAutoplay(controller) {
-    if (!controller.swiper || controller.swiper.destroyed || !controller.autoEnabled || !controller.active || controller.slides.length <= 1 || !controller.swiper.autoplay) {
-      return;
-    }
-
-    if (!controller.swiper.autoplay.running) {
-      controller.swiper.autoplay.start();
+  function stopEditorialProgressTicker(controller) {
+    if (controller.progressFrame) {
+      window.cancelAnimationFrame(controller.progressFrame);
+      controller.progressFrame = 0;
     }
   }
 
-  function pauseEditorialAutoplay(controller) {
-    if (!controller.swiper || controller.swiper.destroyed || !controller.swiper.autoplay) {
+  function startEditorialProgressTicker(controller) {
+    stopEditorialProgressTicker(controller);
+
+    if (!controller.autoEnabled || !controller.active || !controller.progressBar) {
       return;
     }
 
-    if (controller.swiper.autoplay.running) {
-      controller.swiper.autoplay.stop();
+    if (!controller.cycleStartedAt) {
+      controller.cycleStartedAt = performance.now();
     }
+
+    const render = () => {
+      controller.progressFrame = 0;
+
+      if (!controller.autoEnabled || !controller.active || !controller.swiper || controller.swiper.destroyed) {
+        return;
+      }
+
+      const elapsed = Math.max(0, performance.now() - controller.cycleStartedAt);
+      const ratio = Math.min(1, elapsed / controller.delay);
+      updateEditorialProgress(controller, ratio);
+      controller.progressFrame = window.requestAnimationFrame(render);
+    };
+
+    controller.progressFrame = window.requestAnimationFrame(render);
+  }
+
+  function resumeEditorialAutoplay(controller) {
+    if (!controller.swiper || controller.swiper.destroyed || !controller.autoEnabled || !controller.active || controller.slides.length <= 1) {
+      return;
+    }
+
+    if (controller.autoTimer) {
+      return;
+    }
+
+    controller.cycleStartedAt = performance.now();
+    startEditorialProgressTicker(controller);
+
+    controller.autoTimer = window.setInterval(() => {
+      if (!controller.active || !controller.swiper || controller.swiper.destroyed) {
+        return;
+      }
+
+      if (!controller.swiper.animating) {
+        controller.swiper.slideNext();
+        controller.cycleStartedAt = performance.now();
+      }
+    }, controller.delay);
+  }
+
+  function pauseEditorialAutoplay(controller) {
+    if (controller.autoTimer) {
+      window.clearInterval(controller.autoTimer);
+      controller.autoTimer = 0;
+    }
+
+    stopEditorialProgressTicker(controller);
   }
 
   function triggerCarouselFocusMoment(controller) {
