@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     first: lowPower ? 1200 : 2600,
     route: lowPower ? 280 : 520
   };
-  const scrollPacingEnabled = !prefersReducedMotion;
   const hasImmersiveMount = false;
   const canUseSceneDepth = finePointer && !prefersReducedMotion && !hardLowPower && window.innerWidth >= 1024;
   const canUseAtmosphereMotion = !prefersReducedMotion && window.innerWidth >= 900;
@@ -73,8 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let layoutFrame = 0;
   let vantaResizeTimer = 0;
   let vantaEffect = null;
-  let pacedScrollY = window.scrollY || 0;
-  let scrollPacingFrame = 0;
   let lastSceneCueAt = 0;
   let soundsEnabled = true;
   let immersiveExperienceLoaded = false;
@@ -94,9 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
   markCurrentRoute();
   initMenu();
   initSound();
-  queueIdleTask(() => {
-    initSemanticHighlights();
-  }, lowPower ? 1200 : 420);
+  if (!lowPower) {
+    queueIdleTask(() => {
+      initSemanticHighlights();
+    }, 420);
+  }
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
@@ -114,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVanta();
   }
 
-  window.addEventListener('scroll', handleScrollEvent, { passive: true });
+  window.addEventListener('scroll', scheduleLayoutUpdate, { passive: true });
   window.addEventListener('resize', handleResize, { passive: true });
   window.addEventListener('load', () => {
     if (!hasImmersiveMount) {
@@ -1421,7 +1420,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initRevealSystem() {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || lowPower) {
       revealImmediately();
       return;
     }
@@ -1509,56 +1508,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       event.preventDefault();
-      const pacedX = clamp(normalizedX * 0.08, -18, 18);
-      const pacedY = clamp(normalizedY * 0.08, -18, 18);
+      const pacedX = clamp(normalizedX * 0.05, -10, 10);
+      const pacedY = clamp(normalizedY * 0.05, -10, 10);
       window.scrollBy({
         left: pacedX,
         top: pacedY,
         behavior: 'auto'
       });
     }, { passive: false });
-  }
-
-  function handleScrollEvent() {
-    scheduleLayoutUpdate();
-    queueScrollPacing();
-  }
-
-  function queueScrollPacing() {
-    if (!scrollPacingEnabled || scrollPacingFrame) {
-      return;
-    }
-
-    scrollPacingFrame = window.requestAnimationFrame(applyScrollPacing);
-  }
-
-  function applyScrollPacing() {
-    scrollPacingFrame = 0;
-
-    if (!scrollPacingEnabled || scrollLockState.locked || root.classList.contains('is-loader-active')) {
-      pacedScrollY = window.scrollY || 0;
-      return;
-    }
-
-    const currentY = window.scrollY || 0;
-    const viewportHeight = window.innerHeight || 1;
-    const maxStep = window.innerWidth < 980
-      ? Math.max(24, viewportHeight * 0.05)
-      : Math.max(36, viewportHeight * 0.07);
-    const delta = currentY - pacedScrollY;
-
-    if (Math.abs(delta) <= maxStep) {
-      pacedScrollY = currentY;
-      return;
-    }
-
-    const targetY = pacedScrollY + (Math.sign(delta) * maxStep);
-    window.scrollTo(0, targetY);
-    pacedScrollY = targetY;
-
-    if (Math.abs((window.scrollY || 0) - currentY) > 1) {
-      queueScrollPacing();
-    }
   }
 
   function initScenes() {
@@ -1805,9 +1762,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleResize() {
-    pacedScrollY = window.scrollY || 0;
     scheduleLayoutUpdate();
-    queueScrollPacing();
     updateEditorialSwiperLayouts();
     scheduleVantaRefresh();
     maybeLoadImmersiveExperience();
