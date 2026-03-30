@@ -975,10 +975,13 @@ document.addEventListener('DOMContentLoaded', () => {
         preventInteractionOnTransition: false,
         navigation: hasNavigation
           ? {
+              enabled: true,
               prevEl: controller.prevButton,
               nextEl: controller.nextButton
             }
-          : undefined,
+          : {
+              enabled: false
+            },
         pagination: controller.pagination
           ? {
               el: controller.pagination,
