@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const body = document.body;
-  const editorialAutoplayRevision = '2026-03-30-r3';
+  const editorialAutoplayRevision = '2026-03-30-r4';
   root.dataset.editorialAutoplayRevision = editorialAutoplayRevision;
   root.classList.add('js-ready');
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -970,9 +970,10 @@ document.addEventListener('DOMContentLoaded', () => {
         speed: 760,
         allowTouchMove: baseSlides.length > 1,
         watchOverflow: true,
-        observer: true,
-        observeParents: true,
+        observer: false,
+        observeParents: false,
         preventInteractionOnTransition: false,
+        loopPreventsSliding: false,
         navigation: hasNavigation
           ? {
               enabled: true,
@@ -1226,10 +1227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      if (!controller.swiper.animating) {
-        controller.swiper.slideNext();
-        controller.cycleStartedAt = performance.now();
-      }
+      controller.swiper.slideNext();
+      controller.cycleStartedAt = performance.now();
     }, controller.delay);
   }
 
