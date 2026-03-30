@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const body = document.body;
-  const editorialAutoplayRevision = '2026-03-30-r5';
+  const editorialAutoplayRevision = '2026-03-30-r6';
   root.dataset.editorialAutoplayRevision = editorialAutoplayRevision;
   root.classList.add('js-ready');
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -35,7 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const sceneControllers = [];
   const carouselControllers = [];
   const revealObservers = [];
+  const pendingRevealElements = new Set();
   const scrollBlockKeys = new Set(['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'Space', 'Spacebar']);
+  let revealObserver = null;
   const scrollLockState = {
     locked: false,
     timer: 0,
@@ -77,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (lowPower) {
     root.classList.add('is-low-power');
-    root.classList.add('is-mobile-safe-mode');
   }
 
   const loaderDone = initLoaders();
@@ -86,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initMenu();
   initSound();
   initSemanticHighlights();
-  stabilizeMobileDecorativeMedia();
   initShellFirstPaint();
   initLinkTransitions();
   initMedia();
   initRevealSystem();
+  initScrollPacing();
   try {
     initEditorialSwipers();
   } catch (error) {
@@ -820,18 +821,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function initMedia() {
     const images = document.querySelectorAll('img');
     const videos = document.querySelectorAll('video');
+    const lazyImages = [];
 
     images.forEach((image) => {
-      const imageSource = String(image.currentSrc || image.getAttribute('src') || '');
-      const isGif = /\.gif(?:$|\?)/i.test(imageSource);
-      const isDecorativeStackImage = Boolean(image.closest('.glass-stack'));
       image.decoding = 'async';
       image.setAttribute('draggable', 'false');
 
-      if (lowPower && (isDecorativeStackImage || isGif)) {
-        image.loading = 'lazy';
-        image.fetchPriority = 'low';
-      } else if (image.closest('.hero, .page-hero-shell, .site-header')) {
+      if (image.closest('.hero, .page-hero-shell, .site-header')) {
         image.loading = 'eager';
         image.fetchPriority = 'high';
       } else if (image.closest('[data-editorial-swiper]')) {
@@ -840,6 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         image.loading = 'lazy';
         image.fetchPriority = 'low';
+        lazyImages.push(image);
       }
 
       const mediaShell = image.closest('.project-media');
@@ -857,6 +854,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    if (lazyImages.length) {
+      const preloadObserver = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const image = entry.target;
+          image.loading = 'eager';
+          image.fetchPriority = 'high';
+
+          if (typeof image.decode === 'function' && !image.complete) {
+            image.decode().catch(() => {
+              // Ignore decode interruptions.
+            });
+          }
+
+          currentObserver.unobserve(image);
+        });
+      }, {
+        threshold: 0.01,
+        rootMargin: '1400px 0px'
+      });
+
+      lazyImages.forEach((image) => preloadObserver.observe(image));
+      revealObservers.push(preloadObserver);
+    }
+
     videos.forEach((video) => {
       const mediaShell = video.closest('.project-media');
       const carouselShell = video.closest('[data-editorial-swiper]');
@@ -866,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.playsInline = true;
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
-      video.preload = carouselShell ? (lowPower ? 'none' : 'metadata') : 'none';
+      video.preload = 'metadata';
 
       if (mediaShell) {
         mediaShell.classList.add('is-loaded');
@@ -875,9 +900,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (carouselShell) {
         video.autoplay = false;
         video.pause();
-        if (lowPower) {
-          seekVideoToStart(video);
-        }
         return;
       }
 
@@ -967,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
         active: false,
         swiper: null,
         activeVideo: null,
-        autoEnabled: !lowPower && !autoplayDisabled && baseSlides.length > 1,
+        autoEnabled: !autoplayDisabled && baseSlides.length > 1,
         autoTimer: 0,
         progressFrame: 0,
         cycleStartedAt: 0
@@ -1104,7 +1126,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function syncEditorialVideos(controller, activeSwiper = controller.swiper) {
-    const allowPlayback = !lowPower && controller.active && !root.classList.contains('is-loader-active');
+    const allowPlayback = controller.active && !root.classList.contains('is-loader-active');
     const maxIndex = Math.max(controller.slides.length - 1, 0);
     const requestedIndex = activeSwiper && Number.isInteger(activeSwiper.realIndex)
       ? activeSwiper.realIndex
@@ -1381,53 +1403,93 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initRevealSystem() {
-    if (prefersReducedMotion || lowPower) {
+    if (prefersReducedMotion) {
       revealImmediately();
       return;
     }
 
-    const observer = new IntersectionObserver((entries, currentObserver) => {
+    revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
           return;
         }
 
-        entry.target.classList.add('is-visible');
-        currentObserver.unobserve(entry.target);
+        markRevealVisible(entry.target);
       });
     }, {
-      threshold: 0.18,
-      rootMargin: '0px 0px -10% 0px'
+      threshold: 0.01,
+      rootMargin: '220px 0px -8% 0px'
     });
 
     document.querySelectorAll('.reveal, .reveal-inline').forEach((element) => {
-      observer.observe(element);
+      pendingRevealElements.add(element);
+      revealObserver.observe(element);
     });
 
-    revealObservers.push(observer);
+    revealObservers.push(revealObserver);
+    flushPendingReveals();
   }
 
   function revealImmediately() {
     document.querySelectorAll('.reveal, .reveal-inline').forEach((element) => {
-      element.classList.add('is-visible');
+      markRevealVisible(element);
     });
   }
 
-  function stabilizeMobileDecorativeMedia() {
-    if (!lowPower) {
+  function markRevealVisible(element) {
+    if (!element || element.classList.contains('is-visible')) {
       return;
     }
 
-    document.querySelectorAll('.glass-stack .glass-pane').forEach((pane) => {
-      const image = pane.querySelector('img');
+    element.classList.add('is-visible');
+    pendingRevealElements.delete(element);
+    if (revealObserver) {
+      revealObserver.unobserve(element);
+    }
+  }
 
-      if (!image) {
+  function flushPendingReveals() {
+    if (!pendingRevealElements.size) {
+      return;
+    }
+
+    const revealLine = (window.innerHeight || 1) * 1.45;
+    Array.from(pendingRevealElements).forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.top < revealLine) {
+        markRevealVisible(element);
+      }
+    });
+  }
+
+  function initScrollPacing() {
+    if (prefersReducedMotion || !supportsHover || !finePointer || window.innerWidth < 980) {
+      return;
+    }
+
+    window.addEventListener('wheel', (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) {
         return;
       }
 
-      image.remove();
-      pane.classList.add('is-pruned-media');
-    });
+      if (scrollLockState.locked || root.classList.contains('is-loader-active')) {
+        return;
+      }
+
+      const deltaX = event.deltaX;
+      const deltaY = event.deltaY;
+
+      if (Math.abs(deltaX) < 0.4 && Math.abs(deltaY) < 0.4) {
+        return;
+      }
+
+      event.preventDefault();
+      window.scrollBy({
+        left: deltaX * 0.25,
+        top: deltaY * 0.25,
+        behavior: 'auto'
+      });
+    }, { passive: false });
   }
 
   function initScenes() {
@@ -1637,6 +1699,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateProgressBar();
       updateSceneScrollOffsets();
       updateAtmosphere();
+      flushPendingReveals();
     });
   }
 
